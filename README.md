@@ -1,8 +1,9 @@
 # Demonsration Setup
 Local setup for demonstration.
 
-Just execute
+Execute
 
 ```
-./run.sh start
+./run.sh
 ```
+to obtain list of possible actions.
