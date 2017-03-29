@@ -20,12 +20,11 @@ elif [ "$1" == "start" ]; then
 	# start services
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices up
 
-
 elif [ "$1" == "stop" ]; then
 	
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices down
 	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra down
-
+	
 else
     echo Usage: $0 COMMAND
     echo Commands:
