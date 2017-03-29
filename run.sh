@@ -18,7 +18,7 @@ elif [ "$1" == "start" ]; then
 	docker run --rm --net=nimbleinfra_default -it mcandre/docker-wget --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 --tries 60 gateway-proxy:80
 
 	# start services
-	docker-compose -f services/docker-compose.yml --project-name nimbleservices up  --build --force-recreate
+	docker-compose -f services/docker-compose.yml --project-name nimbleservices up --build --force-recreate
 
 elif [ "$1" == "stop" ]; then
 	
