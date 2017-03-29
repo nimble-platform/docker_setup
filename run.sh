@@ -29,6 +29,9 @@ elif [ "$1" == "stop" ]; then
 else
     echo Usage: $0 COMMAND
     echo Commands:
-    echo -e "\tinfrastructure\n\tservices\n\tstart\n\stop"
+    echo "\tinfrastructure\tto start only infastructure components"
+    echo "\tservices\tto start actual services"
+    echo "\tstart\t\tto start everything"
+    echo "\ttstop\t\tto stop everything"
     exit 2
 fi
