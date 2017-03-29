@@ -1,0 +1,3 @@
+SPRING_PROFILES_ACTIVE=docker
+CONFIG_SERVER_URI=http://config-server:8888
+DISCOVERY_SERVER_URI=http://service-discovery:8761

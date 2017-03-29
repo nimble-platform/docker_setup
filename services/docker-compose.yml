@@ -1,0 +1,69 @@
+version: '2'
+
+services:
+
+  ##########################
+  #### Identity Service ####
+  ##########################
+
+  identity-service:
+    image: nimbleplatform/identity-service
+    env_file:
+      - env_vars
+    environment:
+      - IDENTIY_DB_URI=identity-service-db:5432
+    ports:
+      - "9096:9096"
+    networks:
+      - infra
+      - identity-backend
+
+  identity-service-db:
+    image: postgres
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=changeme
+      - POSTGRES_DB=identityDB
+    networks:
+      - identity-backend
+
+  ############################
+  # Business Process Service #
+  ############################
+
+  business-process-service:
+    image: nimbleplatform/business-process-service
+    env_file:
+      - env_vars
+    ports:
+      - "8085:8085"
+    networks:
+      - infra
+
+  ############################
+  ##### Catalog Service ######  
+  ############################
+  
+  catalog-service-srdc:
+    image: nimbleplatform/catalogue-service-micro-srdc
+    ports:
+      - "8095:8095"
+    env_file:
+      - env_vars
+    networks:
+      - infra
+      - catalog-backend
+
+  catalog-service-srdc-db:
+    image: postgres
+    networks:
+      - catalog-backend
+
+networks:
+  infra:
+    external:
+      name: nimbleinfra_default
+  identity-backend:
+  catalog-backend:

@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  uaa-server:
+    build: uaa/
+    ports:
+      - "9090:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=default,postgresql
+
+  uaa-db:
+    image: postgres
+    ports:
+      - "5432:5432"

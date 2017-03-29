@@ -1,0 +1,40 @@
+spring_profiles: postgresql
+
+database:
+  driverClassName: org.postgresql.Driver
+  url: jdbc:postgresql://uaa-db:5432/${DB_ENV_DB:postgres}
+  username: ${DB_ENV_USER:postgres}
+  password: ${DB_ENV_PASS:}
+
+oauth:
+  client:
+    override: true
+    autoapprove:
+      - myresourceserver_shell
+  clients:
+    mywebapp:
+      id: mywebapp
+      secret: changeme
+      authorized-grant-types: authorization_code
+      scope: myresourceserver.scope1,myresourceserver.scope2,openid,password.write
+      authorities: uaa.none
+      redirect-uri: http://localhost:3000/authorize
+    myresourceserver:
+      id: myresourceserver
+      secret: changemetoo
+      authorized-grant-types: client_credentials
+      scope: scim.read,scim.write,password.write
+      authorities: uaa.resource,scim.read,scim.write,password.write
+    myresourceserver_shell:
+      id: myresourceserver_shell
+      authorized-grant-types: implicit
+      scope: myresourceserver.scope1,myresourceserver.scope2,openid,password.write 
+      authorities: uaa.none
+      redirect-uri: http://myresourceserver.shell
+
+scim:
+  username_pattern: '[a-z0-9+\-_.@]+'
+  users:
+    - paul|wombat|paul@test.org|Paul|Smith|openid,myresourceserver.scope1,myresourceserver.scope2
+    - stefan|wallaby|stefan@test.org|Stefan|Schmidt|openid,myresourceserver.scope1,myresourceserver.scope2
+
