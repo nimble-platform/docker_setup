@@ -29,9 +29,9 @@ services:
     networks:
       - identity-backend
 
-  ############################
-  # Business Process Service #
-  ############################
+  ##############################
+  ## Business Process Service ##
+  ##############################
 
   business-process-service:
     image: nimbleplatform/business-process-service
@@ -58,6 +58,8 @@ services:
 
   catalog-service-srdc-db:
     image: postgres
+    ports:
+      - "5434:5432"
     networks:
       - catalog-backend
 
