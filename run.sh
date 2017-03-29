@@ -15,7 +15,7 @@ elif [ "$1" == "start" ]; then
 
 	# wait for gateway proxy (last service started before)
 	echo "Stalling for Gateway Proxy"
-	wget --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 --tries inf localhost:8080
+	docker run --rm --net=nimbleinfra_default -it mcandre/docker-wget --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 --tries 60 gateway-proxy:80
 
 	# start services
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices up
