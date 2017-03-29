@@ -7,7 +7,7 @@ services:
   ##########################
 
   identity-service:
-    image: nimbleplatform/identity-service
+    image: nimbleplatform/identity-service:latest
     env_file:
       - env_vars
     environment:
@@ -34,7 +34,7 @@ services:
   ##############################
 
   business-process-service:
-    image: nimbleplatform/business-process-service
+    image: nimbleplatform/business-process-service:latest
     env_file:
       - env_vars
     ports:
@@ -47,7 +47,7 @@ services:
   ############################
   
   catalog-service-srdc:
-    image: nimbleplatform/catalogue-service-micro-srdc
+    image: nimbleplatform/catalogue-service-micro-srdc:latest
     ports:
       - "8095:8095"
     env_file:

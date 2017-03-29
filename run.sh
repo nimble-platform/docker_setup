@@ -1,14 +1,28 @@
+#!/bin/sh
+
+update_images () { 
+	# update infrastructure
+	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra pull
+
+	# update services
+	docker-compose -f services/docker-compose.yml --project-name nimbleservices pull
+
+}
 
 # run infrastructure
 if [ "$1" == "infrastructure" ]; then
 
+	update_images
 	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra up --build --force-recreate
 
 elif [ "$1" == "services" ]; then
 
+	update_images
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices up --build --force-recreate
 
 elif [ "$1" == "start" ]; then
+
+	update_images
 
 	# start infrastructure
 	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra up -d --build --force-recreate
