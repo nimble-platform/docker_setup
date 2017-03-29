@@ -32,6 +32,6 @@ else
     echo "\tinfrastructure\tto start only infastructure components"
     echo "\tservices\tto start actual services"
     echo "\tstart\t\tto start everything"
-    echo "\ttstop\t\tto stop everything"
+    echo "\tstop\t\tto stop everything"
     exit 2
 fi
