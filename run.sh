@@ -11,14 +11,14 @@ elif [ "$1" == "services" ]; then
 elif [ "$1" == "start" ]; then
 
 	# start infrastructure
-	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra up -d --build--force-recreate
+	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra up -d --build --force-recreate
 
 	# wait for gateway proxy (last service started before)
 	echo "Stalling for Gateway Proxy"
 	docker run --rm --net=nimbleinfra_default -it mcandre/docker-wget --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 --tries 60 gateway-proxy:80
 
 	# start services
-	docker-compose -f services/docker-compose.yml --project-name nimbleservices up  --build--force-recreate
+	docker-compose -f services/docker-compose.yml --project-name nimbleservices up  --build --force-recreate
 
 elif [ "$1" == "stop" ]; then
 	
