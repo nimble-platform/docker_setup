@@ -2,8 +2,9 @@ version: '2'
 
 services:
   uaa-server:
-    build: uaa/
-    dockerfile: Dockerfile-Bluemix
+    build: 
+      context: uaa/
+      dockerfile: Dockerfile-Bluemix
     ports:
       - "9090:8080"
     environment:

@@ -10,17 +10,17 @@ update_images () {
 }
 
 # run infrastructure
-if [ "$1" = "infrastructure" ]; then
+if [[ "$1" = "infrastructure" ]]; then
 
 	update_images
 	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra up --build --force-recreate
 
-elif [ "$1" = "services" ]; then
+elif [[ "$1" = "services" ]]; then
 
 	update_images
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices up --build --force-recreate
 
-elif [ "$1" = "start" ]; then
+elif [[ "$1" = "start" ]]; then
 
 	update_images
 
@@ -34,7 +34,7 @@ elif [ "$1" = "start" ]; then
 	# start services
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices up --build --force-recreate
 
-elif [ "$1" = "stop" ]; then
+elif [[ "$1" = "stop" ]]; then
 	
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices down
 	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra down
