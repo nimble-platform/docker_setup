@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+  ##########################
+  #### MS Infrastructure ###
+  ##########################
+
+  config-server:
+    image: registry.eu-gb.bluemix.net/semantic_mediator_container/nimble-config-server:latest
+    env_file:
+      - env_vars
+    ports:
+      - "8888:8888"
+
+  service-discovery:
+    image: registry.eu-gb.bluemix.net/semantic_mediator_container/nimble-service-discovery:latest
+    env_file:
+      - env_vars
+    ports:
+      - "8761:8761"
+    depends_on:
+      - config-server
+
+  gateway-proxy:
+    image: registry.eu-gb.bluemix.net/semantic_mediator_container/nimble-gateway-proxy:latest
+    env_file:
+      - env_vars
+    ports:
+      - "8080:80"
+    depends_on:
+      - config-server
+      - service-discovery
+
+  hystrix-dashboard:
+    image: registry.eu-gb.bluemix.net/semantic_mediator_container/nimble-hystrix-dashboard:latest
+    env_file:
+      - env_vars
+    ports:
+      - "9080:9080"
+    depends_on:
+      - config-server
+      - service-discovery
