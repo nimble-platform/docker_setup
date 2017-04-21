@@ -42,9 +42,9 @@ elif [[ "$1" = "stop" ]]; then
 else
     echo Usage: $0 COMMAND
     echo Commands:
-    echo "\tinfrastructure\tto start only infastructure components"
-    echo "\tservices\tto start actual services"
-    echo "\tstart\t\tto start everything"
-    echo "\tstop\t\tto stop everything"
+    echo "  infrastructure to start only infastructure components"
+    echo "  services to start actual services"
+    echo "  start to start everything"
+    echo "  stop to stop everything"
     exit 2
 fi
