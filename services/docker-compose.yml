@@ -2,9 +2,9 @@ version: '2'
 
 services:
 
-  ##########################
-  #### Identity Service ####
-  ##########################
+  ############################
+  ##### Identity Service #####
+  ############################
 
   identity-service:
     image: nimbleplatform/identity-service:latest
@@ -42,9 +42,9 @@ services:
     networks:
       - infra
 
-  ############################
-  ##### Catalog Service ######  
-  ############################
+  ##############################
+  ####### Catalog Service ######  
+  ##############################
   
   catalog-service-srdc:
     image: nimbleplatform/catalogue-service-micro-srdc:latest
@@ -62,6 +62,34 @@ services:
       - "5434:5432"
     networks:
       - catalog-backend
+
+  ###############################
+  ###### Frontend Service #######
+  ###############################
+  
+  frontend-service:
+    image: nimbleplatform/frontend-service:latest
+    ports:
+      - "9092:8080"
+    env_file:
+      - env_vars
+    networks:
+      - infra
+  
+  frontend-service-sidecar:
+    image: nimbleplatform/sidecar:latest
+    ports:
+      - "9097:9097"
+    env_file:
+      - env_vars
+    environment:
+      SIDECAR_NAME: frontend-service
+      SIDECAR_APP_HOST: frontend-service
+      SIDECAR_APP_PORT: 8080 # use internal port of network (not publicly exposed)
+      SIDECAR_APP_HEALTH_URI: http://frontend-service:8080/health.json
+      SIDECAR_APP_HOMEPAGE_URI: http://frontend-service:8080/
+    networks:
+      - infra
 
 networks:
   infra:
