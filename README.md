@@ -1,6 +1,9 @@
 # Demonsration Setup
 Local setup for demonstration.
 
+## Prerequesits
+*Docker
+
 Execute
 
 ```
