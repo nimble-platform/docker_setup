@@ -1,4 +1,4 @@
-# Demonsration Setup
+# Demonstration Setup
 Local setup for demonstration.
 
 ## Prerequesits
