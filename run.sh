@@ -13,12 +13,12 @@ update_images () {
 if [[ "$1" = "infrastructure" ]]; then
 
 	update_images
-	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra up --build --force-recreate
+	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra up --build
 
 elif [[ "$1" = "services" ]]; then
 
 	update_images
-	docker-compose -f services/docker-compose.yml --project-name nimbleservices up --build --force-recreate
+	docker-compose -f services/docker-compose.yml --project-name nimbleservices up --build
 
 elif [[ "$1" = "start" ]]; then
 
