@@ -56,13 +56,6 @@ services:
       - infra
       - catalog-backend
 
-  catalog-service-srdc-db:
-    image: postgres
-    ports:
-      - "5434:5432"
-    networks:
-      - catalog-backend
-
   ###############################
   ###### Frontend Service #######
   ###############################
