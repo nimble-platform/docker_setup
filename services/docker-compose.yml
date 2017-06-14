@@ -19,7 +19,7 @@ services:
       - identity-backend
 
   identity-service-db:
-    image: postgres
+    image: postgres:9.6.3
     ports:
       - "5433:5432"
     environment:

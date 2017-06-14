@@ -9,6 +9,6 @@ services:
       - SPRING_PROFILES_ACTIVE=default,postgresql
 
   uaa-db:
-    image: postgres
+    image: postgres:9.6.3
     ports:
       - "5432:5432"
