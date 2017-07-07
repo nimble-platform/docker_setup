@@ -17,6 +17,8 @@ services:
     networks:
       - infra
       - identity-backend
+    depends_on:
+      - identity-service-db
 
   identity-service-db:
     image: postgres:9.6.3
