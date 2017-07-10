@@ -39,10 +39,26 @@ services:
     image: nimbleplatform/business-process-service:latest
     env_file:
       - env_vars
+    environment:
+      - BUSINESS_PROCESS_DB_URI=business-process-service-db:5432
     ports:
       - "8085:8085"
     networks:
       - infra
+      - business-process-backend
+    depends_on:
+      - business-process-service-db
+
+  business-process-service-db:
+    image: postgres:9.6.3
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=camunda
+    networks:
+      - business-process-backend
 
   ##############################
   ####### Catalog Service ######  
@@ -92,3 +108,4 @@ networks:
       name: nimbleinfra_default
   identity-backend:
   catalog-backend:
+  business-process-backend:
