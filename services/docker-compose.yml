@@ -67,7 +67,7 @@ services:
   catalog-service-srdc:
     image: nimbleplatform/catalogue-service-micro-srdc:latest
     ports:
-      - "8095:8095"
+      - "10095:8095"
     env_file:
       - env_vars
     networks:
