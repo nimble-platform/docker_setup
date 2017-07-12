@@ -9,25 +9,7 @@ update_images () {
 
 }
 
-# run infrastructure
-if [[ "$1" = "infrastructure" ]]; then
-
-	update_images
-	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra up --build
-
-elif [[ "$1" = "services" ]]; then
-
-	update_images
-	# start services
-	docker-compose -f services/docker-compose.yml \
-		--project-name nimbleservices up \
-		--build \
-		--force-recreate identity-service business-process-service frontend-service catalog-service-srdc frontend-service-sidecar
-
-elif [[ "$1" = "start" ]]; then
-
-	update_images
-
+start_all () {
 	# start infrastructure
 	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra up -d --build
 
@@ -50,6 +32,31 @@ elif [[ "$1" = "start" ]]; then
 	docker run --rm --net=nimbleinfra_default -it mcandre/docker-wget --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 --tries 30 identity-service:9096/info
 	docker run --rm --net=nimbleinfra_default -it mcandre/docker-wget --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 --tries 30 catalog-service-srdc:8095/info
 	docker run --rm --net=nimbleinfra_default -it mcandre/docker-wget --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 --tries 30 business-process-service:8085/info
+}
+
+# run infrastructure
+if [[ "$1" = "infrastructure" ]]; then
+
+	update_images
+	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra up --build
+
+elif [[ "$1" = "services" ]]; then
+
+	update_images
+	# start services
+	docker-compose -f services/docker-compose.yml \
+		--project-name nimbleservices up \
+		--build \
+		--force-recreate identity-service business-process-service frontend-service catalog-service-srdc frontend-service-sidecar
+
+elif [[ "$1" = "start" ]]; then
+
+	update_images
+	start_all
+
+elif [[ "$1" = "start-no-update" ]]; then
+
+	start_all
 
 elif [[ "$1" = "stop" ]]; then
 	
