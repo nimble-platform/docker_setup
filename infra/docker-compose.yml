@@ -5,38 +5,71 @@ services:
   #### MS Infrastructure ###
   ##########################
 
-  config-server:
-    image: nimbleplatform/config-server:latest
-    env_file:
-      - env_vars
-    ports:
-      - "8888:8888"
+  # config-server:
+  #   image: nimbleplatform/config-server:latest
+  #   env_file:
+  #     - env_vars
+  #   ports:
+  #     - "8888:8888"
 
-  service-discovery:
-    image: nimbleplatform/service-discovery:latest
-    env_file:
-      - env_vars
-    ports:
-      - "8761:8761"
-    depends_on:
-      - config-server
+  # service-discovery:
+  #   image: nimbleplatform/service-discovery:latest
+  #   env_file:
+  #     - env_vars
+  #   ports:
+  #     - "8761:8761"
+  #   depends_on:
+  #     - config-server
 
-  gateway-proxy:
-    image: nimbleplatform/gateway-proxy:latest
-    env_file:
-      - env_vars
-    ports:
-      - "443:80"
-    depends_on:
-      - config-server
-      - service-discovery
+  # gateway-proxy:
+  #   image: nimbleplatform/gateway-proxy:latest
+  #   env_file:
+  #     - env_vars
+  #   ports:
+  #     - "443:80"
+  #   depends_on:
+  #     - config-server
+  #     - service-discovery
 
-  hystrix-dashboard:
-    image: nimbleplatform/hystrix-dashboard:latest
-    env_file:
-      - env_vars
+  # hystrix-dashboard:
+  #   image: nimbleplatform/hystrix-dashboard:latest
+  #   env_file:
+  #     - env_vars
+  #   ports:
+  #     - "9080:9080"
+  #   depends_on:
+  #     - config-server
+  #     - service-discovery
+
+  ##########################
+  ######## Keycloak ########
+  ##########################
+
+  keycloak:
+    image: jboss/keycloak-postgres:3.2.0.Final
+    environment:
+      - KEYCLOAK_LOGLEVEL=DEBUG
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=nimbleplatform
+      - POSTGRES_DATABASE=keycloak
+      - POSTGRES_USER=keycloak
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_PORT_5432_TCP_ADDR=keycloak-db
+    links:
+      - keycloak-db:postgres
     ports:
-      - "9080:9080"
+      - "8089:8080"
+      - "9999:9990"
+      - "8088:8443"
+    volumes:
+      - ./data:/data
     depends_on:
-      - config-server
-      - service-discovery
+      - keycloak-db
+
+  keycloak-db:
+    image: postgres:9.6.3
+    environment:
+        - POSTGRES_DB=keycloak
+        - POSTGRES_USER=keycloak
+        - POSTGRES_PASSWORD=password
+        - POSTGRES_ROOT_PASSWORD=root_password
