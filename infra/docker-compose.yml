@@ -39,7 +39,7 @@ services:
       - "9080:9080"
     depends_on:
       - config-server
-  #     - service-discovery
+      - service-discovery
 
   ##########################
   ######## Keycloak ########
