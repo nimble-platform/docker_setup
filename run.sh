@@ -2,7 +2,7 @@
 
 update_images () { 
 	# update infrastructure
-	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra pull
+	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra pull
 
 	# update services
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices pull
@@ -11,7 +11,7 @@ update_images () {
 
 start_all () {
 	# start infrastructure
-	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra up -d --build
+	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra up -d --build --remove-orphans
 
 	# wait for gateway proxy (last service started before)
 	echo "*****************************************************************"
@@ -20,10 +20,7 @@ start_all () {
 	docker run --rm --net=nimbleinfra_default -it mcandre/docker-wget --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 --tries 60 gateway-proxy:80/info
 
 	# start services
-	docker-compose -f services/docker-compose.yml \
-		--project-name nimbleservices up \
-		-d \
-		--build
+	docker-compose -f services/docker-compose.yml --project-name nimbleservices up -d --build --remove-orphans
 
 	echo "*****************************************************************"
 	echo "********************* Stalling for services *********************"
@@ -38,7 +35,7 @@ start_all () {
 if [[ "$1" = "infrastructure" ]]; then
 
 	update_images
-	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra up --build
+	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra up --build
 
 elif [[ "$1" = "services" ]]; then
 
@@ -61,12 +58,12 @@ elif [[ "$1" = "start-no-update" ]]; then
 elif [[ "$1" = "stop" ]]; then
 	
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices stop
-	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra stop
+	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra stop
 
 elif [[ "$1" = "down" ]]; then
 	
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices down
-	docker-compose -f infra/docker-compose.yml -f infra/uaa/docker-compose.yml --project-name nimbleinfra down
+	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra down
 
 elif [[ "$1" = "services-logs" ]]; then
 

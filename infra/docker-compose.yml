@@ -55,10 +55,11 @@ services:
       - POSTGRES_USER=keycloak
       - POSTGRES_PASSWORD=password
       - POSTGRES_PORT_5432_TCP_ADDR=keycloak-db
+      - PROXY_ADDRESS_FORWARDING=true
     links:
       - keycloak-db:postgres
     ports:
-      - "8089:8080"
+      - "10096:8080"
       - "9999:9990"
       - "8088:8443"
     volumes:
