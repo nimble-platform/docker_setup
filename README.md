@@ -2,7 +2,7 @@
 Local setup for demonstration.
 
 ## Prerequesits
-*Docker
+* Docker
 
 Execute
 
