@@ -34,17 +34,24 @@ start_all () {
 # run infrastructure
 if [[ "$1" = "infrastructure" ]]; then
 
-	update_images
+	if [[ "$2" != "--no-updates" ]]; then
+		update_images
+	fi
+
 	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra up --build
 
 elif [[ "$1" = "services" ]]; then
 
-	update_images
+	if [[ "$2" != "--no-updates" ]]; then
+		update_images
+	fi
+
 	# start services
 	docker-compose -f services/docker-compose.yml \
 		--project-name nimbleservices up \
 		--build \
-		--force-recreate identity-service business-process-service frontend-service catalog-service-srdc frontend-service-sidecar
+		--force-recreate business-process-service frontend-service catalog-service-srdc frontend-service-sidecar
+		# --force-recreate identity-service business-process-service frontend-service catalog-service-srdc frontend-service-sidecar
 
 elif [[ "$1" = "start" ]]; then
 
@@ -59,6 +66,13 @@ elif [[ "$1" = "stop" ]]; then
 	
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices stop
 	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra stop
+
+elif [[ "$1" = "restart-single" ]]; then
+
+	docker-compose -f services/docker-compose.yml \
+		--project-name nimbleservices up \
+		--build \
+		--force-recreate $2
 
 elif [[ "$1" = "down" ]]; then
 	
