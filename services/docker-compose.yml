@@ -6,30 +6,32 @@ services:
   ##### Identity Service #####
   ############################
  
-  # identity-service:
-  #   image: nimbleplatform/identity-service:latest
-  #   env_file:
-  #     - env_vars
-  #   environment:
-  #     - IDENTIY_DB_URI=identity-service-db:5432
-  #   ports:
-  #     - "9096:9096"
-  #   networks:
-  #     - infra
-  #     - identity-backend
-  #   depends_on:
-  #     - identity-service-db
+  identity-service:
+    image: nimbleplatform/identity-service:latest
+    env_file:
+      - env_vars
+    environment:
+      - POSTGRES_HOST=identity-service-db
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=identityDB
+    ports:
+      - "9096:9096"
+    networks:
+      - infra
+      - identity-backend
+    depends_on:
+      - identity-service-db
 
-  # identity-service-db:
-  #   image: postgres:9.6.3
-  #   ports:
-  #     - "5433:5432"
-  #   environment:
-  #     - POSTGRES_USER=root
-  #     - POSTGRES_PASSWORD=changeme
-  #     - POSTGRES_DB=identityDB
-  #   networks:
-  #     - identity-backend
+  identity-service-db:
+    image: postgres:9.6.3
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=changeme
+      - POSTGRES_DB=identityDB
+    networks:
+      - identity-backend
 
   ##############################
   ## Business Process Service ##

@@ -72,7 +72,12 @@ elif [[ "$1" = "restart-single" ]]; then
 	docker-compose -f services/docker-compose.yml \
 		--project-name nimbleservices up \
 		--build \
+		-d \
 		--force-recreate $2
+
+	docker-compose -f services/docker-compose.yml \
+		--project-name nimbleservices \
+		logs -f $2
 
 elif [[ "$1" = "down" ]]; then
 	
