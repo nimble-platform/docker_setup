@@ -81,8 +81,8 @@ elif [[ "$1" = "restart-single" ]]; then
 
 elif [[ "$1" = "down" ]]; then
 	
-	docker-compose -f services/docker-compose.yml --project-name nimbleservices down
-	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra down
+	docker-compose -f services/docker-compose.yml --project-name nimbleservices down --remove-orphans
+	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra down --remove-orphans
 
 elif [[ "$1" = "services-logs" ]]; then
 

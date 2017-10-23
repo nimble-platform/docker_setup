@@ -11,27 +11,14 @@ services:
     env_file:
       - env_vars
     environment:
-      - POSTGRES_HOST=identity-service-db
-      - POSTGRES_PORT=5432
-      - POSTGRES_DB=identityDB
+      - POSTGRES_HOST=sl-eu-lon-2-portal.5.dblayer.com
+      - POSTGRES_PORT=21113
+      - POSTGRES_DB=identitydb
+      - POSTGRES_USER=admin
     ports:
       - "9096:9096"
     networks:
       - infra
-      - identity-backend
-    depends_on:
-      - identity-service-db
-
-  identity-service-db:
-    image: postgres:9.6.3
-    ports:
-      - "5433:5432"
-    environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=changeme
-      - POSTGRES_DB=identityDB
-    networks:
-      - identity-backend
 
   ##############################
   ## Business Process Service ##
@@ -42,45 +29,18 @@ services:
     env_file:
       - env_vars
     environment:
-      - BUSINESS_PROCESS_DB_HOST=business-process-service-db
-      - BUSINESS_PROCESS_DB_PORT=5432
-      - BUSINESS_PROCESS_DB_NAME=businessprocessengine
-      - BUSINESS_PROCESS_DB_USERNAME=postgres
-      - BUSINESS_PROCESS_DB_PASSWORD=postgres
-      - CAMUNDA_DB_HOST=camunda-db
-      - CAMUNDA_DB_PORT=5432
-      - CAMUNDA_DB_NAME=camunda
-      - CAMUNDA_DB_USERNAME=postgres
-      - CAMUNDA_DB_PASSWORD=postgres
+      - BUSINESS_PROCESS_DB_HOST=sl-eu-lon-2-portal.5.dblayer.com
+      - BUSINESS_PROCESS_DB_PORT=21113
+      - BUSINESS_PROCESS_DB_NAME=businessprocessdb
+      - BUSINESS_PROCESS_DB_USERNAME=admin
+      - CAMUNDA_DB_HOST=sl-eu-lon-2-portal.5.dblayer.com
+      - CAMUNDA_DB_PORT=21113
+      - CAMUNDA_DB_NAME=camundadb
+      - CAMUNDA_DB_USERNAME=admin
     ports:
       - "8085:8085"
     networks:
       - infra
-      - business-process-backend
-    depends_on:
-      - business-process-service-db
-
-  business-process-service-db:
-    image: postgres:9.6.3
-    ports:
-      - "5434:5432"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: businessprocessengine
-    networks:
-      - business-process-backend
-
-  camunda-db:
-    image: postgres:9.6.3
-    ports:
-      - "5435:5432"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: camunda
-    networks:
-      - business-process-backend
 
   ##############################
   ####### Catalog Service ######  
@@ -94,7 +54,6 @@ services:
       - env_vars
     networks:
       - infra
-      - catalog-backend
 
   ###############################
   ###### Frontend Service #######
@@ -127,7 +86,4 @@ services:
 networks:
   infra:
     external:
-      name: nimbleinfra_default
-  identity-backend:
-  catalog-backend:
-  business-process-backend:
+      name: nimbleinfraprod_default
