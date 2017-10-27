@@ -1,0 +1,7 @@
+server:
+  port: 5601
+  host: "0.0.0.0"
+
+# Instance on Bluemix
+elasticsearch:
+  url: "https://sl-eu-lon-2-portal.2.dblayer.com:21145"

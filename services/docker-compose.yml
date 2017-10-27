@@ -57,6 +57,8 @@ services:
     networks:
       - infra
       - business-process-backend
+    restart:
+      always
     depends_on:
       - business-process-service-db
 
