@@ -1,10 +1,12 @@
 version: '2'
 
 services:
-  master:
+  jenkins_master:
     image: jenkins/jenkins:lts
     volumes:
       - ./jenkins_home:/var/jenkins_home
+    environment:
+      - JENKINS_OPTS="--prefix=/jenkins"
     ports:
       - "8080:8080"
       - "50000:50000"

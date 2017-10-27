@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  web:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "9000:80"
+    networks:
+      - nimble-cloud-infra
+      - jenkins
+
+
+networks:
+  nimble-cloud-infra:
+    external:
+      name: nimbleinfra_default
+  jenkins:
+    external:
+      name: jenkinsci_default
