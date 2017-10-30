@@ -6,7 +6,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
-      - "9000:80"
+      - "443:80"
     networks:
       - nimble-cloud-infra
       - jenkins
@@ -15,7 +15,7 @@ services:
 networks:
   nimble-cloud-infra:
     external:
-      name: nimbleinfra_default
+      name: nimbleinfraprod_default
   jenkins:
     external:
-      name: jenkinsci_default
+      name: jenkins_default
