@@ -66,28 +66,3 @@ services:
   #   env_file:
   #     - keycloak_default_env
   #     - keycloak_secrets
-
-  ###########################
-  ######## ELK Stack ########
-  ###########################
-
-#  elasticsearch:
-#    build: elk/elasticsearch
-#    ports:
-#      - "9200:9200"
-#      - "9300:9300"
-#  logstash:
-#    build: elk-prod/logstash/
-#    volumes:
-#      - ./elk-prod/logstash/log:/var/log/logstash
-#    ports:
-#      - "5000:5000"
-#    depends_on:
-#      - elasticsearch
-#
-#  kibana:
-#    build: elk-prod/kibana/
-#    ports:
-#      - "5601:5601"
-#    depends_on:
-#      - elasticsearch
