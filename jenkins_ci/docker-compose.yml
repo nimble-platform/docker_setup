@@ -8,7 +8,7 @@ services:
       - ./jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      - JENKINS_OPTS="--prefix=/jenkins"
+      - JENKINS_OPTS="--prefix=/jenkins/"
     ports:
       - "8080:8080"
       - "50000:50000"

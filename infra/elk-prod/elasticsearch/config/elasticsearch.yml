@@ -1,5 +1,5 @@
 # set indexes to be created
-action.auto_create_index: .security,.monitoring*,.watches,.triggered_watches,.watcher-history*,logstash*
+#action.auto_create_index: +logstash*,+performance*
 
 network.host: 0.0.0.0
 

@@ -8,7 +8,7 @@ services:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - ./elasticsearch:/usr/share/elasticsearch/data
+      - elastic-volume:/usr/share/elasticsearch/data
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
@@ -16,8 +16,6 @@ services:
 
   logstash:
     build: ./logstash/
-    volumes:
-      - ./logstash/log:/var/log/logstash
     ports:
       - "5000:5000"
     depends_on:
@@ -38,3 +36,6 @@ networks:
   infra:
     external:
       name: nimbleinfraprod_default
+
+volumes:
+  elastic-volume:

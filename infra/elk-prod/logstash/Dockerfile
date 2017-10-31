@@ -1,11 +1,8 @@
-FROM logstash:5.1.1
+FROM docker.elastic.co/logstash/logstash:5.6.3
 MAINTAINER Salzburg Research <nimble-srfg@salzburgresearch.at>
 
-# installing plugins
-RUN logstash-plugin install logstash-input-kafka
-
-# adding log
+# adding configuration
 ADD config/logstash.conf /etc/logstash/conf.d/logstash.conf
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+#ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["--log.level", "debug", "--verbose", "--config.debug", "-f", "/etc/logstash/conf.d/logstash.conf"]
