@@ -2,7 +2,6 @@ version: '2'
 
 services:
   jenkins_master:
-    #image: jenkins/jenkins:lts
     build: .
     volumes:
       - ./jenkins_home:/var/jenkins_home
