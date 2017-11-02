@@ -39,15 +39,17 @@ elif [[ "$1" = "start" ]]; then
 
 elif [[ "$1" = "restart-single" ]]; then
 
+    docker-compose -f services/docker-compose-prod.yml pull $2
+
 	docker-compose -f services/docker-compose-prod.yml \
 		--project-name nimbleservices-prod up \
 		--build \
 		-d \
 		--force-recreate $2
 
-	docker-compose -f services/docker-compose-prod.yml \
-		--project-name nimbleservices-prod \
-		logs -f $2
+#	docker-compose -f services/docker-compose-prod.yml \
+#		--project-name nimbleservices-prod \
+#		logs -f $2
 
 elif [[ "$1" = "services-logs" ]]; then
 
