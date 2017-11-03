@@ -39,8 +39,6 @@ elif [[ "$1" = "start" ]]; then
 
 elif [[ "$1" = "restart-single" ]]; then
 
-    docker-compose -f services/docker-compose-prod.yml pull $2
-
 	docker-compose -f services/docker-compose-prod.yml \
 		--project-name nimbleservices-prod up \
 		--build \
