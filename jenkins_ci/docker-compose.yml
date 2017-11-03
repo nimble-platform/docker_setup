@@ -2,7 +2,7 @@ version: '2'
 
 services:
   jenkins_master:
-    build: .
+    image: nimbleplatform/jenkins-master:latest
     volumes:
       - ./jenkins_home:/var/jenkins_home
       - ./ssh_config:/root/.ssh/config
