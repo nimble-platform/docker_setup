@@ -5,6 +5,7 @@ services:
     build: .
     volumes:
       - ./jenkins_home:/var/jenkins_home
+      - ./ssh_config:/root/.ssh/config
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - JENKINS_OPTS="--prefix=/jenkins/"
