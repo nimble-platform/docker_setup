@@ -9,6 +9,8 @@ USER root
 #RUN add-apt-repository  "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") $(lsb_release -cs) stable"
 
 #RUN apt-get update && apt-get install -y docker-ce && rm -rf /var/lib/apt/lists/*
+# Node JS
+RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
 RUN apt-get update && apt-get install -y maven wget nodejs && rm -rf /var/lib/apt/lists/*
 
 #Installing Docker
