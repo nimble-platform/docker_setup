@@ -10,12 +10,12 @@ services:
     image: nimbleplatform/identity-service:latest
     env_file:
       - env_vars
-      - env_vars-prod
     environment:
       - POSTGRES_HOST=sl-eu-lon-2-portal.5.dblayer.com
       - POSTGRES_PORT=21113
       - POSTGRES_DB=identitydb
       - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=${IDENTITY_DB_PASSWORD}
     ports:
       - "9096:9096"
     networks:
@@ -29,16 +29,17 @@ services:
     image: nimbleplatform/business-process-service:latest
     env_file:
       - env_vars
-      - env_vars-prod
     environment:
       - BUSINESS_PROCESS_DB_HOST=sl-eu-lon-2-portal.5.dblayer.com
       - BUSINESS_PROCESS_DB_PORT=21113
       - BUSINESS_PROCESS_DB_NAME=businessprocessdb
       - BUSINESS_PROCESS_DB_USERNAME=admin
+      - BUSINESS_PROCESS_DB_PASSWORD=${BUSINESS_PROCESS_DB_PASSWORD}
       - CAMUNDA_DB_HOST=sl-eu-lon-2-portal.5.dblayer.com
       - CAMUNDA_DB_PORT=21113
       - CAMUNDA_DB_NAME=camundadb
       - CAMUNDA_DB_USERNAME=admin
+      - CAMUNDA_DB_PASSWORD=${CAMUNDA_DB_PASSWORD}
     ports:
       - "8085:8085"
     networks:
@@ -67,7 +68,6 @@ services:
       - "9092:8080"
     env_file:
       - env_vars
-      - env_vars-prod
     networks:
       - infra
   
@@ -77,7 +77,6 @@ services:
       - "9097:9097"
     env_file:
       - env_vars
-      - env_vars-prod
     environment:
       SIDECAR_NAME: frontend-service
       SIDECAR_APP_HOST: frontend-service
