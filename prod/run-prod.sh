@@ -52,6 +52,10 @@ elif [[ "$1" = "restart-single" ]]; then
 elif [[ "$1" = "services-logs" ]]; then
 
 	docker-compose -f services/docker-compose-prod.yml --project-name nimbleservices-prod logs -f
+
+elif [[ "$1" = "infra-logs" ]]; then
+
+	docker-compose -f infra/docker-compose-prod.yml --project-name nimbleinfra-prod logs -f
 	
 else
     echo "Invalid usage"
