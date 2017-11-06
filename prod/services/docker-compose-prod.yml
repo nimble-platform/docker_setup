@@ -16,7 +16,6 @@ services:
       - POSTGRES_PORT=21113
       - POSTGRES_DB=identitydb
       - POSTGRES_USER=admin
-      - POSTGRES_USER=${IDENTITY_DB_PASSWORD}
     ports:
       - "9096:9096"
     networks:
@@ -36,12 +35,10 @@ services:
       - BUSINESS_PROCESS_DB_PORT=21113
       - BUSINESS_PROCESS_DB_NAME=businessprocessdb
       - BUSINESS_PROCESS_DB_USERNAME=admin
-      - BUSINESS_PROCESS_DB_PASSWORD=${BUSINESS_PROCESS_DB_PASSWORD}
       - CAMUNDA_DB_HOST=sl-eu-lon-2-portal.5.dblayer.com
       - CAMUNDA_DB_PORT=21113
       - CAMUNDA_DB_NAME=camundadb
       - CAMUNDA_DB_USERNAME=admin
-      - CAMUNDA_DB_PASSWORD=${CAMUNDA_DB_PASSWORD}
     ports:
       - "8085:8085"
     networks:
