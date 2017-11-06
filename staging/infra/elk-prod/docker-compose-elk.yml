@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+
+  elasticsearch:
+    build: ./elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elastic-volume:/usr/share/elasticsearch/data
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - infra
+
+  logstash:
+    build: ./logstash/
+    ports:
+      - "5000:5000"
+    depends_on:
+      - elasticsearch
+    networks:
+      - infra
+
+  kibana:
+    build: ./kibana/
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - infra
+
+networks:
+  infra:
+    external:
+      name: nimbleinfraprod_default
+
+volumes:
+  elastic-volume:

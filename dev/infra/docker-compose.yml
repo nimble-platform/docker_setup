@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 
 services:
   ##########################
@@ -25,8 +25,8 @@ services:
     image: nimbleplatform/gateway-proxy:latest
     env_file:
       - env_vars
-#    ports:
-#      - "443:80"
+    ports:
+      - "443:80"
     depends_on:
       - config-server
       - service-discovery
@@ -45,24 +45,24 @@ services:
   ######## Keycloak ########
   ##########################
 
-   keycloak:
-     image: jboss/keycloak-postgres:3.2.0.Final
-     env_file:
-       - keycloak_default_env
-       - keycloak_secrets
-     links:
-       - keycloak-db:postgres
-     ports:
-       - "10096:8080"
-       - "9999:9990"
-       - "8088:8443"
-     volumes:
-       - ./data:/data
-     depends_on:
-       - keycloak-db
+  keycloak:
+    image: jboss/keycloak-postgres:3.2.0.Final
+    env_file:
+      - keycloak/keycloak_default_env
+      - keycloak/keycloak_secrets
+    links:
+      - keycloak-db:postgres
+    ports:
+      - "10096:8080"
+      - "9999:9990"
+      - "8088:8443"
+    volumes:
+      - ./data:/data
+    depends_on:
+      - keycloak-db
 
-   keycloak-db:
-     image: postgres:9.6.3
-     env_file:
-       - keycloak_default_env
-       - keycloak_secrets
+  keycloak-db:
+    image: postgres:9.6.3
+    env_file:
+      - keycloak/keycloak_default_env
+      - keycloak/keycloak_secrets
