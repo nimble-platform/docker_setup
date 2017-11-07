@@ -9,7 +9,7 @@ def deploy():
     with cd('/data/nginx/'):
         put('nginx.conf', '.')
         put('docker-compose.yml', '.')
-        sudo('docker-compose up --build -d')
+        sudo('docker-compose up --build -d --force-recreate')
 
 
 @task()

@@ -6,7 +6,7 @@ services:
   ##### Identity Service #####
   ############################
  
-  identity-service:
+  identity-service-staging:
     image: nimbleplatform/identity-service:latest
     env_file:
       - env_vars
@@ -25,7 +25,7 @@ services:
   ## Business Process Service ##
   ##############################
 
-  business-process-service:
+  business-process-service-staging:
     image: nimbleplatform/business-process-service:latest
     env_file:
       - env_vars
@@ -48,7 +48,7 @@ services:
   ####### Catalog Service ######  
   ##############################
   
-  catalog-service-srdc:
+  catalog-service-srdc-staging:
     image: nimbleplatform/catalogue-service:latest
 #    ports:
 #      - "10095:8095"
@@ -61,7 +61,7 @@ services:
   ###### Frontend Service #######
   ###############################
   
-  frontend-service:
+  frontend-service-staging:
     image: nimbleplatform/frontend-service:latest
 #    ports:
 #      - "9092:8080"
@@ -71,7 +71,7 @@ services:
     networks:
       - infra
   
-  frontend-service-sidecar:
+  frontend-service-sidecar-staging:
     image: nimbleplatform/sidecar:latest
 #    ports:
 #      - "9097:9097"
