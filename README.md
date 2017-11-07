@@ -1,12 +1,11 @@
-# Demonstration Setup
-Local setup for demonstration.
+# Deployment Setup
 
-## Prerequesits
-* Docker
+The setup is split into to three configuration scenarios, whereas each scenario has a dedicated directory with the same name. The directory structure is as follows:
 
-Execute
+* `jenkins_ci`: setup for Jenkins CI
+* `nginx`: setup and configuration for the webserver (i.e. nginx)
+* `dev`: deployment setup for local development
+* `staging`: 	deployment setup for staging environment
+* `prod`: deployment setup used in production
 
-```
-./run.sh
-```
-to obtain list of possible actions.
+Each deployment setup is composed of infrastructure componententes and the actual Microservices. A utility script with the name `run*.sh` can be found in the directories of each setup.
