@@ -6,6 +6,8 @@ services:
      env_file:
        - keycloak_default_env
        - keycloak_secrets
+    environment:
+      - PROXY_ADDRESS_FORWARDING=true
      links:
        - keycloak-db:postgres
      ports:
