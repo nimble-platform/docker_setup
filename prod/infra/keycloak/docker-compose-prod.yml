@@ -2,10 +2,12 @@ version: '2'
 
 services:
   keycloak:
-     build: .
+     image: jboss/keycloak:3.4.0.Final
      env_file:
        - keycloak_default_env
        - keycloak_secrets
+    environment:
+       - PROXY_ADDRESS_FORWARDING: true
      ports:
        - "10097:8080"
        - "10098:9990"
