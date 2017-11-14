@@ -7,7 +7,7 @@ services:
        - keycloak_default_env
        - keycloak_secrets
      environment:
-       - PROXY_ADDRESS_FORWARDING: "true"
+       - PROXY_ADDRESS_FORWARDING=true
      ports:
        - "10097:8080"
        - "10098:9990"
