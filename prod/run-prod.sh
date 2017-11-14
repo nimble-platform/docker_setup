@@ -63,7 +63,7 @@ elif [[ "$1" = "keycloak" ]]; then
 
 elif [[ "$1" = "keycloak-logs" ]]; then
 
-	docker-compose -f infra/keycloak/docker-compose-prod.yml --project-name nimbleinfra-prod-keyloak logs -f
+	docker-compose -f infra/keycloak/docker-compose-prod.yml --project-name nimbleinfra-prod logs -f
 
 else
     echo "Invalid usage"
