@@ -59,7 +59,7 @@ elif [[ "$1" = "infra-logs" ]]; then
 
 elif [[ "$1" = "keycloak" ]]; then
 
-	docker-compose -f infra/keycloak/docker-compose-prod.yml --project-name nimbleinfra-prod up --force-recreate -d
+	docker-compose -f infra/keycloak/docker-compose-prod.yml --project-name nimbleinfra-prod up --build --force-recreate -d
 
 elif [[ "$1" = "keycloak-logs" ]]; then
 
