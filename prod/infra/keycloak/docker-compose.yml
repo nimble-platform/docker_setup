@@ -17,8 +17,7 @@ services:
      networks:
        - nimble-cloud-infra
 
-  keycloak-db:
-    image: postgres:9.6.3
-    env_file:
-      - keycloak_default_env
-      - keycloak_secrets
+networks:
+  nimble-cloud-infra:
+    external:
+      name: nimbleinfraprod_default
