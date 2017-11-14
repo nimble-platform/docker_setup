@@ -56,7 +56,15 @@ elif [[ "$1" = "services-logs" ]]; then
 elif [[ "$1" = "infra-logs" ]]; then
 
 	docker-compose -f infra/docker-compose-prod.yml --project-name nimbleinfra-prod logs -f
-	
+
+elif [[ "$1" = "keycloak" ]]; then
+
+	docker-compose -f infra/keycloak/docker-compose-prod.yml --project-name nimbleinfra-prod-keyloak up --force-recreate -d
+
+elif [[ "$1" = "keycloak-logs" ]]; then
+
+	docker-compose -f infra/keycloak/docker-compose-prod.yml --project-name nimbleinfra-prod-keyloak logs -f
+
 else
     echo "Invalid usage"
     exit 2
