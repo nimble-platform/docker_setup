@@ -5,14 +5,6 @@ env.use_ssh_config = True
 
 
 @task()
-def deploy():
+def pull():
     with cd('/data/deployment_setup/'):
-        put('nginx.conf', '.')
-        put('docker-compose.yml', '.')
-        sudo('docker-compose up --build -d --force-recreate')
-
-
-@task()
-def logs():
-    with cd('/data/nginx/'):
-        sudo('docker-compose logs -f')
+        sudo('git pull origin master')
