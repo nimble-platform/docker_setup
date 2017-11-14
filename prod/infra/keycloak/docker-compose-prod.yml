@@ -8,8 +8,8 @@ services:
        - keycloak_secrets
      ports:
        - "10097:8080"
-       - "9999:9990"
-       - "8088:8443"
+       - "10098:9990"
+       - "10099:8443"
      networks:
        - nimble-cloud-infra
 
