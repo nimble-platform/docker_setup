@@ -6,14 +6,10 @@ services:
      env_file:
        - keycloak_default_env
        - keycloak_secrets
-     links:
-       - keycloak-db:postgres
      ports:
        - "10096:8080"
        - "9999:9990"
        - "8088:8443"
-     depends_on:
-       - keycloak-db
      networks:
        - nimble-cloud-infra
 
