@@ -8,6 +8,7 @@ services:
        - keycloak_secrets
      environment:
        - PROXY_ADDRESS_FORWARDING=true
+       - KEYCLOAK_CONTEXT_PATH=/keycloak
      ports:
        - "10097:8080"
        - "10098:9990"
