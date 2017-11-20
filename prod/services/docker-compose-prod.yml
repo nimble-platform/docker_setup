@@ -54,6 +54,7 @@ services:
       - "10095:8095"
     env_file:
       - env_vars
+      - env_vars-prod
     networks:
       - infra
 
