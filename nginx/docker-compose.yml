@@ -7,7 +7,10 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nimble-platform.salzburgresearch.at.chained.crt:/etc/nginx/nimble-platform.salzburgresearch.at.chained.crt:ro
       - ./nimble-platform.salzburgresearch.at.key:/etc/nginx/nimble-platform.salzburgresearch.at.key:ro
+    expose:
+      - "8080"
     ports:
+      - "8080:8080"
       - "443:443"
     networks:
       - nimble-cloud-infra
