@@ -7,7 +7,6 @@ env.use_ssh_config = True
 @task()
 def deploy():
     with cd('/data/nginx/'):
-        sudo('chmod a+w *')
         put('nginx.conf', '.')
         put('docker-compose.yml', '.')
         sudo('docker-compose up --build -d --force-recreate')
@@ -16,4 +15,4 @@ def deploy():
 @task()
 def logs():
     with cd('/data/nginx/'):
-        sudo('docker-compose logs -f --tail 100')
+        sudo('docker-compose logs -f')
