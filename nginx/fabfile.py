@@ -15,4 +15,4 @@ def deploy():
 @task()
 def logs():
     with cd('/data/nginx/'):
-        sudo('docker-compose logs -f')
+        sudo('docker-compose logs -f --tail 100')
