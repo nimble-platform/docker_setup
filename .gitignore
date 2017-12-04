@@ -2,3 +2,5 @@ jenkins_ci/jenkins_home/
 secrets.sh
 prod/services/env_vars-prod
 prod/infra/keycloak/keycloak_secrets
+*.pyc
+*.pyo
