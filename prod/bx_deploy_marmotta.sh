@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # create local docker image
 docker build -t nimbleplatform/marmotta-backend --build-arg DB_HOST=marmotta-db --build-arg DB_PORT=5432 --build-arg DB_USER=root --build-arg DB_PASS=changeme .
 

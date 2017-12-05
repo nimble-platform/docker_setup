@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  marmotta:
+    image: nimbleplatform/marmotta
+    volumes:
+       - marmotta-config:/var/lib/marmotta/
+    environment:
+      - "database.user=admin"
+      - "database.password=LLSYYLRFECXKTCRK"
+      - "database.url=jdbc:postgresql://sl-eu-lon-2-portal.5.dblayer.com:21113/marmottadb?prepareThreshold=3"
+      - "database.type=postgres"
+#      - "kiwi.path=/marmotta"
+#      - "kiwi.context=localhost:8080"
+#      - "kiwi.host=localhost:8080"
+    ports:
+      - "8086:8080"
+    networks:
+      - nimble-cloud-infra
+
+volumes:
+  marmotta-config:
+
+networks:
+  nimble-cloud-infra:
+    external:
+      name: nimbleinfraprod_default
