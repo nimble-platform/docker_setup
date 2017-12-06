@@ -25,7 +25,7 @@ services:
     image: nimbleplatform/gateway-proxy:latest
     env_file:
       - env_vars
-    ports:
+#    ports:
 #      - "443:80"
     depends_on:
       - config-server
