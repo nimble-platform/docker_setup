@@ -26,7 +26,7 @@ services:
     env_file:
       - env_vars
     ports:
-      - "443:80"
+#      - "443:80"
     depends_on:
       - config-server
       - service-discovery
