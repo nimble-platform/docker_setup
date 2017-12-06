@@ -34,18 +34,11 @@ elif [[ "$1" = "services" ]]; then
 
 elif [[ "$1" = "keycloak" ]]; then
 
-	if [[ "$2" != "--no-updates" ]]; then
-		update_images
-	fi
-
 	docker-compose -f infra/keycloak/docker-compose-prod.yml --project-name nimbleinfra-prod up --remove-orphans --build -d
 
 elif [[ "$1" = "marmotta" ]]; then
 
-	if [[ "$2" != "--no-updates" ]]; then
-		update_images
-	fi
-
+	docker-compose -f infra/marmotta/docker-compose-marmotta.yml --project-name nimbleinfra-prod pull
 	docker-compose -f infra/marmotta/docker-compose-marmotta.yml --project-name nimbleinfra-prod up --remove-orphans --build -d
 
 elif [[ "$1" = "start" ]]; then
