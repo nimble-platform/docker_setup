@@ -43,7 +43,7 @@ elif [[ "$1" = "marmotta" ]]; then
 
 elif [[ "$1" = "elk" ]]; then
 
-	docker-compose -f infra/elk/docker-compose-elk.yml --project-name nimbleinfra-prod up --build -d
+	docker-compose -f infra/elk-prod/docker-compose-elk.yml --project-name nimbleinfra-prod up --build -d
 
 elif [[ "$1" = "start" ]]; then
 
