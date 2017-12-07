@@ -50,7 +50,7 @@ services:
       - infra
 
   business-process-service-db:
-    image: postgres:9.6.3
+    image: postgres:9.6.6
     ports:
       - "5435:5432"
     environment:
@@ -61,7 +61,7 @@ services:
       - infra
 
   camunda-db:
-    image: postgres:9.6.3
+    image: postgres:9.6.6
     ports:
       - "5436:5432"
     environment:
@@ -82,6 +82,39 @@ services:
     env_file:
       - env_vars
       - env_vars-prod
+    environment:
+      - UBL_DB_HOST=ubl-db
+      - UBL_DB_HOST_PORT=5432
+      - UBL_DB_NAME=ubldb
+      - UBL_DB_USERNAME=admin
+      - UBL_DB_PASSWORD=changeme
+      - SYNC_DB_HOST=catalog-sync-db
+      - SYNC_DB_HOST_PORT=5432
+      - SYNC_DB_NAME=catalogsyncdb
+      - SYNC_DB_USERNAME=admin
+      - SYNC_DB_PASSWORD=changeme
+    networks:
+      - infra
+
+  ubl-db:
+    image: postgres:9.6.6
+    ports:
+      - "5437:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=changeme
+      - POSTGRES_DB=ubldb
+    networks:
+      - infra
+
+  catalog-sync-db:
+    image: postgres:9.6.6
+    ports:
+      - "5438:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=changeme
+      - POSTGRES_DB=catalogsyncdb
     networks:
       - infra
 
