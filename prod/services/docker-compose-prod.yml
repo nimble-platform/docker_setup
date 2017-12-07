@@ -100,13 +100,13 @@ services:
       - env_vars
       - env_vars-prod
     environment:
-      - UBL_DB_HOST=ubl-db
-      - UBL_DB_HOST_PORT=5432
+      - UBL_DB_HOST=sl-eu-lon-2-portal.5.dblayer.com
+      - UBL_DB_HOST_PORT=21113
       - UBL_DB_NAME=ubldb
       - UBL_DB_USERNAME=admin
-      - UBL_DB_PASSWORD=changeme
-    depends_on:
-      - ubl-db
+      - UBL_DB_PASSWORD=LLSYYLRFECXKTCRK
+    #depends_on:
+    #  - ubl-db
     networks:
       - infra
 
