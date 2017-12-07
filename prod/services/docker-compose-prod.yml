@@ -31,16 +31,43 @@ services:
       - env_vars
       - env_vars-prod
     environment:
-      - BUSINESS_PROCESS_DB_HOST=sl-eu-lon-2-portal.5.dblayer.com
-      - BUSINESS_PROCESS_DB_PORT=21113
-      - BUSINESS_PROCESS_DB_NAME=businessprocessdb
+      - BUSINESS_PROCESS_DB_HOST=business-process-service-db
+      - BUSINESS_PROCESS_DB_PORT=5432
       - BUSINESS_PROCESS_DB_USERNAME=admin
-      - CAMUNDA_DB_HOST=sl-eu-lon-2-portal.5.dblayer.com
-      - CAMUNDA_DB_PORT=21113
-      - CAMUNDA_DB_NAME=camundadb
+      - BUSINESS_PROCESS_DB_PASSWORD=changeme
+      - BUSINESS_PROCESS_DB_NAME=businessprocessdb
+      - CAMUNDA_DB_HOST=camunda-db
+      - CAMUNDA_DB_PORT=5432
       - CAMUNDA_DB_USERNAME=admin
+      - CAMUNDA_DB_PASSWORD=changeme
+      - CAMUNDA_DB_NAME=camundadb
+    depends_on:
+      - business-process-service-db
+      - camunda-db
     ports:
       - "8085:8085"
+    networks:
+      - infra
+
+  business-process-service-db:
+    image: postgres:9.6.3
+    ports:
+      - "5435:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=changeme
+      - POSTGRES_DB=businessprocessdb
+    networks:
+      - infra
+
+  camunda-db:
+    image: postgres:9.6.3
+    ports:
+      - "5436:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=changeme
+      - POSTGRES_DB=camundadb
     networks:
       - infra
 

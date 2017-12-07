@@ -1,28 +1,11 @@
 #!/bin/bash
 
-update_images () { 
-	# update infrastructure
-	docker-compose -f infra/docker-compose-prod.yml --project-name nimbleinfra-prod pull
-
-	# update services
-	docker-compose -f services/docker-compose-prod.yml --project-name nimbleservices-prod pull
-
-}
-
 # run infrastructure
 if [[ "$1" = "infra" ]]; then
-
-	if [[ "$2" != "--no-updates" ]]; then
-		update_images
-	fi
 
 	docker-compose -f infra/docker-compose-prod.yml --project-name nimbleinfra-prod up --build -d
 
 elif [[ "$1" = "services" ]]; then
-
-	if [[ "$2" != "--no-updates" ]]; then
-		update_images
-	fi
 
 	# start services
 	docker-compose -f services/docker-compose-prod.yml \
@@ -47,7 +30,6 @@ elif [[ "$1" = "elk" ]]; then
 
 elif [[ "$1" = "start" ]]; then
 
-	update_images
 	start_all
 
 elif [[ "$1" = "restart-single" ]]; then
