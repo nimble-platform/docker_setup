@@ -10,12 +10,7 @@ services:
     image: nimbleplatform/identity-service:latest
     env_file:
       - env_vars
-      - env_vars-prod
-    environment:
-      - POSTGRES_HOST=sl-eu-lon-2-portal.5.dblayer.com
-      - POSTGRES_PORT=21113
-      - POSTGRES_DB=identitydb
-      - POSTGRES_USER=admin
+      - env_vars-prod  # stores secretes and deployment specific information on the host machine.
     ports:
       - "9096:9096"
     networks:
@@ -29,64 +24,11 @@ services:
     image: nimbleplatform/business-process-service:latest
     env_file:
       - env_vars
-      - env_vars-prod
-    environment:
-      - BUSINESS_PROCESS_DB_HOST=sl-eu-lon-2-portal.5.dblayer.com
-      - BUSINESS_PROCESS_DB_PORT=21113
-      - BUSINESS_PROCESS_DB_USERNAME=admin
-      - BUSINESS_PROCESS_DB_PASSWORD=LLSYYLRFECXKTCRK
-      - BUSINESS_PROCESS_DB_NAME=businessprocessdb
-      - CAMUNDA_DB_HOST=sl-eu-lon-2-portal.5.dblayer.com
-      - CAMUNDA_DB_PORT=21113
-      - CAMUNDA_DB_USERNAME=admin
-      - CAMUNDA_DB_PASSWORD=LLSYYLRFECXKTCRK
-      - CAMUNDA_DB_NAME=camundadb
-      - UBL_DB_HOST=sl-eu-lon-2-portal.5.dblayer.com
-      - UBL_DB_HOST_PORT=21113
-      - UBL_DB_NAME=ubldb
-      - UBL_DB_USERNAME=admin
-      - UBL_DB_PASSWORD=LLSYYLRFECXKTCRK
-    #depends_on:
-    #  - business-process-service-db
-    #  - camunda-db
-    #  - ubl-db
+      - env_vars-prod  # stores secretes and deployment specific information on the host machine.
     ports:
       - "8085:8085"
     networks:
       - infra
-
-  #business-process-service-db:
-  #  image: postgres:9.6.6
-  #  ports:
-  #    - "5435:5432"
-  #  environment:
-  #    - POSTGRES_USER=admin
-  #    - POSTGRES_PASSWORD=changeme
-  #    - POSTGRES_DB=businessprocessdb
-  #  networks:
-  #    - infra
-
-  #camunda-db:
-  #  image: postgres:9.6.6
-  #  ports:
-  #    - "5436:5432"
-  #  environment:
-  #    - POSTGRES_USER=admin
-  #    - POSTGRES_PASSWORD=changeme
-  #    - POSTGRES_DB=camundadb
-  #  networks:
-  #    - infra
-
-  #ubl-db:  # used by business-process service and catalog service
-  #  image: postgres:9.6.6
-  #  ports:
-  #    - "5437:5432"
-  #  environment:
-  #    - POSTGRES_USER=admin
-  #    - POSTGRES_PASSWORD=changeme
-  #    - POSTGRES_DB=ubldb
-  #  networks:
-  #    - infra
 
   ##############################
   ####### Catalog Service ######  
@@ -98,15 +40,7 @@ services:
       - "10095:8095"
     env_file:
       - env_vars
-      - env_vars-prod
-    environment:
-      - UBL_DB_HOST=sl-eu-lon-2-portal.5.dblayer.com
-      - UBL_DB_HOST_PORT=21113
-      - UBL_DB_NAME=ubldb
-      - UBL_DB_USERNAME=admin
-      - UBL_DB_PASSWORD=LLSYYLRFECXKTCRK
-    #depends_on:
-    #  - ubl-db
+      - env_vars-prod  # stores secretes and deployment specific information on the host machine.
     networks:
       - infra
 
