@@ -21,6 +21,6 @@ networks:
   nimble-cloud-infra:
     external:
       name: nimbleinfraprod_default
-  jenkins:
-    external:
-      name: jenkins_default
+#  jenkins:
+#    external:
+#      name: jenkins_default

@@ -57,7 +57,7 @@ Defintion can be found in `prod/services/docker-compose-prod.yml`, which consist
 * Service Discovery: 
 	* **ServiceID**: service-discovery
 	* **Container Name**: nimbleinfraprod\_service-discovery\_1
-	* 
+	
 * Gateway Proxy: 
 	* **ServiceID**: gateway-proxy
 	* **Container Name**: nimbleinfraprod\_gateway-proxy\_1
