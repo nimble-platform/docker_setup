@@ -1,4 +1,4 @@
-FROM docker.elastic.co/kibana/kibana:5.6.3
+FROM docker.elastic.co/kibana/kibana-oss:6.1.2
 MAINTAINER Salzburg Research <nimble-srfg@salzburgresearch.at>
 
 # copy config
