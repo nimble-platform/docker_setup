@@ -17,6 +17,10 @@ elif [[ "$1" = "marmotta" ]]; then
 	docker-compose -f infra/marmotta/docker-compose-marmotta.yml --project-name ${INFRA_PROJECT} pull
 	docker-compose -f infra/marmotta/docker-compose-marmotta.yml --project-name ${INFRA_PROJECT} up --build -d
 
+elif [[ "$1" = "elk" ]]; then
+
+	docker-compose -f infra/elk/docker-compose-elk.yml --project-name ${INFRA_PROJECT} up --build -d
+
 elif [[ "$1" = "services" ]]; then
 
 	# update services
@@ -36,6 +40,10 @@ elif [[ "$1" = "start" ]]; then
 
 elif [[ "$1" = "restart-single" ]]; then
 
+	# update services
+	docker-compose -f services/docker-compose.yml --project-name ${SERVICE_PROJECT} pull $2
+
+	# restart service
 	docker-compose -f services/docker-compose.yml \
 		--project-name nimbleservices-staging up \
 		--build \

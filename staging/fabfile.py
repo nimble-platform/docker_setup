@@ -6,22 +6,22 @@ REMOTE_DIR = '/srv/nimble-staging'
 
 @task(default=True)
 def deploy_infra():
-    upload_files()
+    update_files()
 
     with cd(REMOTE_DIR):
         run('./run-staging.sh infra')
         run('./run-staging.sh keycloak')
         run('./run-staging.sh marmotta')
+        run('./run-staging.sh elk')
 
-
-@task(default=True)
+@task
 def deploy_services():
-    upload_files()
+    update_files()
 
     with cd(REMOTE_DIR):
         run('./run-staging.sh services')
 
-
-def upload_files():
+@task
+def update_files():
     run('mkdir -p ' + REMOTE_DIR)
     put('.', REMOTE_DIR)
