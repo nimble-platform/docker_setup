@@ -19,6 +19,9 @@ elif [[ "$1" = "marmotta" ]]; then
 
 elif [[ "$1" = "services" ]]; then
 
+	# update services
+	docker-compose -f services/docker-compose.yml --project-name ${SERVICE_PROJECT} pull
+
 	# start services
 	docker-compose -f services/docker-compose.yml --project-name ${SERVICE_PROJECT} up \
 		-d \
