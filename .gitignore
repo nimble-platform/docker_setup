@@ -4,3 +4,4 @@ prod/services/env_vars-prod
 prod/infra/keycloak/keycloak_secrets
 *.pyc
 *.pyo
+.vscode

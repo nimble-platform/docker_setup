@@ -5,38 +5,38 @@ services:
   #### MS Infrastructure ###
   ##########################
 
-  config-server-staging:
+  config-server:
     image: nimbleplatform/config-server:latest
     env_file:
       - env_vars
-#    ports:
-#      - "8888:8888"
+    ports:
+      - "8888:8888"
 
-  service-discovery-staging:
+  service-discovery:
     image: nimbleplatform/service-discovery:latest
     env_file:
       - env_vars
-#    ports:
-#      - "8761:8761"
+    ports:
+      - "8761:8761"
     depends_on:
-      - config-server-staging
+      - config-server
 
-  gateway-proxy-staging:
+  gateway-proxy:
     image: nimbleplatform/gateway-proxy:latest
     env_file:
       - env_vars
-#    ports:
-#      - "80:80"
+    ports:
+      - "80:80"
     depends_on:
-      - config-server-staging
-      - service-discovery-staging
+      - config-server
+      - service-discovery
 
-  hystrix-dashboard-staging:
+  hystrix-dashboard:
     image: nimbleplatform/hystrix-dashboard:latest
     env_file:
       - env_vars
-#    ports:
-#      - "9080:9080"
+    ports:
+      - "9080:9080"
     depends_on:
-      - config-server-staging
-      - service-discovery-staging
+      - config-server
+      - service-discovery

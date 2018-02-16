@@ -6,13 +6,13 @@ services:
   ##### Identity Service #####
   ############################
  
-  identity-service-staging:
+  identity-service:
     image: nimbleplatform/identity-service:latest
     env_file:
       - env_vars
       - env_vars-staging
     environment:
-      - POSTGRES_HOST=sl-eu-lon-2-portal.5.dblayer.com
+      - POSTGRES_HOST=sl-eu-lon-2-portal.1.dblayer.com
       - POSTGRES_PORT=21113
       - POSTGRES_DB=identitydb
       - POSTGRES_USER=admin
@@ -25,17 +25,17 @@ services:
   ## Business Process Service ##
   ##############################
 
-  business-process-service-staging:
+  business-process-service:
     image: nimbleplatform/business-process-service:latest
     env_file:
       - env_vars
       - env_vars-staging
     environment:
-      - BUSINESS_PROCESS_DB_HOST=sl-eu-lon-2-portal.5.dblayer.com
+      - BUSINESS_PROCESS_DB_HOST=sl-eu-lon-2-portal.1.dblayer.com
       - BUSINESS_PROCESS_DB_PORT=21113
       - BUSINESS_PROCESS_DB_NAME=businessprocessdb
       - BUSINESS_PROCESS_DB_USERNAME=admin
-      - CAMUNDA_DB_HOST=sl-eu-lon-2-portal.5.dblayer.com
+      - CAMUNDA_DB_HOST=sl-eu-lon-2-portal.1.dblayer.com
       - CAMUNDA_DB_PORT=21113
       - CAMUNDA_DB_NAME=camundadb
       - CAMUNDA_DB_USERNAME=admin
@@ -48,7 +48,7 @@ services:
   ####### Catalog Service ######  
   ##############################
   
-  catalog-service-srdc-staging:
+  catalog-service-srdc:
     image: nimbleplatform/catalogue-service:latest
 #    ports:
 #      - "10095:8095"
@@ -61,17 +61,17 @@ services:
   ###### Frontend Service #######
   ###############################
   
-  frontend-service-staging:
+  frontend-service:
     image: nimbleplatform/frontend-service:latest
 #    ports:
-#      - "9092:8080"
+#      - "8080:8080"
     env_file:
       - env_vars
       - env_vars-staging
     networks:
       - infra
   
-  frontend-service-sidecar-staging:
+  frontend-service-sidecar:
     image: nimbleplatform/sidecar:latest
 #    ports:
 #      - "9097:9097"
