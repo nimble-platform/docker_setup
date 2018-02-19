@@ -70,6 +70,8 @@ services:
       - env_vars-staging
     networks:
       - infra
+    depends_on:
+      - frontend-service-sidecar
   
   frontend-service-sidecar:
     image: nimbleplatform/sidecar:latest
