@@ -16,8 +16,8 @@ services:
       - POSTGRES_PORT=21736
       - POSTGRES_DB=identitydb
       - POSTGRES_USER=admin
-#    ports:
-#      - "9096:9096"
+    ports:
+      - "9096:9096"
     networks:
       - infra
 
@@ -26,7 +26,7 @@ services:
   ##############################
 
   business-process-service:
-    image: nimbleplatform/business-process-service:latest
+    image: nimbleplatform/business-process-service:staging
     env_file:
       - env_vars
       - env_vars-staging
@@ -39,8 +39,8 @@ services:
       - CAMUNDA_DB_PORT=21736
       - CAMUNDA_DB_NAME=camundadb
       - CAMUNDA_DB_USERNAME=admin
-#    ports:
-#      - "8085:8085"
+    ports:
+      - "8085:8085"
     networks:
       - infra
 
@@ -49,11 +49,12 @@ services:
   ##############################
   
   catalog-service-srdc:
-    image: nimbleplatform/catalogue-service:latest
-#    ports:
-#      - "10095:8095"
+    image: nimbleplatform/catalogue-service:staging
+    ports:
+      - "10095:8095"
     env_file:
       - env_vars
+      - env_vars-staging
     networks:
       - infra
 
@@ -62,9 +63,9 @@ services:
   ###############################
   
   frontend-service:
-    image: nimbleplatform/frontend-service:latest
-#    ports:
-#      - "8080:8080"
+    image: nimbleplatform/frontend-service:staging
+    ports:
+      - "8081:8080"
     env_file:
       - env_vars
       - env_vars-staging
@@ -75,8 +76,8 @@ services:
   
   frontend-service-sidecar:
     image: nimbleplatform/sidecar:latest
-#    ports:
-#      - "9097:9097"
+    ports:
+      - "9097:9097"
     env_file:
       - env_vars
       - env_vars-staging
