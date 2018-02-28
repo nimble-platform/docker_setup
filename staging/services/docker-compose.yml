@@ -6,18 +6,18 @@ services:
   ##### Identity Service #####
   ############################
  
-  identity-service-staging:
-    image: nimbleplatform/identity-service:latest
+  identity-service:
+    image: nimbleplatform/identity-service:staging
     env_file:
       - env_vars
       - env_vars-staging
     environment:
-      - POSTGRES_HOST=sl-eu-lon-2-portal.5.dblayer.com
-      - POSTGRES_PORT=21113
+      - POSTGRES_HOST=sl-eu-lon-2-portal.1.dblayer.com
+      - POSTGRES_PORT=21736
       - POSTGRES_DB=identitydb
       - POSTGRES_USER=admin
-#    ports:
-#      - "9096:9096"
+    ports:
+      - "9096:9096"
     networks:
       - infra
 
@@ -25,22 +25,22 @@ services:
   ## Business Process Service ##
   ##############################
 
-  business-process-service-staging:
-    image: nimbleplatform/business-process-service:latest
+  business-process-service:
+    image: nimbleplatform/business-process-service:staging
     env_file:
       - env_vars
       - env_vars-staging
     environment:
-      - BUSINESS_PROCESS_DB_HOST=sl-eu-lon-2-portal.5.dblayer.com
-      - BUSINESS_PROCESS_DB_PORT=21113
+      - BUSINESS_PROCESS_DB_HOST=sl-eu-lon-2-portal.1.dblayer.com
+      - BUSINESS_PROCESS_DB_PORT=21736
       - BUSINESS_PROCESS_DB_NAME=businessprocessdb
       - BUSINESS_PROCESS_DB_USERNAME=admin
-      - CAMUNDA_DB_HOST=sl-eu-lon-2-portal.5.dblayer.com
-      - CAMUNDA_DB_PORT=21113
+      - CAMUNDA_DB_HOST=sl-eu-lon-2-portal.1.dblayer.com
+      - CAMUNDA_DB_PORT=21736
       - CAMUNDA_DB_NAME=camundadb
       - CAMUNDA_DB_USERNAME=admin
-#    ports:
-#      - "8085:8085"
+    ports:
+      - "8085:8085"
     networks:
       - infra
 
@@ -48,12 +48,13 @@ services:
   ####### Catalog Service ######  
   ##############################
   
-  catalog-service-srdc-staging:
-    image: nimbleplatform/catalogue-service:latest
-#    ports:
-#      - "10095:8095"
+  catalog-service-srdc:
+    image: nimbleplatform/catalogue-service:staging
+    ports:
+      - "10095:8095"
     env_file:
       - env_vars
+      - env_vars-staging
     networks:
       - infra
 
@@ -61,20 +62,22 @@ services:
   ###### Frontend Service #######
   ###############################
   
-  frontend-service-staging:
-    image: nimbleplatform/frontend-service:latest
-#    ports:
-#      - "9092:8080"
+  frontend-service:
+    image: nimbleplatform/frontend-service:staging
+    ports:
+      - "8081:8080"
     env_file:
       - env_vars
       - env_vars-staging
     networks:
       - infra
+    depends_on:
+      - frontend-service-sidecar
   
-  frontend-service-sidecar-staging:
+  frontend-service-sidecar:
     image: nimbleplatform/sidecar:latest
-#    ports:
-#      - "9097:9097"
+    ports:
+      - "9097:9097"
     env_file:
       - env_vars
       - env_vars-staging

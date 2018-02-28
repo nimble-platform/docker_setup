@@ -1,4 +1,4 @@
 SPRING_PROFILES_ACTIVE=docker,dev
-CONFIG_SERVER_URI=http://config-server-staging:8888
-DISCOVERY_SERVER_URI=http://service-discovery-staging:8761
+CONFIG_SERVER_URI=http://config-server:8888
+DISCOVERY_SERVER_URI=http://service-discovery:8761
 DISCOVERY_PREFER_IP=false
