@@ -3,6 +3,7 @@ version: '2'
 services:
   marmotta:
     image: nimbleplatform/marmotta
+    restart: always
     volumes:
        - marmotta-config:/var/lib/marmotta/
     environment:
