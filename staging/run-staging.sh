@@ -6,7 +6,7 @@ SERVICE_PROJECT=nimbleservices-staging
 # run infrastructure
 if [[ "$1" = "infra" ]]; then
 
-	docker-compose -f infra/docker-compose.yml --project-name ${INFRA_PROJECT} up --remove-orphans --build -d
+	docker-compose -f infra/docker-compose.yml --project-name ${INFRA_PROJECT} up --build -d
 
 elif [[ "$1" = "keycloak" ]]; then
 
@@ -31,7 +31,7 @@ elif [[ "$1" = "services" ]]; then
 		-d \
 		--build \
 		--force-recreate \
-		identity-service business-process-service frontend-service catalog-service-srdc frontend-service-sidecar
+		identity-service business-process-service frontend-service catalog-service-srdc frontend-service-sidecar search-service
 
 elif [[ "$1" = "start" ]]; then
 
