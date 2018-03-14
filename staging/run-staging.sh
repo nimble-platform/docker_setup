@@ -30,7 +30,6 @@ elif [[ "$1" = "services" ]]; then
 	docker-compose -f services/docker-compose.yml --project-name ${SERVICE_PROJECT} up \
 		-d \
 		--build \
-		--force-recreate \
 		identity-service business-process-service frontend-service catalog-service-srdc frontend-service-sidecar search-service
 
 elif [[ "$1" = "start" ]]; then
