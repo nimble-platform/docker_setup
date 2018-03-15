@@ -49,7 +49,7 @@ services:
   ##############################
 
   search-service:
-    image: nimbleplatform/catalog-search-service:staging
+    image: nimbleplatform/catalog-search-service:latest
     ports:
       - "10096:8090"
     env_file:
