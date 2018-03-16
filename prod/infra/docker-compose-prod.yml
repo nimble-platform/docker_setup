@@ -11,14 +11,6 @@ services:
       - env_vars
     ports:
       - "8888:8888"
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 50M
-        reservations:
-          cpus: '0.25'
-          memory: 20M
 
   service-discovery:
     image: nimbleplatform/service-discovery:latest
