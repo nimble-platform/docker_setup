@@ -35,7 +35,7 @@ services:
   ##############################
   
   catalog-service-srdc:
-    image: nimbleplatform/catalogue-service:latest
+    image: nimbleplatform/catalogue-service-micro:latest
     ports:
       - "10095:8095"
     env_file:
