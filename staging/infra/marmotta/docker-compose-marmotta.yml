@@ -1,4 +1,4 @@
-version: '2'
+ssversion: '2'
 
 services:
   marmotta:

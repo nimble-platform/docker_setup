@@ -9,16 +9,11 @@ services:
     expose:
       - "8080"
     ports:
-      - "443:80"
+      - "80:80"
     networks:
       - nimble-cloud-infra
-      - jenkins
-
 
 networks:
   nimble-cloud-infra:
     external:
       name: nimbleinfrastaging_default
-  jenkins:
-    external:
-      name: jenkins_default

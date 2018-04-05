@@ -22,6 +22,17 @@ def deploy_services():
         run('./run-staging.sh services')
 
 @task
+def nginx_restart():
+    with cd('/srv/nimble-staging/infra/nginx'):
+        run('docker-compose --project-name nginx up --build -d --force-recreate')
+
+
+@task()
+def nginx_logs():
+    with cd('/srv/nimble-staging/infra/nginx'):
+        run('docker-compose logs -f --tail 100')
+
+@task
 def update_files():
     run('mkdir -p ' + WORKING_DIR)
     put('.', WORKING_DIR)
