@@ -14,6 +14,7 @@ def deploy_infra():
         run('./run-staging.sh marmotta')
         run('./run-staging.sh elk')
 
+
 @task
 def deploy_services():
     update_files()
@@ -21,8 +22,10 @@ def deploy_services():
     with cd(WORKING_DIR):
         run('./run-staging.sh services')
 
+
 @task
-def nginx_restart():
+def nginx_update():
+    update_files()
     with cd('/srv/nimble-staging/infra/nginx'):
         run('docker-compose --project-name nginx up --build -d --force-recreate')
 
@@ -31,6 +34,7 @@ def nginx_restart():
 def nginx_logs():
     with cd('/srv/nimble-staging/infra/nginx'):
         run('docker-compose logs -f --tail 100')
+
 
 @task
 def update_files():
