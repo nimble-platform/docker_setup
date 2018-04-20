@@ -1,0 +1,42 @@
+version: '2'
+services:
+
+    gost-db:
+        image: geodan/gost-db:0.5
+        restart: always
+        volumes:
+          - postgis:/var/lib/postgresql/data
+        environment:
+          POSTGRES_DB: gost
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
+    gost:
+        image: geodan/gost:0.5
+        restart: always
+        ports:
+          - "8083:8080"
+        volumes:
+          - gost_conf:/gostserver/config
+        depends_on:
+          - gost-db
+        environment:
+            gost_db_host: gost-db
+#            GOST_SERVER_EXTERNAL_URI: http://${HOSTNAME}:8082
+#            GOST_SERVER_MAX_ENTITIES: 200
+
+    gost-dashboard:
+        image: geodan/gost-dashboard:0.5
+        restart: always
+        ports:
+          - "8084:8080"
+        depends_on:
+          - gost
+volumes:
+    postgis: {}
+    gost_conf: {}
+
+networks:
+  nimble-cloud-infra:
+    external:
+      name: nimbleinfrastaging_default
