@@ -12,8 +12,8 @@ def deploy_infra():
         run('./run-staging.sh infra')
         run('./run-staging.sh keycloak')
         run('./run-staging.sh marmotta')
-        run('./run-staging.sh elk')
-        run('./run-staging.sh gost')
+        # run('./run-staging.sh elk')
+        # run('./run-staging.sh gost')
 
 
 @task

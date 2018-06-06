@@ -1,8 +1,8 @@
-ssversion: '2'
+version: '2'
 
 services:
   marmotta:
-    image: nimbleplatform/marmotta
+    image: nimbleplatform/marmotta:staging
     volumes:
        - marmotta-config:/var/lib/marmotta/
     environment:

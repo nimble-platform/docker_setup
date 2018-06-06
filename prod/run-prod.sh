@@ -28,10 +28,6 @@ elif [[ "$1" = "elk" ]]; then
 
 	docker-compose -f infra/elk-prod/docker-compose-elk.yml --project-name nimbleinfra-prod up --build -d
 
-elif [[ "$1" = "start" ]]; then
-
-	start_all
-
 elif [[ "$1" = "restart-single" ]]; then
 
 	docker-compose -f services/docker-compose-prod.yml \
