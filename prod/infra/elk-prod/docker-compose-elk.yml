@@ -11,6 +11,7 @@ services:
       - elastic-volume:/usr/share/elasticsearch/data
     environment:
       ES_JAVA_OPTS: "-Xmx1024m -Xms1024m"
+    mem_limit: 1000m
     networks:
       - infra
 
