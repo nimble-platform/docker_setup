@@ -11,6 +11,8 @@ services:
     env_file:
       - env_vars
       - env_vars-prod  # stores secretes and deployment specific information on the host machine.
+    environment:
+      - _JAVA_OPTIONS=-Xmx768m -Xms50m
     ports:
       - "9096:9096"
     networks:
@@ -25,6 +27,8 @@ services:
     env_file:
       - env_vars
       - env_vars-prod  # stores secretes and deployment specific information on the host machine.
+    environment:
+      - _JAVA_OPTIONS=-Xmx1536m -Xms50m
     ports:
       - "8085:8085"
     networks:
@@ -41,6 +45,8 @@ services:
     env_file:
       - env_vars
       - env_vars-prod  # stores secretes and deployment specific information on the host machine.
+    environment:
+      - _JAVA_OPTIONS=-Xmx1536m -Xms50m
     networks:
       - infra
 
@@ -59,6 +65,8 @@ services:
       - "MARMOTTA_URL=https://nimble-platform.salzburgresearch.at/marmotta"
       - "LANGUAGE_LABEL=http://www.w3.org/2004/02/skos/core#prefLabel"
       - "CATALOG_SEARCH_CONFIG:/resources/sqpConfiguration-productive.xml"
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m
     networks:
       - infra
 
@@ -73,6 +81,8 @@ services:
     env_file:
       - env_vars
       - env_vars-prod
+    environment:
+      _JAVA_OPTIONS: -Xmx512m -Xms50m
     networks:
       - infra
   
@@ -89,6 +99,7 @@ services:
       SIDECAR_APP_PORT: 8080 # use internal port of network (not publicly exposed)
       SIDECAR_APP_HEALTH_URI: http://frontend-service:8080/health.json
       SIDECAR_APP_HOMEPAGE_URI: http://frontend-service:8080/
+      _JAVA_OPTIONS: -Xmx768m -Xms50m
     networks:
       - infra
 
@@ -102,6 +113,8 @@ services:
     env_file:
       - env_vars
       - env_vars-prod
+    environment:
+      _JAVA_OPTIONS: -Xmx768m -Xms50m
     ports:
       - "9099:9099"
     networks:

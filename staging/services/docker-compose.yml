@@ -16,6 +16,8 @@ services:
       - POSTGRES_PORT=21736
       - POSTGRES_DB=identitydb
       - POSTGRES_USER=admin
+      - _JAVA_OPTIONS=-Xmx768m -Xms50m
+    mem_limit: 1000m
     ports:
       - "9096:9096"
     networks:
@@ -39,6 +41,8 @@ services:
       - CAMUNDA_DB_PORT=21736
       - CAMUNDA_DB_NAME=camundadb
       - CAMUNDA_DB_USERNAME=admin
+      - _JAVA_OPTIONS=-Xmx1536m -Xms50m
+    mem_limit: 2000m
     ports:
       - "8085:8085"
     networks:
@@ -53,7 +57,8 @@ services:
     ports:
       - "10095:8095"
     environment:
-      - ES_JAVA_OPTS="-Xms512m -Xmx512m"
+      - _JAVA_OPTIONS=-Xmx1536m -Xms50m
+    mem_limit: 2000m
     env_file:
       - env_vars
       - env_vars-staging
@@ -75,6 +80,14 @@ services:
       - "MARMOTTA_URL=https://nimble-platform.salzburgresearch.at/marmotta"
       - "LANGUAGE_LABEL=http://www.w3.org/2004/02/skos/core#prefLabel"
       - "CATALOG_SEARCH_CONFIG:/resources/sqpConfiguration-staging.xml"
+      - XX:MinHeapFreeRatio=10
+      - XX:MaxHeapFreeRatio=70
+      - XX:CompressedClassSpaceSize=64m
+      - XX:ReservedCodeCacheSize=64m
+      - XX:MaxMetaspaceSize=256m
+      - Xms256m
+      - Xmx750m
+    mem_limit: 1000m
     networks:
       - infra
 
@@ -89,6 +102,9 @@ services:
     env_file:
       - env_vars
       - env_vars-staging
+    environment:
+      _JAVA_OPTIONS: -Xmx512m -Xms50m
+    mem_limit: 1000m
     networks:
       - infra
     depends_on:
@@ -107,6 +123,8 @@ services:
       SIDECAR_APP_PORT: 8080 # use internal port of network (not publicly exposed)
       SIDECAR_APP_HEALTH_URI: http://frontend-service:8080/health.json
       SIDECAR_APP_HOMEPAGE_URI: http://frontend-service:8080/
+      _JAVA_OPTIONS: -Xmx768m -Xms50m
+    mem_limit: 1000m
     networks:
       - infra
 
@@ -116,10 +134,12 @@ services:
 
   data-channel-service:
     image: nimbleplatform/data-channel-service:staging
-    restart: always
     env_file:
       - env_vars
       - env_vars-staging
+    environment:
+      _JAVA_OPTIONS: -Xmx768m -Xms50m
+    mem_limit: 1000m
     ports:
       - "9099:9099"
     networks:
