@@ -29,8 +29,8 @@ services:
 
   kibana:
     build: ./kibana/
-#    ports:
-#      - "5601:5601"
+    ports:
+      - "5601:5601"
     environment:
       _JAVA_OPTIONS: -Xmx768m -Xms50m
     mem_limit: 1000m
