@@ -6,3 +6,4 @@ CREATE DATABASE ubldb WITH OWNER admin;
 CREATE DATABASE modalmldb WITH OWNER admin;
 CREATE DATABASE catalogsyncdb WITH OWNER admin;
 CREATE DATABASE marmottadb WITH OWNER admin;
+CREATE DATABASE datachanneldb WITH OWNER admin;

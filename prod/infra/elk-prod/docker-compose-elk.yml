@@ -11,6 +11,7 @@ services:
       - elastic-volume:/usr/share/elasticsearch/data
     environment:
       ES_JAVA_OPTS: "-Xmx1024m -Xms1024m"
+    memswap_limit: 2000m
     networks:
       - infra
 
@@ -18,6 +19,9 @@ services:
     build: ./logstash/
     ports:
       - "5000:5000"
+    environment:
+      _JAVA_OPTIONS: -Xmx768m -Xms50m
+    mem_limit: 1000m
     depends_on:
       - elasticsearch
     networks:
@@ -27,6 +31,9 @@ services:
     build: ./kibana/
 #    ports:
 #      - "5601:5601"
+    environment:
+      _JAVA_OPTIONS: -Xmx768m -Xms50m
+    mem_limit: 1000m
     depends_on:
       - elasticsearch
     networks:
