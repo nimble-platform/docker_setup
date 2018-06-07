@@ -92,6 +92,21 @@ services:
     networks:
       - infra
 
+  ###############################
+  #### Data Channel Service #####
+  ###############################
+
+  data-channel-service:
+    image: nimbleplatform/data-channel-service:latest
+    restart: always
+    env_file:
+      - env_vars
+      - env_vars-prod
+    ports:
+      - "9099:9099"
+    networks:
+      - infra
+
 networks:
   infra:
     external:
