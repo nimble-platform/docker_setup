@@ -67,6 +67,7 @@ services:
       - "LANGUAGE_LABEL=http://www.w3.org/2004/02/skos/core#prefLabel"
       - "CATALOG_SEARCH_CONFIG:/resources/sqpConfiguration-productive.xml"
       - "_JAVA_OPTIONS=-Xmx256m -Xms50m"
+    mem_limit: 1000m
     networks:
       - infra
 

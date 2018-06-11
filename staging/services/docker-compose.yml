@@ -77,7 +77,7 @@ services:
       - env_vars
     environment:
       - "SPRING_PROFILES_ACTIVE=productive"
-      - "MARMOTTA_URL=https://nimble-platform.salzburgresearch.at/marmotta"
+      - "MARMOTTA_URL=http://nimble-staging.salzburgresearch.at/marmotta"
       - "LANGUAGE_LABEL=http://www.w3.org/2004/02/skos/core#prefLabel"
       - "CATALOG_SEARCH_CONFIG:/resources/sqpConfiguration-staging.xml"
       - "_JAVA_OPTIONS=-Xmx512m -Xms50m"
