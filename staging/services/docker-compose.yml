@@ -80,13 +80,7 @@ services:
       - "MARMOTTA_URL=https://nimble-platform.salzburgresearch.at/marmotta"
       - "LANGUAGE_LABEL=http://www.w3.org/2004/02/skos/core#prefLabel"
       - "CATALOG_SEARCH_CONFIG:/resources/sqpConfiguration-staging.xml"
-      - XX:MinHeapFreeRatio=10
-      - XX:MaxHeapFreeRatio=70
-      - XX:CompressedClassSpaceSize=64m
-      - XX:ReservedCodeCacheSize=64m
-      - XX:MaxMetaspaceSize=256m
-      - Xms256m
-      - Xmx750m
+      - "_JAVA_OPTIONS=-Xmx512m -Xms50m"
     mem_limit: 1000m
     networks:
       - infra
