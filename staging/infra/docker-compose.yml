@@ -25,6 +25,8 @@ services:
     image: nimbleplatform/gateway-proxy:latest
     env_file:
       - env_vars
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m
 #    ports:
 #      - "80:80"
     depends_on:
