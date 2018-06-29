@@ -2,7 +2,8 @@ version: '3'
 
 services:
   keycloak:
-     image: jboss/keycloak:3.4.3.Final
+     build: .
+     #image: jboss/keycloak:3.4.3.Final
      env_file:
        - keycloak_default_env
        - keycloak_secrets
