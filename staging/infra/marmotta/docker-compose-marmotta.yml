@@ -19,9 +19,7 @@ services:
       - marmotta-db
 
   marmotta-db:
-    image: postgres:9.6.6
-    ports:
-      - "5432:5432"
+    image: postgres:9.6.9
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_DB=marmottadb
