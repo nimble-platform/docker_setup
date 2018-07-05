@@ -190,6 +190,22 @@ services:
     networks:
       - infra
 
+  ###############################
+  ## Data Aggregation Service ###
+  ###############################
+
+  data-aggregation-service:
+    image: nimbleplatform/data-aggregation-service:staging
+    restart: always
+    env_file:
+      - env_vars
+      - env_vars-staging
+    environment:
+      _JAVA_OPTIONS: -Xmx64m -Xms50m
+    mem_limit: 400m
+    networks:
+      - infra
+
 networks:
   infra:
     external:
