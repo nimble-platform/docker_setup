@@ -1,5 +1,6 @@
 CREATE DATABASE identitydb WITH OWNER admin;
 CREATE DATABASE keycloak WITH OWNER admin;
+CREATE DATABASE keycloak_k8s WITH OWNER admin;
 CREATE DATABASE catalogcategorydb WITH OWNER admin;
 CREATE DATABASE camundadb WITH OWNER admin;
 CREATE DATABASE businessprocessdb WITH OWNER admin;
