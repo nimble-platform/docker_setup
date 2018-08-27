@@ -1,0 +1,32 @@
+{
+  "realm" : "Playground",
+  "users" : [ {
+    "id" : "98cd590c-2c61-428c-beed-477d0687d881",
+    "createdTimestamp" : 1534483778162,
+    "username" : "john",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "v+xUPukLBLFRS3JjuOijypUAuOGPdo55ccJZcWrea6DRqZz6eX2OeI/rvsMVWQ/VjDsG/FlJljidTwZ85smgtw==",
+      "salt" : "PPOZQMBYeX3bG3QVeTnNGg==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1534483791388,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "uma_authorization", "offline_access" ],
+    "clientRoles" : {
+      "react-demo-client" : [ "demo_role", "ecosystem_admin" ],
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ]
+}
