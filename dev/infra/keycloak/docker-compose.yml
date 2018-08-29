@@ -26,8 +26,8 @@ services:
     - "-Dkeycloak.migration.dir=/migration/"
     - "-Dkeycloak.migration.strategy=IGNORE_EXISTING"
     volumes:
-    - ./migration/:/migration/
     - ./theme/:/opt/jboss/keycloak/themes/nimble-theme
+    - ./migration/:/migration/
     depends_on:
     - keycloak-db
 
