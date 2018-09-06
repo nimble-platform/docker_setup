@@ -24,14 +24,14 @@ services:
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_PASSWORD: "_NIMBLE_2016_"
     volumes:
       - wp_data:/var/www/html
 
   ftp:
     image: stilliard/pure-ftpd:latest
     environment:
-      PUBLICHOST: "localhost"
+      PUBLICHOST: "0.0.0.0"
       FTP_USER_NAME: "wordpress"
       FTP_USER_PASS: "_NIMBLE_2016_"
       FTP_USER_HOME: "/var/www/html"
@@ -39,7 +39,6 @@ services:
       FTP_USER_GID: 33
     volumes:
       - wp_data:/var/www/html
-    #      - ./data/ftp:/etc/ssl/private
     ports:
       - "21:21"
       - "30000:30000"

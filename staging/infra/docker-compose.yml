@@ -9,6 +9,8 @@ services:
     image: nimbleplatform/config-server:latest
     env_file:
       - env_vars
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m
     ports:
       - "8888:8888"
 
@@ -16,6 +18,8 @@ services:
     image: nimbleplatform/service-discovery:latest
     env_file:
       - env_vars
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m
     ports:
       - "8761:8761"
     depends_on:

@@ -1,5 +1,6 @@
 from fabric.api import task, local, put, run
 from fabric.context_managers import cd
+from fabric.contrib.project import rsync_project
 
 WORKING_DIR = '/srv/nimble-staging'
 
@@ -40,4 +41,5 @@ def nginx_logs():
 @task
 def update_files():
     run('mkdir -p ' + WORKING_DIR)
-    put('.', WORKING_DIR)
+    rsync_project(local_dir='.', remote_dir=WORKING_DIR,
+                  extra_opts='--progress', exclude=['services/env_vars-staging', '.git', '*.pyc', '.idea', '__pycache__'])
