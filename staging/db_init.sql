@@ -8,4 +8,4 @@ CREATE DATABASE ubldb WITH OWNER admin;
 CREATE DATABASE modalmldb WITH OWNER admin;
 CREATE DATABASE catalogsyncdb WITH OWNER admin;
 CREATE DATABASE catalogsyncdbstaging WITH OWNER admin;
-CREATE DATABASE datachanneldb WITHg OWNER admin;
+CREATE DATABASE datachanneldb WITH OWNER admin;
