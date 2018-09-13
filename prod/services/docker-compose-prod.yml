@@ -148,7 +148,7 @@ services:
     restart: always
     env_file:
       - env_vars
-      - env_vars-staging
+      - env_vars-prod
     environment:
       _JAVA_OPTIONS: -Xmx64m -Xms50m
     mem_limit: 200m
