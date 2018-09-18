@@ -217,8 +217,11 @@ services:
       - env_vars
       - env_vars-staging
     environment:
-      _JAVA_OPTIONS: -Xmx64m -Xms50m
-    mem_limit: 400m
+      PORT: 9098
+      _JAVA_OPTIONS: -Xmx256m -Xms128m
+    mem_limit: 800m
+    ports:
+      - "9098:9098"
     networks:
       - infra
 
