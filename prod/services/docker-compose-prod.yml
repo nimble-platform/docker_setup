@@ -122,6 +122,23 @@ services:
       - infra
 
   ###############################
+  ######### Data Pipes ##########
+  ###############################
+
+  data-pipes:
+    image: nimbleplatform/data-pipes:latest
+    env_file:
+      - env_vars
+      - env_vars-prod
+    environment:
+      _JAVA_OPTIONS: -Xmx256m -Xms50m
+    mem_limit: 500m
+    ports:
+      - "8082:8080"
+    networks:
+      - infra
+
+  ###############################
   ## Tracking Analysis Service ##
   ###############################
 
