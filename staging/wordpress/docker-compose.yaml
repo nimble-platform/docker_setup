@@ -37,6 +37,7 @@ services:
       FTP_USER_HOME: "/var/www/html"
       FTP_USER_UID: 33
       FTP_USER_GID: 33
+      ADDED_FLAGS: "-c 50"
     volumes:
       - wp_data:/var/www/html
     ports:
