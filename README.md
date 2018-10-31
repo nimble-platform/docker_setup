@@ -40,7 +40,7 @@ These componentes are part of the virtual network with the name `nimbleinfraprod
 	* **Configuration**: `prod/infra/docker-compose-marmotta.yml`
 	* **Container Name**: nimbleinfraprod\_marmotta\_1 
 * Keycloak
-	* ** Configuration**: `prod/keycloak/docker-compose-prod.yml`
+	* **Configuration**: `prod/keycloak/docker-compose-prod.yml`
 	* **Container Name**: nimbleinfraprod\_keycloak\_1 
 * ELK Stack
 	* **Configuration**: `prod/elk-prod/docker-compose-elk.yml`
@@ -110,7 +110,57 @@ not yet active
 
 * Location: `dev`
 
-not yet active
+Recommended System Requirements (for Docker)
+ * 16GB Memory
+ * 4 CPUs
+
+Minimum System Requirements (for Docker)
+ * 10GB Memory / 2 CPUs
+
+A small utility script can be found in `run-dev.sh`, which provides the following functionalies. More details for the startup are provided belows.
+
+* `run-dev.sh infrastructure`: starts all microservice infrastructure components
+* `run-dev.sh services`: starts all nimble core services (note: make sure the infastructue is set up appropriately)
+* `run-dev.sh start`: starts infrastructure and services (not recommended at the first time)
+* `run-dev.sh stop`: stop all services
+
+The default port mappings from the `infra/docker-compose.yml` and `services/docker-compose.yml` files are used, but can be adapted depending on the local system requirements to avoid port binding errors.
+
+It is recommended to start the infrastructure and the services in separate terminals for easier debugging.
+
+### Starting microservice infrastructure
+
+`./run-dev.sh infrastructure`: log output will be shown in the terminal
+
+before continue to run services, check the infrastructure components:
+  * `docker ps` should show 6 new containers up and running
+	* `nimbleinfra_config-server_1` provides infrastructure configuration properties
+	* http://localhost:8888/env => list configuration properties
+	* `nimbleinfra_service-discovery_1` registeres all microservices
+	* http://localhost:8761/eureka/apps => list registered apps (only "gateway-proxy" in the beginning)
+	* `nimbleinfra_gateway-proxy_1` provides mappings to all the services
+	* http://localhost/mappings => list of mappings provided by the proxy
+	* `nimbleinfra_keycloak_1` manages identities and access control
+	* http://localhost:8080 => Open Administration Console, login with `admin` and password `nimbleplatform`
+	* https://localhost:8443 => same, but HTTPS
+	* localhost:9999 => not used? if not, why exposed?
+	* `nimbleinfra_keycloak-db_1` postgres db used by keycloak
+
+### Starting the NIMBLE core services
+
+`./run-dev.sh services`: log output will be shown in the terminal
+
+  * `docker ps` should show 8 additional containers up and running
+	* nimbleservices_identity-service_1
+	* nimbleservices_identity-service-db_1
+	* nimbleservices_business-process-service_1
+	* nimbleservices_business-process-service-db_1
+	* nimbleservices_camunda-db_1
+	* nimbleservices_catalog-service-srdc_1
+	* nimbleservices_frontend-service-sidecar_1
+	* nimbleservices_frontend-service_1
+	* http://localhost:9092/ => Access the NIMBLE Frontend directly
+	* http://localhost/frontend => Access to the NIMBLE Frontend via Gateway Proxy
 
 ## Appendix
 

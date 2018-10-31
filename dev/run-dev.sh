@@ -93,6 +93,9 @@ else
     echo "  infrastructure to start only infastructure components"
     echo "  services to start actual services"
     echo "  start to start everything"
+    echo "  start-no-update to start everything, but without updating the images"
     echo "  stop to stop everything"
+    echo "  down to stop and remove everything"
+    echo "  services-logs to get the log output from the nimble core services"
     exit 2
 fi

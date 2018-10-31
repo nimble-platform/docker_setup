@@ -11,6 +11,8 @@ services:
       - env_vars
     ports:
       - "8888:8888"
+    environment:
+      _JAVA_OPTIONS: -Xmx256m -Xms50m
 
   service-discovery:
     image: nimbleplatform/service-discovery:latest
@@ -20,42 +22,36 @@ services:
       - "8761:8761"
     depends_on:
       - config-server
+    environment:
+      _JAVA_OPTIONS: -Xmx256m -Xms50m
 
   gateway-proxy:
     image: nimbleplatform/gateway-proxy:latest
     env_file:
       - env_vars
     ports:
-      - "443:80"
+      - "80:80"
     depends_on:
       - config-server
       - service-discovery
-
-  hystrix-dashboard:
-    image: nimbleplatform/hystrix-dashboard:latest
-    env_file:
-      - env_vars
-    ports:
-      - "9080:9080"
-    depends_on:
-      - config-server
-      - service-discovery
+    environment:
+      _JAVA_OPTIONS: -Xmx256m -Xms50m
 
   ##########################
   ######## Keycloak ########
   ##########################
 
   keycloak:
-    image: jboss/keycloak-postgres:3.4.3.Final
+    image: jboss/keycloak:3.4.3.Final
     env_file:
       - keycloak/keycloak_default_env
       - keycloak/keycloak_secrets
     links:
       - keycloak-db:postgres
     ports:
-      - "10096:8080"
-      - "9999:9990"
-      - "8088:8443"
+      - "8080:8080"
+      # - "9999:9999" # keycloak federation port - not used in local dev setup
+      - "8443:8443"
     volumes:
       - ./data:/data
     depends_on:

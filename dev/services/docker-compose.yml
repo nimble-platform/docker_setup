@@ -30,6 +30,8 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=changeme
       - POSTGRES_DB=identityDB
+      - _JAVA_OPTIONS=-Xmx768m -Xms50m
+
     networks:
       - identity-backend
 
@@ -52,15 +54,15 @@ services:
       - CAMUNDA_DB_NAME=camunda
       - CAMUNDA_DB_USERNAME=postgres
       - CAMUNDA_DB_PASSWORD=postgres
+      - _JAVA_OPTIONS=-Xmx1536m -Xms50m
     ports:
       - "8085:8085"
     networks:
       - infra
       - business-process-backend
-    restart:
-      always
     depends_on:
       - business-process-service-db
+      - camunda-db
 
   business-process-service-db:
     image: postgres:9.6.3
@@ -89,6 +91,7 @@ services:
   ##############################
   
   catalog-service-srdc:
+    ##image: nimbleplatform/catalogue-service-micro:latest ???
     image: nimbleplatform/catalogue-service:latest
     ports:
       - "10095:8095"
@@ -97,6 +100,8 @@ services:
     networks:
       - infra
       - catalog-backend
+    environment:
+      - _JAVA_OPTIONS=-Xmx1536m -Xms50m
 
   ###############################
   ###### Frontend Service #######
