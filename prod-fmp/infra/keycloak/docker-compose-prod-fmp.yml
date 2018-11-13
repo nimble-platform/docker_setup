@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  keycloak:
+     image: jboss/keycloak:3.4.3.Final
+     env_file:
+       - keycloak_default_env
+       - keycloak_secrets
+     environment:
+       - PROXY_ADDRESS_FORWARDING=true
+     ports:
+       - "10098:9990"
+       - "10099:8443"
+     networks:
+       - nimble-cloud-infra
+
+networks:
+  nimble-cloud-infra:
+    external:
+      name: nimbleinfra-fmp-prod_default
