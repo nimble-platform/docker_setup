@@ -162,11 +162,26 @@ services:
       - env_vars
       - env_vars-dev
     environment:
-      PORT: 9098
-      _JAVA_OPTIONS: -Xmx256m -Xms128m
+      - PORT=9098
+      - _JAVA_OPTIONS=-Xmx256m -Xms128m
+      - TRUST_DB_HOST=trust-service-db
+      - TRUST_DB_NAME=trustdb
+      - TRUST_DB_USERNAME=postgres
+      - TRUST_DB_PASSWORD=admin123
     mem_limit: 800m
     ports:
       - "9098:9098"
+    depends_on:
+      - trust-service-db
+    networks:
+      - infra
+
+  trust-service-db:
+    image: postgres:9.6.3
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: trustdb
     networks:
       - infra
 
