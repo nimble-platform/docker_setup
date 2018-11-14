@@ -5,7 +5,7 @@ services:
   ############################
   ##### Identity Service #####
   ############################
- 
+
   identity-service:
     image: nimbleplatform/identity-service:latest
     env_file:
@@ -87,7 +87,7 @@ services:
   ##############################
   ####### Catalog Service ######  
   ##############################
-  
+
   catalog-service-srdc:
     image: nimbleplatform/catalogue-service:latest
     ports:
@@ -101,7 +101,7 @@ services:
   ###############################
   ###### Frontend Service #######
   ###############################
-  
+
   frontend-service:
     image: nimbleplatform/frontend-service:latest
     ports:
@@ -110,7 +110,7 @@ services:
       - env_vars
     networks:
       - infra
-  
+
   frontend-service-sidecar:
     image: nimbleplatform/sidecar:latest
     ports:

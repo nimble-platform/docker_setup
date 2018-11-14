@@ -33,17 +33,17 @@ elif [[ "$1" = "marmotta" ]]; then
 #	update_images
 #	start_all
 #
-#elif [[ "$1" = "restart-single" ]]; then
-#
-#	# update services
-#	docker-compose -f services/docker-compose.yml --project-name ${SERVICE_PROJECT} pull $2
-#
-#	# restart service
-#	docker-compose -f services/docker-compose.yml --project-name ${SERVICE_PROJECT} up --build -d --force-recreate $2
-#
-#elif [[ "$1" = "services-logs" ]]; then
-#
-#	docker-compose -f services/docker-compose.yml --project-name ${SERVICE_PROJECT} logs -f
+elif [[ "$1" = "restart-single" ]]; then
+
+	# update services
+	docker-compose -f services/docker-compose-prod-fmp.yml --project-name ${SERVICE_PROJECT} pull $2
+
+	# restart service
+	docker-compose -f services/docker-compose-prod-fmp.yml --project-name ${SERVICE_PROJECT} up --build -d --force-recreate $2
+
+elif [[ "$1" = "services-logs" ]]; then
+
+	docker-compose -f services/docker-compose-prod-fmp.yml --project-name ${SERVICE_PROJECT} logs -f
 	
 else
     echo "Invalid usage"
