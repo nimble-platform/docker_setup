@@ -135,15 +135,14 @@ It is recommended to start the infrastructure and the services in separate termi
 before continue to run services, check the infrastructure components:
   * `docker ps` should show 6 new containers up and running
 	* `nimbleinfra_config-server_1` provides infrastructure configuration properties
-	* http://localhost:8888/env => list configuration properties
+		* http://localhost:8888/env => list configuration properties
 	* `nimbleinfra_service-discovery_1` registeres all microservices
-	* http://localhost:8761/eureka/apps => list registered apps (only "gateway-proxy" in the beginning)
+		* http://localhost:8761/eureka/apps => list registered apps (only "gateway-proxy" in the beginning)
 	* `nimbleinfra_gateway-proxy_1` provides mappings to all the services
-	* http://localhost/mappings => list of mappings provided by the proxy
+		* http://localhost/mappings => list of mappings provided by the proxy
 	* `nimbleinfra_keycloak_1` manages identities and access control
-	* http://localhost:8080 => Open Administration Console, login with `admin` and password `nimbleplatform`
-	* https://localhost:8443 => same, but HTTPS
-	* localhost:9999 => not used? if not, why exposed?
+		* http://localhost:8080 => Open Administration Console, login with `admin` and password `nimbleplatform`
+		* https://localhost:8443 => same, but HTTPS
 	* `nimbleinfra_keycloak-db_1` postgres db used by keycloak
 
 ### Starting the NIMBLE core services
@@ -151,16 +150,16 @@ before continue to run services, check the infrastructure components:
 `./run-dev.sh services`: log output will be shown in the terminal
 
   * `docker ps` should show 8 additional containers up and running
-	* nimbleservices_identity-service_1
-	* nimbleservices_identity-service-db_1
-	* nimbleservices_business-process-service_1
-	* nimbleservices_business-process-service-db_1
-	* nimbleservices_camunda-db_1
-	* nimbleservices_catalog-service-srdc_1
-	* nimbleservices_frontend-service-sidecar_1
-	* nimbleservices_frontend-service_1
+	* `nimbleservices_identity-service_1`
+	* `nimbleservices_identity-service-db_1`
+	* `nimbleservices_business-process-service_1`
+	* `nimbleservices_business-process-service-db_1`
+	* `nimbleservices_camunda-db_1`
+	* `nimbleservices_catalog-service-srdc_1`
+	* `nimbleservices_frontend-service-sidecar_1`
+	* `nimbleservices_frontend-service_1`
 		* http://localhost:8081/ => Access the NIMBLE Frontend directly
-	* http://localhost/frontend => Access to the NIMBLE Frontend via Gateway Proxy
+		* http://localhost/frontend => Access to the NIMBLE Frontend via Gateway Proxy
 
 ## Appendix
 
