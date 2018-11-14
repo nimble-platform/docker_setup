@@ -159,7 +159,7 @@ before continue to run services, check the infrastructure components:
 	* nimbleservices_catalog-service-srdc_1
 	* nimbleservices_frontend-service-sidecar_1
 	* nimbleservices_frontend-service_1
-	* http://localhost:9092/ => Access the NIMBLE Frontend directly
+		* http://localhost:8081/ => Access the NIMBLE Frontend directly
 	* http://localhost/frontend => Access to the NIMBLE Frontend via Gateway Proxy
 
 ## Appendix

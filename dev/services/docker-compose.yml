@@ -113,7 +113,7 @@ services:
   frontend-service:
     image: nimbleplatform/frontend-service:latest
     ports:
-      - "9092:8080"
+      - "8081:8080" # external port: 8081
     env_file:
       - env_vars
       - env_vars-dev
