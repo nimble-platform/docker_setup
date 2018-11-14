@@ -66,6 +66,10 @@ elif [[ "$1" = "stop" ]]; then
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices stop
 	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra stop
 
+elif [[ "$1" = "stop-services" ]]; then
+	
+	docker-compose -f services/docker-compose.yml --project-name nimbleservices stop
+
 elif [[ "$1" = "restart-single" ]]; then
 
 	docker-compose -f services/docker-compose.yml \
@@ -95,6 +99,7 @@ else
     echo "  start to start everything"
     echo "  start-no-update to start everything, but without updating the images"
     echo "  stop to stop everything"
+    echo "  stop-services to stop service, but leave infrastructure running"
     echo "  down to stop and remove everything"
     echo "  services-logs to get the log output from the nimble core services"
     exit 2
