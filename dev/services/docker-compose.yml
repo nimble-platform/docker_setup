@@ -15,6 +15,8 @@ services:
       - POSTGRES_HOST=identity-service-db
       - POSTGRES_PORT=5432
       - POSTGRES_DB=identityDB
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_JAAS_CONFIG=
     ports:
       - "9096:9096"
     networks:
@@ -61,7 +63,10 @@ services:
       - CAMUNDA_DB_NAME=camunda
       - CAMUNDA_DB_USERNAME=postgres
       - CAMUNDA_DB_PASSWORD=postgres
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_JAAS_CONFIG=
       - _JAVA_OPTIONS=-Xmx1536m -Xms50m
+    mem_limit: 2000m
     ports:
       - "8085:8085"
     networks:
@@ -168,6 +173,8 @@ services:
       - TRUST_DB_NAME=trustdb
       - TRUST_DB_USERNAME=postgres
       - TRUST_DB_PASSWORD=admin123
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_JAAS_CONFIG=
     mem_limit: 800m
     ports:
       - "9098:9098"

@@ -62,3 +62,24 @@ services:
     env_file:
       - keycloak/keycloak_default_env
       - keycloak/keycloak_secrets
+
+  ##############################
+  ######## Apache Kafka ########
+  # ( for internal messaging ) #
+  ##############################
+
+  kafka:
+    build: ./kafka-docker # derived from https://github.com/wurstmeister/kafka-docker
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_CREATE_TOPICS: "test:1:1"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    depends_on:
+      - zookeeper
+
+  zookeeper:
+    image: zookeeper:3.4
+    ports:
+      - "2181:2181"
