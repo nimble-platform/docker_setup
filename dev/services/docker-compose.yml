@@ -51,6 +51,11 @@ services:
       - BUSINESS_PROCESS_DB_NAME=businessprocessengine
       - BUSINESS_PROCESS_DB_USERNAME=postgres
       - BUSINESS_PROCESS_DB_PASSWORD=postgres
+      - UBL_DB_HOST=ubl-db
+      - UBL_DB_HOST_PORT=5432
+      - UBL_DB_NAME=ubldb
+      - UBL_DB_USERNAME=postgres
+      - UBL_DB_PASSWORD=postgres
       - CAMUNDA_DB_HOST=camunda-db
       - CAMUNDA_DB_PORT=5432
       - CAMUNDA_DB_NAME=camunda
@@ -65,6 +70,7 @@ services:
     depends_on:
       - business-process-service-db
       - camunda-db
+      - ubl-db
 
   business-process-service-db:
     image: postgres:9.6.3
@@ -85,6 +91,15 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: camunda
+    networks:
+      - business-process-backend
+
+  ubl-db:
+    image: postgres:9.6.3
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ubldb
     networks:
       - business-process-backend
 
