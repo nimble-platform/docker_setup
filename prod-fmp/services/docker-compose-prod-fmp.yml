@@ -170,7 +170,7 @@ services:
   ###############################
 
   trust-service:
-    image: nimbleplatform/trust-service:5.0.0
+    image: nimbleplatform/trust-service:5.0.1
     restart: always
     env_file:
       - env_vars
