@@ -1,0 +1,7 @@
+SPRING_PROFILES_ACTIVE=docker
+CONFIG_SERVER_URI=http://config-server:8888
+CONFIG_SERVER_FAILFAST=true
+DISCOVERY_ENABLED=true
+DISCOVERY_SERVER_URI=http://service-discovery:8761
+DISCOVERY_PREFER_IP=false
+LOGSTASH_URI=nimble.salzburgresearch.at:5000

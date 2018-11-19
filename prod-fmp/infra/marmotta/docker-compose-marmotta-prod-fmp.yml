@@ -1,0 +1,41 @@
+version: '2'
+
+services:
+  marmotta:
+    image: nimbleplatform/marmotta
+    restart: always
+    volumes:
+       - marmotta-config:/var/lib/marmotta/
+    environment:
+      - "database.user=admin"
+      - "database.url=jdbc:postgresql://marmotta-db:5432/marmottadb?prepareThreshold=3"
+      - "database.type=postgres"
+      - "kiwi.host=http://fmp-nimble.salzburgresearch.at/marmotta"
+      - "kiwi.contextg=http://fmp-nimble.salzburgresearch.at/marmotta"
+    env_file:
+      - ./env
+    ports:
+      - "8086:8080"
+    networks:
+      - nimble-cloud-infra
+    depends_on:
+      - marmotta-db
+
+  marmotta-db:
+    image: postgres:9.6.9
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=marmottadb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  marmotta-config:
+  pgdata:
+
+networks:
+  nimble-cloud-infra:
+    external:
+      name: nimbleinfra-fmp-prod_default
