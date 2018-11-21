@@ -76,6 +76,7 @@ services:
       - business-process-service-db
       - camunda-db
       - ubl-db
+      - catalog-service-srdc
 
   business-process-service-db:
     image: postgres:9.6.3
@@ -101,20 +102,23 @@ services:
 
   ubl-db:
     image: postgres:9.6.3
+    ports:
+      - "5436:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: ubldb
     networks:
       - business-process-backend
+      - catalog-backend
 
   ##############################
   ####### Catalog Service ######  
   ##############################
   
   catalog-service-srdc:
-    ##image: nimbleplatform/catalogue-service-micro:latest ???
-    image: nimbleplatform/catalogue-service:latest
+    image: nimbleplatform/catalogue-service-micro:5.0.1
+    # image: nimbleplatform/catalogue-service:latest
     ports:
       - "10095:8095"
     env_file:
@@ -124,7 +128,47 @@ services:
       - infra
       - catalog-backend
     environment:
+      - UBL_DB_HOST=ubl-db
+      - UBL_DB_HOST_PORT=5432
+      - UBL_DB_NAME=ubldb
+      - UBL_DB_USERNAME=postgres
+      - UBL_DB_PASSWORD=postgres
+      - CATEGORY_DB_HOST=category-db
+      - CATEGORY_DB_PORT=5432
+      - CATEGORY_DB_NAME=categorydb
+      - CATEGORY_DB_USERNAME=postgres
+      - CATEGORY_DB_PASSWORD=postgres
+      - SYNC_DB_HOST=sync-db
+      - SYNC_DB_PORT=5432
+      - SYNC_DB_NAME=syncdb
+      - SYNC_DB_USERNAME=postgres
+      - SYNC_DB_PASSWORD=postgres
       - _JAVA_OPTIONS=-Xmx1536m -Xms50m
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_JAAS_CONFIG=
+    depends_on:
+      - category-db
+      - ubl-db
+      - sync-db
+
+  # EMPTY CATEGORY DB (eClass isn't public)
+  category-db:
+    image: postgres:9.6.3
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: categorydb
+    networks:
+      - infra
+
+  sync-db:
+    image: postgres:9.6.3
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: syncdb
+    networks:
+      - infra
 
   ###############################
   ###### Frontend Service #######
