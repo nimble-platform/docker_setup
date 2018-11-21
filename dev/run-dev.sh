@@ -94,13 +94,14 @@ elif [[ "$1" = "services-logs" ]]; then
 else
     echo Usage: $0 COMMAND
     echo Commands:
-    echo "  infrastructure to start only infastructure components"
-    echo "  services to start actual services"
-    echo "  start to start everything"
-    echo "  start-no-update to start everything, but without updating the images"
-    echo "  stop to stop everything"
-    echo "  stop-services to stop service, but leave infrastructure running"
-    echo "  down to stop and remove everything"
-    echo "  services-logs to get the log output from the nimble core services"
+    echo "  infrastructure   start only infastructure components"
+    echo "  services         start nimble core services"
+    echo "  start            start infrastructure and core services"
+    echo "  start-no-update  start infrastructure and core services, without updating the images"
+    echo "  restart-single SERVICE  restart a single core service"
+    echo "  stop             stop infrastructure and core services"
+    echo "  stop-services    stop core services, but leave infrastructure running"
+    echo "  down             stop and remove everything"
+    echo "  services-logs    get the log output from the nimble core services"
     exit 2
 fi
