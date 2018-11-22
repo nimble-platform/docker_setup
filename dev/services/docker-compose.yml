@@ -150,6 +150,36 @@ services:
       - category-db
       - ubl-db
       - sync-db
+      - marmotta
+
+  marmotta:
+    image: nimbleplatform/marmotta:staging
+    environment:
+      - "database.user=postgres"
+      - "database.password=postgres"
+      - "database.url=jdbc:postgresql://marmotta-db:5432/marmotta?prepareThreshold=3"
+      - "database.type=postgres"
+      - "kiwi.path=/marmotta"
+      - "kiwi.context=http://localhost:8082/"
+      - "kiwi.host=http://localhost:8082"
+    ports:
+      - "8082:8080"
+    depends_on:
+      - marmotta-db
+    networks: 
+      - infra
+
+  marmotta-db:
+    build: ./marmotta-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: marmotta
+    ports:
+      - "5437:5432"
+    networks:
+      - infra
+    
 
   # EMPTY CATEGORY DB (eClass isn't public)
   category-db:
