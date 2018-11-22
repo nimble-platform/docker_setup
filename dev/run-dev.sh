@@ -84,11 +84,11 @@ elif [[ "$1" = "restart-single" ]]; then
 
 elif [[ "$1" = "down" ]]; then
 	
-	docker-compose -f services/docker-compose.yml --project-name nimbleservices down --remove-orphans
-	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra down --remove-orphans
+	docker-compose -f services/docker-compose.yml --project-name nimbleservices down --remove-orphans -v
+	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra down --remove-orphans -v
 
 elif [[ "$1" = "services-logs" ]]; then
-
+	
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices logs -f
 	
 else
@@ -101,7 +101,7 @@ else
     echo "  restart-single SERVICE  restart a single core service"
     echo "  stop             stop infrastructure and core services"
     echo "  stop-services    stop core services, but leave infrastructure running"
-    echo "  down             stop and remove everything"
+    echo "  down             stop and remove everything (incl. volumes)"
     echo "  services-logs    get the log output from the nimble core services"
     exit 2
 fi
