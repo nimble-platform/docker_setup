@@ -106,9 +106,11 @@ A small utility script can be found in `run-prod.sh`, which provides the followi
 
 not yet active
 
-## Development Deployment
+## (Local) Docker Development Deployment
 
-* Location: `dev`
+This section provides detailed information on how to set up a local development deployment using Docker. Required files are located in the `dev` directory.
+
+ * `cd dev`
 
 Recommended System Requirements (for Docker)
  * 16GB Memory
@@ -117,14 +119,12 @@ Recommended System Requirements (for Docker)
 Minimum System Requirements (for Docker)
  * 10GB Memory / 2 CPUs
 
-A small utility script can be found in `run-dev.sh`, which provides the following functionalies. More details for the startup are provided belows.
+A utility script called `run-dev.sh` provides the following main commands:
 
 * `run-dev.sh infrastructure`: starts all microservice infrastructure components
-* `run-dev.sh services`: starts all nimble core services (note: make sure the infastructue is set up appropriately)
+* `run-dev.sh services`: starts all nimble core services (note: make sure the infrastructue is running appropriately before)
 * `run-dev.sh start`: starts infrastructure and services (not recommended at the first time)
 * `run-dev.sh stop`: stop all services
-
-The default port mappings from the `infra/docker-compose.yml` and `services/docker-compose.yml` files are used, but can be adapted depending on the local system requirements to avoid port binding errors.
 
 It is recommended to start the infrastructure and the services in separate terminals for easier debugging.
 
@@ -132,34 +132,62 @@ It is recommended to start the infrastructure and the services in separate termi
 
 `./run-dev.sh infrastructure`: log output will be shown in the terminal
 
-before continue to run services, check the infrastructure components:
-  * `docker ps` should show 6 new containers up and running
-	* `nimbleinfra_config-server_1` provides infrastructure configuration properties
-		* http://localhost:8888/env => list configuration properties
-	* `nimbleinfra_service-discovery_1` registeres all microservices
-		* http://localhost:8761/eureka/apps => list registered apps (only "gateway-proxy" in the beginning)
-	* `nimbleinfra_gateway-proxy_1` provides mappings to all the services
-		* http://localhost/mappings => list of mappings provided by the proxy
-	* `nimbleinfra_keycloak_1` manages identities and access control
-		* http://localhost:8080 => Open Administration Console, login with `admin` and password `nimbleplatform`
-		* https://localhost:8443 => same, but HTTPS
-	* `nimbleinfra_keycloak-db_1` postgres db used by keycloak
+Before continuing to start services, check the infrastructure components as follows:
+  * `docker ps` should show 7 new containers up and running:
+
+```
+$ docker ps --format 'table {{.Names}}\t{{.Ports}}'
+NAMES                             PORTS
+nimbleinfra_gateway-proxy_1       0.0.0.0:80->80/tcp
+nimbleinfra_service-discovery_1   0.0.0.0:8761->8761/tcp
+nimbleinfra_keycloak_1            0.0.0.0:8080->8080/tcp, 0.0.0.0:8443->8443/tcp
+nimbleinfra_kafka_1               0.0.0.0:9092->9092/tcp
+nimbleinfra_keycloak-db_1         5432/tcp
+nimbleinfra_config-server_1       0.0.0.0:8888->8888/tcp
+nimbleinfra_zookeeper_1           2888/tcp, 0.0.0.0:2181->2181/tcp, 3888/tcp
+```
+
+In case of port binding errors, the shown default port mappings can be adapted to local system requirements in `infra/docker-compose.yml`.
+
+The infrastructure services can be tested by the following http-requests:
+
+  * http://localhost:8888/env => list configuration properties from `nimbleinfra_config-server_1`
+  * http://localhost:8761/eureka/apps => list registered services from `nimbleinfra_service-discovery_1` (only "gateway-proxy" in the beginning)
+  * http://localhost/mappings => list of mappings provided by the `nimbleinfra_gateway-proxy_1`
+  * http://localhost:8080, https://localhost:8443 => Administration console for managing identities and access control from `nimbleinfra_keycloak_1`. Login with `admin` and password `nimbleplatform`
 
 ### Starting the NIMBLE core services
 
 `./run-dev.sh services`: log output will be shown in the terminal
 
-  * `docker ps` should show 8 additional containers up and running
-	* `nimbleservices_identity-service_1`
-	* `nimbleservices_identity-service-db_1`
-	* `nimbleservices_business-process-service_1`
-	* `nimbleservices_business-process-service-db_1`
-	* `nimbleservices_camunda-db_1`
-	* `nimbleservices_catalog-service-srdc_1`
-	* `nimbleservices_frontend-service-sidecar_1`
-	* `nimbleservices_frontend-service_1`
-		* http://localhost:8081/ => Access the NIMBLE Frontend directly
-		* http://localhost/frontend => Access to the NIMBLE Frontend via Gateway Proxy
+  * `docker ps` should show additional 15 containers up and running
+
+```
+$ docker ps --format 'table {{.Names}}\t{{.Ports}}'
+NAMES                                          PORTS
+nimbleservices_business-process-service_1      0.0.0.0:8085->8085/tcp
+nimbleservices_catalog-service-srdc_1          0.0.0.0:10095->8095/tcp
+nimbleservices_trust-service_1                 9096/tcp, 0.0.0.0:9098->9098/tcp
+nimbleservices_marmotta_1                      0.0.0.0:8082->8080/tcp
+nimbleservices_identity-service_1              0.0.0.0:9096->9096/tcp
+nimbleservices_trust-service-db_1              5432/tcp
+nimbleservices_identity-service-db_1           0.0.0.0:5433->5432/tcp
+nimbleservices_frontend-service_1              0.0.0.0:8081->8080/tcp
+nimbleservices_marmotta-db_1                   0.0.0.0:5437->5432/tcp
+nimbleservices_sync-db_1                       5432/tcp
+nimbleservices_category-db_1                   5432/tcp
+nimbleservices_camunda-db_1                    0.0.0.0:5435->5432/tcp
+nimbleservices_frontend-service-sidecar_1      0.0.0.0:9097->9097/tcp
+nimbleservices_business-process-service-db_1   0.0.0.0:5434->5432/tcp
+nimbleservices_ubl-db_1                        0.0.0.0:5436->5432/tcp
+...
+```
+
+Port mappings can be adapted in `services/docker-compose.yml`.
+
+Once the services are up, they can be tested via the NIMBLE frontend at:
+
+  * http://localhost/frontend (!TODO: inject local dev configuration!)
 
 ## Appendix
 
