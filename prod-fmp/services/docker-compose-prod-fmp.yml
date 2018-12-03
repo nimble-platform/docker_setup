@@ -7,7 +7,7 @@ services:
   ############################
  
   identity-service:
-    image: nimbleplatform/identity-service:5.0.0
+    image: nimbleplatform/identity-service:5.0.2
     env_file:
       - env_vars
       - env_vars-prod-fmp

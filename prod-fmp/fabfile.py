@@ -16,12 +16,11 @@ def deploy_infra():
         run('./run-fmp-prod.sh marmotta')
 
 
-# @task
-# def deploy_services():
-#     update_files()
-#
-#     with cd(WORKING_DIR):
-#         run('./run-staging.sh services')
+@task
+def restart_single(service):
+    with cd(WORKING_DIR):
+        run('./run-fmp-prod.sh restart-single ' + service)
+        run('./run-fmp-prod.sh service-logs ' + service)
 
 
 @task
@@ -43,4 +42,4 @@ def update_files():
     rsync_project(local_dir='.', remote_dir=WORKING_DIR,
                   extra_opts='--progress',
                   exclude=['services/env_vars-prod-fmp', '.git', '*.pyc', '.idea', '__pycache__', '.python-version'
-                           'infra/keycloak/keycloak_secrets'])
+                                                                                                  'infra/keycloak/keycloak_secrets'])

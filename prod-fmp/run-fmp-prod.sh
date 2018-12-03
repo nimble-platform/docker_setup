@@ -41,10 +41,14 @@ elif [[ "$1" = "restart-single" ]]; then
 	# restart service
 	docker-compose -f services/docker-compose-prod-fmp.yml --project-name ${SERVICE_PROJECT} up --build -d --force-recreate $2
 
+elif [[ "$1" = "service-logs" ]]; then
+
+	docker-compose -f services/docker-compose-prod-fmp.yml --project-name ${SERVICE_PROJECT} logs -f $2
+
 elif [[ "$1" = "services-logs" ]]; then
 
 	docker-compose -f services/docker-compose-prod-fmp.yml --project-name ${SERVICE_PROJECT} logs -f
-	
+
 else
     echo "Invalid usage"
     exit 2

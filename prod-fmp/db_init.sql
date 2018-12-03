@@ -7,4 +7,4 @@ CREATE DATABASE modalmldb WITH OWNER admin;
 CREATE DATABASE catalogsyncdb WITH OWNER admin;
 CREATE DATABASE datachanneldb WITH OWNER admin;
 CREATE DATABASE trustdb WITH OWNER admin;
-CREATE DATABASE keycloak WITH OWNER admin;
+CREATE DATABASE keycloak WITH OWNER admin;ż
