@@ -152,7 +152,7 @@ In case of port binding errors, the shown default port mappings can be adapted t
 The infrastructure services can be tested by the following http-requests:
 
   * http://localhost:8888/env => list configuration properties from `nimbleinfra_config-server_1`
-  * http://localhost:8761/eureka/apps => list registered services from `nimbleinfra_service-discovery_1` (only "gateway-proxy" in the beginning)
+  * http://localhost:8761/ => list registered services from Eureka `nimbleinfra_service-discovery_1` (only "gateway-proxy" in the beginning)
   * http://localhost/mappings => list of mappings provided by the `nimbleinfra_gateway-proxy_1`
   * http://localhost:8080, https://localhost:8443 => Administration console for managing identities and access control from `nimbleinfra_keycloak_1`. Login with `admin` and password `nimbleplatform`
 
@@ -185,9 +185,12 @@ nimbleservices_ubl-db_1                        0.0.0.0:5436->5432/tcp
 
 Port mappings can be adapted in `services/docker-compose.yml`.
 
-Once the services are up, they can be tested via the NIMBLE frontend at:
+Once the services are up, they should show up in the EUREKA Service Discovrery:
+  * http://localhost:8761/
 
-  * http://localhost/frontend (!TODO: inject local dev configuration!)
+If they are all up, they can be tested via the NIMBLE frontend at:
+
+  * http://localhost/frontend
 
 ## Appendix
 
