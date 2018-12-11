@@ -239,7 +239,9 @@ services:
   ###############################
   
   frontend-service:
-    image: nimbleplatform/frontend-service:latest
+    image: nimbleplatform/frontend-service:staging
+    environment:
+      TARGET_ENVIRONMENT: dev
     ports:
       - "8081:8080" # external port: 8081
     env_file:
