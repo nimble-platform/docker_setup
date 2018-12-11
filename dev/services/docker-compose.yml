@@ -63,6 +63,12 @@ services:
       - CAMUNDA_DB_NAME=camunda
       - CAMUNDA_DB_USERNAME=postgres
       - CAMUNDA_DB_PASSWORD=postgres
+      - BINARY_CONTENT_DB_HOST=binary-content-db
+      - BINARY_CONTENT_DB_PORT=5432
+      - BINARY_CONTENT_DB_NAME=binarycontentdb
+      - BINARY_CONTENT_DB_USERNAME=postgres
+      - BINARY_CONTENT_DB_PASSWORD=postgres
+      - BINARY_CONTENT_URL=http://not-yet-in-use/
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - KAFKA_JAAS_CONFIG=
       - _JAVA_OPTIONS=-Xmx1536m -Xms50m
@@ -108,6 +114,18 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: ubldb
+    networks:
+      - business-process-backend
+      - catalog-backend
+
+  binary-content-db:
+    image: postgres:9.6.3
+    ports:
+      - "5438:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: binarycontentdb
     networks:
       - business-process-backend
       - catalog-backend
