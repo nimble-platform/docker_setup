@@ -296,7 +296,7 @@ services:
       - infra
 
   trust-service-db:
-    image: postgres:9.6.3
+    image: ./trust-service-db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin123
