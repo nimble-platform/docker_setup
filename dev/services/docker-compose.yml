@@ -17,6 +17,14 @@ services:
       - POSTGRES_DB=identityDB
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - KAFKA_JAAS_CONFIG=
+      - SMTP_HOST=maildev
+      - SMTP_PORT=25
+      - SMTP_DEFAULT_FROM=nimble@local-dev
+      - SMTP_USERNAME=
+      - SMTP_PASSWORD=
+      - SMTP_AUTH=false
+      - SMTP_STARTTLS=false
+
     ports:
       - "9096:9096"
     networks:
@@ -71,7 +79,14 @@ services:
       - BINARY_CONTENT_URL=http://not-yet-in-use/
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - KAFKA_JAAS_CONFIG=
-      - _JAVA_OPTIONS=-Xmx1536m -Xms50m
+      - SMTP_HOST=maildev
+      - SMTP_PORT=25
+      - SMTP_DEFAULT_FROM=nimble@local-dev
+      - SMTP_USERNAME=
+      - SMTP_PASSWORD=
+      - SMTP_AUTH=false
+      - SMTP_STARTTLS=false
+      
     mem_limit: 2000m
     ports:
       - "8085:8085"
