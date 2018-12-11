@@ -7,7 +7,7 @@ services:
   ############################
  
   identity-service:
-    image: nimbleplatform/identity-service:latest
+    image: nimbleplatform/identity-service:staging
     env_file:
       - env_vars
       - env_vars-dev
