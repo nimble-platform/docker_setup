@@ -83,3 +83,12 @@ services:
     image: zookeeper:3.4
     ports:
       - "2181:2181"
+
+  ##############################
+  ##### SMTP Email service #####
+  ##############################
+
+  maildev:
+    image: djfarrelly/maildev:0.14.0
+    ports:
+      - "8025:80"
