@@ -41,7 +41,7 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=changeme
       - POSTGRES_DB=identityDB
-      - _JAVA_OPTIONS=-Xmx768m -Xms50m
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m
 
     networks:
       - identity-backend
@@ -79,6 +79,7 @@ services:
       - BINARY_CONTENT_URL=http://not-yet-in-use/
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - KAFKA_JAAS_CONFIG=
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m
       - SMTP_HOST=maildev
       - SMTP_PORT=25
       - SMTP_DEFAULT_FROM=nimble@local-dev
@@ -176,7 +177,7 @@ services:
       - SYNC_DB_NAME=syncdb
       - SYNC_DB_USERNAME=postgres
       - SYNC_DB_PASSWORD=postgres
-      - _JAVA_OPTIONS=-Xmx1536m -Xms50m
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - KAFKA_JAAS_CONFIG=
     depends_on:
@@ -260,6 +261,7 @@ services:
       SIDECAR_APP_PORT: 8080 # use internal port of network (not publicly exposed)
       SIDECAR_APP_HEALTH_URI: http://frontend-service:8080/health.json
       SIDECAR_APP_HOMEPAGE_URI: http://frontend-service:8080/
+      _JAVA_OPTIONS: -Xmx256m -Xms128m
     networks:
       - infra
 
