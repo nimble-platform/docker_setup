@@ -160,32 +160,33 @@ The infrastructure services can be tested by the following http-requests:
 
 `./run-dev.sh services`: log output will be shown in the terminal
 
-  * `docker ps` should show additional 15 containers up and running
+  * `docker ps` should show additional 16 containers up and running
 
 ```
 $ docker ps --format 'table {{.Names}}\t{{.Ports}}'
 NAMES                                          PORTS
 nimbleservices_business-process-service_1      0.0.0.0:8085->8085/tcp
 nimbleservices_catalog-service-srdc_1          0.0.0.0:10095->8095/tcp
+nimbleservices_identity-service_1              0.0.0.0:9096->9096/tcp
 nimbleservices_trust-service_1                 9096/tcp, 0.0.0.0:9098->9098/tcp
 nimbleservices_marmotta_1                      0.0.0.0:8082->8080/tcp
-nimbleservices_identity-service_1              0.0.0.0:9096->9096/tcp
-nimbleservices_trust-service-db_1              5432/tcp
+nimbleservices_ubl-db_1                        0.0.0.0:5436->5432/tcp
+nimbleservices_camunda-db_1                    0.0.0.0:5435->5432/tcp
 nimbleservices_identity-service-db_1           0.0.0.0:5433->5432/tcp
 nimbleservices_frontend-service_1              0.0.0.0:8081->8080/tcp
-nimbleservices_marmotta-db_1                   0.0.0.0:5437->5432/tcp
-nimbleservices_sync-db_1                       5432/tcp
-nimbleservices_category-db_1                   5432/tcp
-nimbleservices_camunda-db_1                    0.0.0.0:5435->5432/tcp
-nimbleservices_frontend-service-sidecar_1      0.0.0.0:9097->9097/tcp
 nimbleservices_business-process-service-db_1   0.0.0.0:5434->5432/tcp
-nimbleservices_ubl-db_1                        0.0.0.0:5436->5432/tcp
+nimbleservices_trust-service-db_1              5432/tcp
+nimbleservices_frontend-service-sidecar_1      0.0.0.0:9097->9097/tcp
+nimbleservices_marmotta-db_1                   0.0.0.0:5437->5432/tcp
+nimbleservices_category-db_1                   5432/tcp
+nimbleservices_sync-db_1                       5432/tcp
+nimbleservices_binary-content-db_1             0.0.0.0:5438->5432/tcp
 ...
 ```
 
 Port mappings can be adapted in `services/docker-compose.yml`.
 
-Once the services are up, they should show up in the EUREKA Service Discovrery:
+Once the services are up, they should show up in the EUREKA Service Discovrery. Depending on available resources this will take a while.
   * http://localhost:8761/
 
 If they are all up, they can be tested via the NIMBLE frontend at:
