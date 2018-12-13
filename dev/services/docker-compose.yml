@@ -17,7 +17,7 @@ services:
       - POSTGRES_DB=identityDB
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - KAFKA_JAAS_CONFIG=
-      - _JAVA_OPTIONS=-Xmx512m -Xms50m
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m # -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
       - SMTP_HOST=maildev
       - SMTP_PORT=25
       - SMTP_DEFAULT_FROM=nimble@local-dev
@@ -28,6 +28,7 @@ services:
 
     ports:
       - "9096:9096"
+      # - "8000:8000"
     networks:
       - infra
       - identity-backend
