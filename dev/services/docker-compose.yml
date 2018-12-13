@@ -25,7 +25,12 @@ services:
       - SMTP_PASSWORD=
       - SMTP_AUTH=false
       - SMTP_STARTTLS=false
-
+      - KEYCLOAK_URL=http://keycloak:8080/auth
+      - KEYCLOAK_REALM=master
+      - KEYCLOAK_ADMIN_USERNAME=admin
+      - KEYCLOAK_ADMIN_PASSWORD=nimbleplatform
+      - KEYCLOAK_ADMIN_CLIENT_ID=admin-cli
+      - KEYCLOAK_ADMIN_CLIENT_SECRET=admin-client-secret
     ports:
       - "9096:9096"
       # - "8000:8000"
