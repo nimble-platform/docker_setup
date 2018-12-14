@@ -1,0 +1,52 @@
+{
+  "realm" : "master",
+  "users" : [ {
+    "id" : "dc10ee83-ace3-4d86-a82b-864b662a052f",
+    "createdTimestamp" : 1541585138126,
+    "username" : "admin",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Johannes",
+    "lastName" : "Innerbichler",
+    "email" : "johannes.innerbichler@salzburgresearch.at",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "bfBMCVqq6ZvkSGEuFfZOdO2jskpYHfWTNKWl1hmuSyoksSd5/qL0HatjqydjhZV8K+7KgrYwI2tD8rgAzVlj4Q==",
+      "salt" : "az0xDYgz6U84Ai8mgMkAWA==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "admin", "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "04baa1c5-d330-4310-a7e1-895c39fd43ab",
+    "createdTimestamp" : 1541585514795,
+    "username" : "test_user",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "John",
+    "lastName" : "Doe",
+    "email" : "test@user.com",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ]
+}
