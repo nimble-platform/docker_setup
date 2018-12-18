@@ -7,7 +7,7 @@ services:
   ############################
  
   identity-service:
-    image: nimbleplatform/identity-service:5.0.2
+    image: nimbleplatform/identity-service:latest
     env_file:
       - env_vars
       - env_vars-prod-fmp
@@ -28,7 +28,7 @@ services:
   ##############################
 
   business-process-service:
-    image: nimbleplatform/business-process-service:5.0.0
+    image: nimbleplatform/business-process-service:latest
     env_file:
       - env_vars
       - env_vars-prod-fmp
@@ -45,7 +45,7 @@ services:
   ##############################
   
   catalogue-service:
-    image: nimbleplatform/catalogue-service-micro:5.0.0
+    image: nimbleplatform/catalogue-service-micro:latest
     ports:
       - "10095:8095"
     environment:
@@ -62,7 +62,7 @@ services:
   ##############################
 
   search-service:
-    image: nimbleplatform/catalog-search-service:staging
+    image: nimbleplatform/catalog-search-service:latest
     ports:
       - "10096:8090"
     env_file:
@@ -119,7 +119,7 @@ services:
   ###############################
 
   data-channel-service:
-    image: nimbleplatform/data-channel-service:5.0.0
+    image: nimbleplatform/data-channel-service:latest
     env_file:
       - env_vars
       - env_vars-prod-fmp
@@ -136,7 +136,7 @@ services:
   ###############################
 
   tracking-analysis-service:
-    image: nimbleplatform/tracking-analysis-service:staging
+    image: nimbleplatform/tracking-analysis-service:latest
     restart: always
     env_file:
       - env_vars
@@ -154,7 +154,7 @@ services:
   ###############################
 
   data-aggregation-service:
-    image: nimbleplatform/data-aggregation-service:5.0.0
+    image: nimbleplatform/data-aggregation-service:latest
     restart: always
     env_file:
       - env_vars
@@ -170,7 +170,7 @@ services:
   ###############################
 
   trust-service:
-    image: nimbleplatform/trust-service:5.0.1
+    image: nimbleplatform/trust-service:latest
     restart: always
     env_file:
       - env_vars
