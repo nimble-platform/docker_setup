@@ -50,7 +50,9 @@ elif [[ "$1" = "services" ]]; then
 	docker-compose -f services/docker-compose.yml \
 		--project-name nimbleservices up \
 		--build \
-        --force-recreate identity-service business-process-service frontend-service catalog-service-srdc frontend-service-sidecar
+        --force-recreate identity-service business-process-service frontend-service catalog-service-srdc frontend-service-sidecar trust-service
+
+#    docker-compose -f services/docker-compose.yml --project-name nimbleservices up --build --force-recreate identity-service
 
 elif [[ "$1" = "start" ]]; then
 
@@ -66,11 +68,16 @@ elif [[ "$1" = "stop" ]]; then
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices stop
 	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra stop
 
+elif [[ "$1" = "stop-services" ]]; then
+	
+	docker-compose -f services/docker-compose.yml --project-name nimbleservices stop
+
 elif [[ "$1" = "restart-single" ]]; then
 
 	docker-compose -f services/docker-compose.yml \
 		--project-name nimbleservices up \
 		--build \
+		--no-deps \
 		-d \
 		--force-recreate $2
 
@@ -80,19 +87,24 @@ elif [[ "$1" = "restart-single" ]]; then
 
 elif [[ "$1" = "down" ]]; then
 	
-	docker-compose -f services/docker-compose.yml --project-name nimbleservices down --remove-orphans
-	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra down --remove-orphans
+	docker-compose -f services/docker-compose.yml --project-name nimbleservices down --remove-orphans -v
+	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra down --remove-orphans -v
 
 elif [[ "$1" = "services-logs" ]]; then
-
+	
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices logs -f
 	
 else
     echo Usage: $0 COMMAND
     echo Commands:
-    echo "  infrastructure to start only infastructure components"
-    echo "  services to start actual services"
-    echo "  start to start everything"
-    echo "  stop to stop everything"
+    echo "  infrastructure   start only infastructure components"
+    echo "  services         start nimble core services"
+    echo "  start            start infrastructure and core services"
+    echo "  start-no-update  start infrastructure and core services, without updating the images"
+    echo "  restart-single SERVICE  restart a single core service"
+    echo "  stop             stop infrastructure and core services"
+    echo "  stop-services    stop core services, but leave infrastructure running"
+    echo "  down             stop and remove everything (incl. volumes)"
+    echo "  services-logs    get the log output from the nimble core services"
     exit 2
 fi

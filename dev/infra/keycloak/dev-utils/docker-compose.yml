@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  keycloak:
+    build: ..
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    environment:
+      DB_VENDOR: "POSTGRES"
+      DB_ADDR: "keycloak-db"
+      DB_DATABASE: "keycloak"
+      DB_USER: "keycloak"
+      DB_PASSWORD: "password"
+      KEYCLOAK_USER: "admin"
+      KEYCLOAK_PASSWORD: "password"
+      # CONTEXT_PATH: keycloak\/auth
+      THEME_DEV: "true"
+    command:
+      - "-b"
+      - "0.0.0.0"
+      - "-Dkeycloak.migration.action=import"
+      - "-Dkeycloak.migration.provider=dir"
+      - "-Dkeycloak.migration.dir=/migration/"
+      - "-Dkeycloak.migration.strategy=IGNORE_EXISTING"
+    volumes:
+      - ./migration:/migration/
+      - ../themes/nimble-theme/:/opt/jboss/keycloak/themes/nimble-theme/
+    depends_on:
+      - keycloak-db
+
+  keycloak-db:
+    image: postgres:10
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+
+  maildev:
+    image: djfarrelly/maildev:1.0.0-rc2
+    ports:
+      - "8081:80"
+      - "25"
+
+volumes:
+  postgres_data:
+    driver: local

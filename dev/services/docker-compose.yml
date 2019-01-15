@@ -7,20 +7,47 @@ services:
   ############################
 
   identity-service:
-    image: nimbleplatform/identity-service:latest
+    image: nimbleplatform/identity-service:staging
     env_file:
       - env_vars
     environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m # -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
       - POSTGRES_HOST=identity-service-db
       - POSTGRES_PORT=5432
       - POSTGRES_DB=identityDB
+      - BINARY_CONTENT_DB_HOST=binary-content-db
+      - BINARY_CONTENT_DB_PORT=5432
+      - BINARY_CONTENT_DB_NAME=binarycontentdb
+      - BINARY_CONTENT_DB_USERNAME=postgres
+      - BINARY_CONTENT_DB_PASSWORD=postgres
+      - BINARY_CONTENT_URL=http://not-yet-in-use/
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_JAAS_CONFIG=
+      - SMTP_HOST=maildev
+      - SMTP_PORT=25
+      - SMTP_DEFAULT_FROM=nimble@local-dev
+      - SMTP_USERNAME=
+      - SMTP_PASSWORD=
+      - SMTP_AUTH=false
+      - SMTP_STARTTLS=false
+      - KEYCLOAK_URL=http://keycloak:8080/auth
+      - KEYCLOAK_REALM=master
+      - KEYCLOAK_ADMIN_USERNAME=admin
+      - KEYCLOAK_ADMIN_PASSWORD=password
+      - KEYCLOAK_ADMIN_CLIENT_ID=admin-cli
+      - KEYCLOAK_ADMIN_CLIENT_SECRET=cd2c2640-bca0-4d1d-9dab-b5705a17fbf8
+      - OAUTH_CLIENT_ID=nimble_client
+      - OAUTH_CLIENT_SECRET=cbcd2e6f-e58a-42b4-9d2d-95a933ee29ae
+      - OAUTH_CLIENT_ACCESSTOKEN_URI=http://keycloak:8080/auth/realms/master/protocol/openid-connect/token
     ports:
       - "9096:9096"
+      # - "8000:8000"
     networks:
       - infra
       - identity-backend
     depends_on:
       - identity-service-db
+      - binary-content-db
 
   identity-service-db:
     image: postgres:9.6.3
@@ -30,6 +57,8 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=changeme
       - POSTGRES_DB=identityDB
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m
+
     networks:
       - identity-backend
 
@@ -38,7 +67,7 @@ services:
   ##############################
 
   business-process-service:
-    image: nimbleplatform/business-process-service:latest
+    image: nimbleplatform/business-process-service:staging
     env_file:
       - env_vars
     environment:
@@ -47,20 +76,45 @@ services:
       - BUSINESS_PROCESS_DB_NAME=businessprocessengine
       - BUSINESS_PROCESS_DB_USERNAME=postgres
       - BUSINESS_PROCESS_DB_PASSWORD=postgres
+      - UBL_DB_HOST=ubl-db
+      - UBL_DB_HOST_PORT=5432
+      - UBL_DB_NAME=ubldb
+      - UBL_DB_USERNAME=postgres
+      - UBL_DB_PASSWORD=postgres
       - CAMUNDA_DB_HOST=camunda-db
       - CAMUNDA_DB_PORT=5432
       - CAMUNDA_DB_NAME=camunda
       - CAMUNDA_DB_USERNAME=postgres
       - CAMUNDA_DB_PASSWORD=postgres
+      - BINARY_CONTENT_DB_HOST=binary-content-db
+      - BINARY_CONTENT_DB_PORT=5432
+      - BINARY_CONTENT_DB_NAME=binarycontentdb
+      - BINARY_CONTENT_DB_USERNAME=postgres
+      - BINARY_CONTENT_DB_PASSWORD=postgres
+      - BINARY_CONTENT_URL=http://not-yet-in-use/
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_JAAS_CONFIG=
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m
+      - SMTP_HOST=maildev
+      - SMTP_PORT=25
+      - SMTP_DEFAULT_FROM=nimble@local-dev
+      - SMTP_USERNAME=
+      - SMTP_PASSWORD=
+      - SMTP_AUTH=false
+      - SMTP_STARTTLS=false
+      
+    mem_limit: 2000m
     ports:
       - "8085:8085"
     networks:
       - infra
       - business-process-backend
-    restart:
-      always
     depends_on:
       - business-process-service-db
+      - camunda-db
+      - ubl-db
+      - catalog-service-srdc
+      - binary-content-db
 
   business-process-service-db:
     image: postgres:9.6.3
@@ -84,12 +138,38 @@ services:
     networks:
       - business-process-backend
 
+  ubl-db:
+    image: postgres:9.6.3
+    ports:
+      - "5436:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ubldb
+    networks:
+      - business-process-backend
+      - catalog-backend
+
+  binary-content-db:
+    image: postgres:9.6.3
+    ports:
+      - "5438:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: binarycontentdb
+    networks:
+      - business-process-backend
+      - catalog-backend
+      - identity-backend
+
   ##############################
   ####### Catalog Service ######  
   ##############################
 
   catalog-service-srdc:
-    image: nimbleplatform/catalogue-service:latest
+    image: nimbleplatform/catalogue-service-micro:5.0.1
+    # image: nimbleplatform/catalogue-service:latest
     ports:
       - "10095:8095"
     env_file:
@@ -97,17 +177,94 @@ services:
     networks:
       - infra
       - catalog-backend
+    environment:
+      - UBL_DB_HOST=ubl-db
+      - UBL_DB_HOST_PORT=5432
+      - UBL_DB_NAME=ubldb
+      - UBL_DB_USERNAME=postgres
+      - UBL_DB_PASSWORD=postgres
+      - CATEGORY_DB_HOST=category-db
+      - CATEGORY_DB_PORT=5432
+      - CATEGORY_DB_NAME=categorydb
+      - CATEGORY_DB_USERNAME=postgres
+      - CATEGORY_DB_PASSWORD=postgres
+      - SYNC_DB_HOST=sync-db
+      - SYNC_DB_PORT=5432
+      - SYNC_DB_NAME=syncdb
+      - SYNC_DB_USERNAME=postgres
+      - SYNC_DB_PASSWORD=postgres
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_JAAS_CONFIG=
+    depends_on:
+      - category-db
+      - ubl-db
+      - sync-db
+      - marmotta
+
+  marmotta:
+    image: nimbleplatform/marmotta:staging
+    environment:
+      - "database.user=postgres"
+      - "database.password=postgres"
+      - "database.url=jdbc:postgresql://marmotta-db:5432/marmotta?prepareThreshold=3"
+      - "database.type=postgres"
+      - "kiwi.path=/marmotta"
+      - "kiwi.context=http://localhost:8082/"
+      - "kiwi.host=http://localhost:8082"
+    ports:
+      - "8082:8080"
+    depends_on:
+      - marmotta-db
+    networks: 
+      - infra
+
+  marmotta-db:
+    build: ./marmotta-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: marmotta
+    ports:
+      - "5437:5432"
+    networks:
+      - infra
+    
+
+  # EMPTY CATEGORY DB (eClass isn't public)
+  category-db:
+    image: postgres:9.6.3
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: categorydb
+    networks:
+      - infra
+
+  sync-db:
+    image: postgres:9.6.3
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: syncdb
+    networks:
+      - infra
 
   ###############################
   ###### Frontend Service #######
   ###############################
 
   frontend-service:
-    image: nimbleplatform/frontend-service:latest
+    image: nimbleplatform/frontend-service:staging
+    environment:
+      TARGET_ENVIRONMENT: dev
     ports:
-      - "9092:8080"
+      - "8081:8080" # external port: 8081
     env_file:
       - env_vars
+    depends_on:
+      - frontend-service-sidecar
+      
     networks:
       - infra
 
@@ -123,6 +280,42 @@ services:
       SIDECAR_APP_PORT: 8080 # use internal port of network (not publicly exposed)
       SIDECAR_APP_HEALTH_URI: http://frontend-service:8080/health.json
       SIDECAR_APP_HOMEPAGE_URI: http://frontend-service:8080/
+      _JAVA_OPTIONS: -Xmx256m -Xms128m
+    networks:
+      - infra
+
+
+  ###############################
+  ######## Trust Service ########
+  ###############################
+
+  trust-service:
+    image: nimbleplatform/trust-service:staging
+    env_file:
+      - env_vars
+    environment:
+      - PORT=9098
+      - _JAVA_OPTIONS=-Xmx256m -Xms128m
+      - TRUST_DB_HOST=trust-service-db
+      - TRUST_DB_NAME=trustdb
+      - TRUST_DB_USERNAME=postgres
+      - TRUST_DB_PASSWORD=admin123
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_JAAS_CONFIG=
+    mem_limit: 800m
+    ports:
+      - "9098:9098"
+    depends_on:
+      - trust-service-db
+    networks:
+      - infra
+
+  trust-service-db:
+    build: ./trust-service-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: trustdb
     networks:
       - infra
 
