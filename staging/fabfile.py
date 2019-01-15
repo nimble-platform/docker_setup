@@ -1,8 +1,9 @@
-from fabric.api import task, local, put, run
+from fabric.api import task, local, put, run, env
 from fabric.context_managers import cd
 from fabric.contrib.project import rsync_project
 
 WORKING_DIR = '/srv/nimble-staging'
+env.use_ssh_config = True
 
 
 @task(default=True)
@@ -13,7 +14,8 @@ def deploy_infra():
         run('./run-staging.sh infra')
         run('./run-staging.sh keycloak')
         run('./run-staging.sh marmotta')
-        run('./run-staging.sh elk')
+        run('./run-staging.sh solr')
+        # run('./run-staging.sh elk')
         # run('./run-staging.sh gost')
 
 
