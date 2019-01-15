@@ -52,6 +52,8 @@ elif [[ "$1" = "services" ]]; then
 		--build \
         --force-recreate identity-service business-process-service frontend-service catalog-service-srdc frontend-service-sidecar trust-service
 
+#    docker-compose -f services/docker-compose.yml --project-name nimbleservices up --build --force-recreate identity-service
+
 elif [[ "$1" = "start" ]]; then
 
 	update_images

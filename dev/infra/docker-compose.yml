@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   ##########################
@@ -42,26 +42,43 @@ services:
   ##########################
 
   keycloak:
-    image: jboss/keycloak:3.4.3.Final
-    env_file:
-      - keycloak/keycloak_default_env
-      - keycloak/keycloak_secrets
-    links:
-      - keycloak-db:postgres
+    build: ./keycloak
+    environment:
+      KEYCLOAK_LOGLEVEL: DEBUG
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: password
+      POSTGRES_DATABASE: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+      POSTGRES_PORT_5432_TCP_ADDR: keycloak-db
+      PROXY_ADDRESS_FORWARDING: "true"
+    command:
+      - "-b"
+      - "0.0.0.0"
+      - "-Dkeycloak.migration.action=import"
+      - "-Dkeycloak.migration.provider=dir"
+      - "-Dkeycloak.migration.dir=/migration/"
+      - "-Dkeycloak.migration.strategy=IGNORE_EXISTING"
     ports:
       - "8080:8080"
       # - "9999:9999" # keycloak federation port - not used in local dev setup
       - "8443:8443"
     volumes:
-      - ./data:/data
+      - ./keycloak/staging-migration/:/migration/
+    links:
+      - keycloak-db:postgres
     depends_on:
       - keycloak-db
 
   keycloak-db:
-    image: postgres:9.6.3
-    env_file:
-      - keycloak/keycloak_default_env
-      - keycloak/keycloak_secrets
+    image: postgres:10
+    volumes:
+      - keycloak_postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+      POSTGRES_ROOT_PASSWORD: root_password
 
   ##############################
   ######## Apache Kafka ########
@@ -92,3 +109,6 @@ services:
     image: djfarrelly/maildev:0.14.0
     ports:
       - "8025:80"
+
+volumes:
+  keycloak_postgres_data:

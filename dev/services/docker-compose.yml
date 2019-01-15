@@ -10,14 +10,19 @@ services:
     image: nimbleplatform/identity-service:staging
     env_file:
       - env_vars
-      - env_vars-dev
     environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m # -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
       - POSTGRES_HOST=identity-service-db
       - POSTGRES_PORT=5432
       - POSTGRES_DB=identityDB
+      - BINARY_CONTENT_DB_HOST=binary-content-db
+      - BINARY_CONTENT_DB_PORT=5432
+      - BINARY_CONTENT_DB_NAME=binarycontentdb
+      - BINARY_CONTENT_DB_USERNAME=postgres
+      - BINARY_CONTENT_DB_PASSWORD=postgres
+      - BINARY_CONTENT_URL=http://not-yet-in-use/
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - KAFKA_JAAS_CONFIG=
-      - _JAVA_OPTIONS=-Xmx512m -Xms50m # -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
       - SMTP_HOST=maildev
       - SMTP_PORT=25
       - SMTP_DEFAULT_FROM=nimble@local-dev
@@ -28,9 +33,12 @@ services:
       - KEYCLOAK_URL=http://keycloak:8080/auth
       - KEYCLOAK_REALM=master
       - KEYCLOAK_ADMIN_USERNAME=admin
-      - KEYCLOAK_ADMIN_PASSWORD=nimbleplatform
+      - KEYCLOAK_ADMIN_PASSWORD=password
       - KEYCLOAK_ADMIN_CLIENT_ID=admin-cli
-      - KEYCLOAK_ADMIN_CLIENT_SECRET=admin-client-secret
+      - KEYCLOAK_ADMIN_CLIENT_SECRET=cd2c2640-bca0-4d1d-9dab-b5705a17fbf8
+      - OAUTH_CLIENT_ID=nimble_client
+      - OAUTH_CLIENT_SECRET=cbcd2e6f-e58a-42b4-9d2d-95a933ee29ae
+      - OAUTH_CLIENT_ACCESSTOKEN_URI=http://keycloak:8080/auth/realms/master/protocol/openid-connect/token
     ports:
       - "9096:9096"
       # - "8000:8000"
@@ -39,6 +47,7 @@ services:
       - identity-backend
     depends_on:
       - identity-service-db
+      - binary-content-db
 
   identity-service-db:
     image: postgres:9.6.3
@@ -61,7 +70,6 @@ services:
     image: nimbleplatform/business-process-service:staging
     env_file:
       - env_vars
-      - env_vars-dev
     environment:
       - BUSINESS_PROCESS_DB_HOST=business-process-service-db
       - BUSINESS_PROCESS_DB_PORT=5432
@@ -153,6 +161,7 @@ services:
     networks:
       - business-process-backend
       - catalog-backend
+      - identity-backend
 
   ##############################
   ####### Catalog Service ######  
@@ -165,7 +174,6 @@ services:
       - "10095:8095"
     env_file:
       - env_vars
-      - env_vars-dev
     networks:
       - infra
       - catalog-backend
@@ -254,7 +262,9 @@ services:
       - "8081:8080" # external port: 8081
     env_file:
       - env_vars
-      - env_vars-dev
+    depends_on:
+      - frontend-service-sidecar
+      
     networks:
       - infra
 
@@ -264,7 +274,6 @@ services:
       - "9097:9097"
     env_file:
       - env_vars
-      - env_vars-dev
     environment:
       SIDECAR_NAME: frontend-service
       SIDECAR_APP_HOST: frontend-service
@@ -284,7 +293,6 @@ services:
     image: nimbleplatform/trust-service:staging
     env_file:
       - env_vars
-      - env_vars-dev
     environment:
       - PORT=9098
       - _JAVA_OPTIONS=-Xmx256m -Xms128m
