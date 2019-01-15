@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  nginx:
+    image: nginx:1.15.6
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - /srv/certs:/etc/certs:ro
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    networks:
+      - nimble-cloud-infra
+
+networks:
+  nimble-cloud-infra:
+    external:
+      name: nimbleinfra-fmp-prod_default

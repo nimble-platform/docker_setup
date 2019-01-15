@@ -16,6 +16,10 @@ elif [[ "$1" = "gost" ]]; then
 
 	docker-compose -f infra/gost/docker-compose.yml --project-name ${INFRA_PROJECT} up -d
 
+elif [[ "$1" = "solr" ]]; then
+
+	docker-compose -f infra/solr/docker-compose.yml --project-name ${INFRA_PROJECT} up -d
+
 elif [[ "$1" = "marmotta" ]]; then
 
 	docker-compose -f infra/marmotta/docker-compose-marmotta.yml --project-name ${INFRA_PROJECT} pull

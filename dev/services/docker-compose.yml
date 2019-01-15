@@ -5,7 +5,7 @@ services:
   ############################
   ##### Identity Service #####
   ############################
- 
+
   identity-service:
     image: nimbleplatform/identity-service:staging
     env_file:
@@ -157,7 +157,7 @@ services:
   ##############################
   ####### Catalog Service ######  
   ##############################
-  
+
   catalog-service-srdc:
     image: nimbleplatform/catalogue-service-micro:5.0.1
     # image: nimbleplatform/catalogue-service:latest
@@ -245,7 +245,7 @@ services:
   ###############################
   ###### Frontend Service #######
   ###############################
-  
+
   frontend-service:
     image: nimbleplatform/frontend-service:staging
     environment:
@@ -257,7 +257,7 @@ services:
       - env_vars-dev
     networks:
       - infra
-  
+
   frontend-service-sidecar:
     image: nimbleplatform/sidecar:latest
     ports:

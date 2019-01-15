@@ -7,13 +7,13 @@ services:
   ############################
  
   identity-service:
-    image: nimbleplatform/identity-service:staging
+    image: nimbleplatform/identity-service:latest
     env_file:
       - env_vars
-      - env_vars-staging
+      - env_vars-prod-fmp
     environment:
-      - POSTGRES_HOST=sl-eu-lon-2-portal.1.dblayer.com
-      - POSTGRES_PORT=21736
+      - POSTGRES_HOST=sl-eu-fra-2-portal.5.dblayer.com
+      - POSTGRES_PORT=18219
       - POSTGRES_DB=identitydb
       - POSTGRES_USER=admin
       - _JAVA_OPTIONS=-Xmx256m -Xms50m
@@ -28,19 +28,11 @@ services:
   ##############################
 
   business-process-service:
-    image: nimbleplatform/business-process-service:staging
+    image: nimbleplatform/business-process-service:latest
     env_file:
       - env_vars
-      - env_vars-staging
+      - env_vars-prod-fmp
     environment:
-      - BUSINESS_PROCESS_DB_HOST=sl-eu-lon-2-portal.1.dblayer.com
-      - BUSINESS_PROCESS_DB_PORT=21736
-      - BUSINESS_PROCESS_DB_NAME=businessprocessdb
-      - BUSINESS_PROCESS_DB_USERNAME=admin
-      - CAMUNDA_DB_HOST=sl-eu-lon-2-portal.1.dblayer.com
-      - CAMUNDA_DB_PORT=21736
-      - CAMUNDA_DB_NAME=camundadb
-      - CAMUNDA_DB_USERNAME=admin
       - _JAVA_OPTIONS=-Xmx1536m -Xms50m
     mem_limit: 2000m
     ports:
@@ -49,29 +41,11 @@ services:
       - infra
 
   ##############################
-  ####### Indexing Service #####
-  ##############################
-
-  indexing-service:
-    image: nimbleplatform/indexing-service:staging
-    ports:
-      - "9101:8080"
-    environment:
-      - _JAVA_OPTIONS=-Xmx1536m -Xms50m
-      - SOLR_HOST=http://solr:8983/solr/
-    mem_limit: 2000m
-    env_file:
-      - env_vars
-      - env_vars-staging
-    networks:
-      - infra
-
-  ##############################
   ####### Catalog Service ######  
   ##############################
   
-  catalog-service-srdc:
-    image: nimbleplatform/catalogue-service-micro:staging
+  catalogue-service:
+    image: nimbleplatform/catalogue-service-micro:latest
     ports:
       - "10095:8095"
     environment:
@@ -79,7 +53,7 @@ services:
     mem_limit: 2000m
     env_file:
       - env_vars
-      - env_vars-staging
+      - env_vars-prod-fmp
     networks:
       - infra
 
@@ -88,7 +62,7 @@ services:
   ##############################
 
   search-service:
-    image: nimbleplatform/catalog-search-service:staging
+    image: nimbleplatform/catalog-search-service:latest
     ports:
       - "10096:8090"
     env_file:
@@ -108,12 +82,12 @@ services:
   ###############################
   
   frontend-service:
-    image: nimbleplatform/frontend-service:staging
+    image: nimbleplatform/frontend-service:fmp
     ports:
       - "8081:8080"
     env_file:
       - env_vars
-      - env_vars-staging
+      - env_vars-prod-fmp
     environment:
       _JAVA_OPTIONS: -Xmx512m -Xms50m
     mem_limit: 1000m
@@ -128,7 +102,7 @@ services:
       - "9097:9097"
     env_file:
       - env_vars
-      - env_vars-staging
+      - env_vars-prod-fmp
     environment:
       SIDECAR_NAME: frontend-service
       SIDECAR_APP_HOST: frontend-service
@@ -141,51 +115,14 @@ services:
       - infra
 
   ###############################
-  ##### Frontend Service FMP ####
-  ###############################
-
-  frontend-service-fmp:
-    image: nimbleplatform/frontend-service:fmp-staging
-    ports:
-      - "7081:8080"
-    env_file:
-      - env_vars
-      - env_vars-staging
-    environment:
-      _JAVA_OPTIONS: -Xmx512m -Xms50m
-    mem_limit: 1000m
-    networks:
-      - infra
-    depends_on:
-      - frontend-service-sidecar-fmp
-
-  frontend-service-sidecar-fmp:
-    image: nimbleplatform/sidecar:latest
-    ports:
-      - "7082:9097"
-    env_file:
-      - env_vars
-      - env_vars-staging
-    environment:
-      SIDECAR_NAME: frontend-service-fmp
-      SIDECAR_APP_HOST: frontend-service-fmp
-      SIDECAR_APP_PORT: 8080 # use internal port of network (not publicly exposed)
-      SIDECAR_APP_HEALTH_URI: http://frontend-service-fmp:8080/health.json
-      SIDECAR_APP_HOMEPAGE_URI: http://frontend-service-fmp:8080/
-      _JAVA_OPTIONS: -Xmx768m -Xms50m
-    mem_limit: 1000m
-    networks:
-      - infra
-
-  ###############################
   #### Data Channel Service #####
   ###############################
 
   data-channel-service:
-    image: nimbleplatform/data-channel-service:staging
+    image: nimbleplatform/data-channel-service:latest
     env_file:
       - env_vars
-      - env_vars-staging
+      - env_vars-prod-fmp
     environment:
       _JAVA_OPTIONS: -Xmx768m -Xms50m
     mem_limit: 1000m
@@ -195,32 +132,15 @@ services:
       - infra
 
   ###############################
-  #### Data Pipes #####
-  ###############################
-
-  data-pipes:
-    image: nimbleplatform/data-pipes:staging
-    env_file:
-      - env_vars
-      - env_vars-staging
-    environment:
-      _JAVA_OPTIONS: -Xmx256m -Xms50m
-    mem_limit: 500m
-    ports:
-      - "8082:8080"
-    networks:
-      - infra
-
-  ###############################
   ## Tracking Analysis Service ##
   ###############################
 
   tracking-analysis-service:
-    image: nimbleplatform/tracking-analysis-service:staging
+    image: nimbleplatform/tracking-analysis-service:latest
     restart: always
     env_file:
       - env_vars
-      - env_vars-staging
+      - env_vars-prod-fmp
     environment:
       _JAVA_OPTIONS: -Xmx128m -Xms50m
     mem_limit: 400m
@@ -234,11 +154,11 @@ services:
   ###############################
 
   data-aggregation-service:
-    image: nimbleplatform/data-aggregation-service:staging
+    image: nimbleplatform/data-aggregation-service:latest
     restart: always
     env_file:
       - env_vars
-      - env_vars-staging
+      - env_vars-prod-fmp
     environment:
       _JAVA_OPTIONS: -Xmx64m -Xms50m
     mem_limit: 400m
@@ -250,11 +170,11 @@ services:
   ###############################
 
   trust-service:
-    image: nimbleplatform/trust-service:staging
+    image: nimbleplatform/trust-service:latest
     restart: always
     env_file:
       - env_vars
-      - env_vars-staging
+      - env_vars-prod-fmp
     environment:
       PORT: 9098
       _JAVA_OPTIONS: -Xmx256m -Xms128m
@@ -267,4 +187,4 @@ services:
 networks:
   infra:
     external:
-      name: nimbleinfrastaging_default
+      name: nimbleinfra-fmp-prod_default
