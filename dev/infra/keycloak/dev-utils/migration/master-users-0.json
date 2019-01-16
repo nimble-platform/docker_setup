@@ -1,19 +1,19 @@
 {
   "realm" : "master",
   "users" : [ {
-    "id" : "dc10ee83-ace3-4d86-a82b-864b662a052f",
-    "createdTimestamp" : 1541585138126,
+    "id" : "ea11f3f5-464b-4072-ab39-6553765ea683",
+    "createdTimestamp" : 1547642933589,
     "username" : "admin",
     "enabled" : true,
     "totp" : false,
     "emailVerified" : false,
     "firstName" : "Johannes",
     "lastName" : "Innerbichler",
-    "email" : "johannes.innerbichler@salzburgresearch.at",
+    "email" : "test@test.com",
     "credentials" : [ {
       "type" : "password",
-      "hashedSaltedValue" : "bfBMCVqq6ZvkSGEuFfZOdO2jskpYHfWTNKWl1hmuSyoksSd5/qL0HatjqydjhZV8K+7KgrYwI2tD8rgAzVlj4Q==",
-      "salt" : "az0xDYgz6U84Ai8mgMkAWA==",
+      "hashedSaltedValue" : "6IjWeh4NicM5Tf+uEAlsDOifD/AyUqOJqwI/pe7hCrc/GWi5cdi1j4FqIv02hQGyYo/wFvWHfuQHlQRutlRLJQ==",
+      "salt" : "7aLKpydCIcXdu562kM1ZQQ==",
       "hashIterations" : 27500,
       "counter" : 0,
       "algorithm" : "pbkdf2-sha256",
@@ -23,28 +23,28 @@
     } ],
     "disableableCredentialTypes" : [ "password" ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "admin", "offline_access", "uma_authorization" ],
+    "realmRoles" : [ "uma_authorization", "offline_access", "admin" ],
     "clientRoles" : {
       "account" : [ "view-profile", "manage-account" ]
     },
     "notBefore" : 0,
     "groups" : [ ]
   }, {
-    "id" : "04baa1c5-d330-4310-a7e1-895c39fd43ab",
-    "createdTimestamp" : 1541585514795,
-    "username" : "test_user",
+    "id" : "37e91170-1d0a-4f67-91eb-173761420b09",
+    "createdTimestamp" : 1547643065235,
+    "username" : "service-account-nimble_client",
     "enabled" : true,
     "totp" : false,
     "emailVerified" : false,
-    "firstName" : "John",
-    "lastName" : "Doe",
-    "email" : "test@user.com",
+    "email" : "service-account-nimble_client@placeholder.org",
+    "serviceAccountClientId" : "nimble_client",
     "credentials" : [ ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "realmRoles" : [ "uma_authorization", "offline_access" ],
     "clientRoles" : {
-      "account" : [ "view-profile", "manage-account" ]
+      "account" : [ "view-profile", "manage-account" ],
+      "nimble_client" : [ "uma_protection" ]
     },
     "notBefore" : 0,
     "groups" : [ ]

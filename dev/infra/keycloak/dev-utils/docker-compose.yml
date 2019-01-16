@@ -7,15 +7,14 @@ services:
     ports:
       - "8080:8080"
     environment:
-      DB_VENDOR: "POSTGRES"
-      DB_ADDR: "keycloak-db"
-      DB_DATABASE: "keycloak"
-      DB_USER: "keycloak"
-      DB_PASSWORD: "password"
+      POSTGRES_DATABASE: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+      POSTGRES_PORT_5432_TCP_ADDR: keycloak-db
       KEYCLOAK_USER: "admin"
       KEYCLOAK_PASSWORD: "password"
-      # CONTEXT_PATH: keycloak\/auth
-      THEME_DEV: "true"
+#      CONTEXT_PATH: keycloak\/auth
+#      THEME_DEV: "true"
     command:
       - "-b"
       - "0.0.0.0"
