@@ -6,7 +6,7 @@
     "username" : "admin",
     "enabled" : true,
     "totp" : false,
-    "emailVerified" : false,
+    "emailVerified" : true,
     "firstName" : "Johannes",
     "lastName" : "Innerbichler",
     "email" : "test@test.com",
@@ -25,6 +25,25 @@
     "requiredActions" : [ ],
     "realmRoles" : [ "uma_authorization", "offline_access", "admin" ],
     "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "bbf6ea52-63f8-4632-b706-57dae21ee809",
+    "createdTimestamp" : 1547644843470,
+    "username" : "service-account-admin-cli",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "email" : "service-account-admin-cli@placeholder.org",
+    "serviceAccountClientId" : "admin-cli",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "uma_authorization", "offline_access" ],
+    "clientRoles" : {
+      "admin-cli" : [ "uma_protection" ],
       "account" : [ "view-profile", "manage-account" ]
     },
     "notBefore" : 0,
