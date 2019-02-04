@@ -33,14 +33,13 @@ services:
       - env_vars
       - env_vars-staging
     environment:
+      - APPLICATION_NAME_SUFFIX=-v2
       - POSTGRES_HOST=sl-eu-lon-2-portal.1.dblayer.com
       - POSTGRES_PORT=21736
       - POSTGRES_DB=identitydbv2
       - POSTGRES_USER=admin
-      - _JAVA_OPTIONS=-Xmx256m -Xms50m
+      - _JAVA_OPTIONS=-Xmx128m -Xms50m
     mem_limit: 1000m
-    ports:
-      - "9096:9096"
     networks:
       - infra
 
