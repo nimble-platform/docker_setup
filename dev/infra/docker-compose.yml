@@ -64,7 +64,7 @@ services:
       # - "9999:9999" # keycloak federation port - not used in local dev setup
       - "8443:8443"
     volumes:
-      - ./keycloak/staging-migration/:/migration/
+      - ./keycloak/init-migration/:/migration/
     links:
       - keycloak-db:postgres
     depends_on:
