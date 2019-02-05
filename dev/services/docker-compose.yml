@@ -319,6 +319,24 @@ services:
     networks:
       - infra
 
+
+  ##############################
+  ####### Indexing Service #####
+  ##############################
+
+  indexing-service:
+    image: nimbleplatform/indexing-service:staging
+    ports:
+      - "9101:8080"
+    environment:
+      - _JAVA_OPTIONS=-Xmx1536m -Xms50m
+      - SOLR_HOST=http://solr:8983/solr/
+    mem_limit: 2000m
+    env_file:
+      - env_vars
+    networks:
+     - infra
+
 networks:
   infra:
     external:

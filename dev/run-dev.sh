@@ -50,7 +50,7 @@ elif [[ "$1" = "services" ]]; then
 	docker-compose -f services/docker-compose.yml \
 		--project-name nimbleservices up \
 		--build \
-        --force-recreate identity-service business-process-service frontend-service catalog-service-srdc frontend-service-sidecar trust-service
+        --force-recreate identity-service business-process-service frontend-service catalog-service-srdc frontend-service-sidecar trust-service indexing-service
 
 #    docker-compose -f services/docker-compose.yml --project-name nimbleservices up --build --force-recreate identity-service
 
