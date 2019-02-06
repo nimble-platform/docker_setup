@@ -8,6 +8,7 @@ services:
        - keycloak_secrets
      environment:
        - PROXY_ADDRESS_FORWARDING=true
+       - _JAVA_OPTIONS=-Xmx256m -Xms50m
      ports:
        - "8080:8080"
        - "10098:9990"

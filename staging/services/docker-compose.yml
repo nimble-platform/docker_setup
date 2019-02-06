@@ -16,7 +16,7 @@ services:
       - POSTGRES_PORT=21736
       - POSTGRES_DB=identitydb
       - POSTGRES_USER=admin
-      - _JAVA_OPTIONS=-Xmx256m -Xms50m
+      - _JAVA_OPTIONS=-Xmx64m -Xms50m
     mem_limit: 1000m
     ports:
       - "9096:9096"
@@ -38,7 +38,7 @@ services:
       - POSTGRES_PORT=21736
       - POSTGRES_DB=identitydbv2
       - POSTGRES_USER=admin
-      - _JAVA_OPTIONS=-Xmx128m -Xms50m
+      - _JAVA_OPTIONS=-Xmx64m -Xms50m
     mem_limit: 1000m
     networks:
       - infra
@@ -53,6 +53,7 @@ services:
       - env_vars
       - env_vars-staging
     environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m
       - BUSINESS_PROCESS_DB_HOST=sl-eu-lon-2-portal.1.dblayer.com
       - BUSINESS_PROCESS_DB_PORT=21736
       - BUSINESS_PROCESS_DB_NAME=businessprocessdb
@@ -61,7 +62,6 @@ services:
       - CAMUNDA_DB_PORT=21736
       - CAMUNDA_DB_NAME=camundadb
       - CAMUNDA_DB_USERNAME=admin
-      - _JAVA_OPTIONS=-Xmx1536m -Xms50m
     mem_limit: 2000m
     ports:
       - "8085:8085"
@@ -77,9 +77,9 @@ services:
     ports:
       - "9101:8080"
     environment:
-      - _JAVA_OPTIONS=-Xmx1536m -Xms50m
+      - _JAVA_OPTIONS=-Xmx256m -Xms50m
       - SOLR_HOST=http://solr:8983/solr/
-    mem_limit: 2000m
+    mem_limit: 1000m
     env_file:
       - env_vars
       - env_vars-staging
@@ -95,7 +95,7 @@ services:
     ports:
       - "10095:8095"
     environment:
-      - _JAVA_OPTIONS=-Xmx1536m -Xms50m
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m
     mem_limit: 2000m
     env_file:
       - env_vars
@@ -207,7 +207,7 @@ services:
       - env_vars
       - env_vars-staging
     environment:
-      _JAVA_OPTIONS: -Xmx768m -Xms50m
+      _JAVA_OPTIONS: -Xmx256m -Xms50m
     mem_limit: 1000m
     ports:
       - "9099:9099"

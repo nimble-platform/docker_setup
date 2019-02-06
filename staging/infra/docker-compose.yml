@@ -10,7 +10,7 @@ services:
     env_file:
       - env_vars
     environment:
-      - _JAVA_OPTIONS=-Xmx512m -Xms50m
+      - _JAVA_OPTIONS=-Xmx128m -Xms50m
     ports:
       - "8888:8888"
 
@@ -19,7 +19,7 @@ services:
     env_file:
       - env_vars
     environment:
-      - _JAVA_OPTIONS=-Xmx512m -Xms50m
+      - _JAVA_OPTIONS=-Xmx128m -Xms50m
     ports:
       - "8761:8761"
     depends_on:
@@ -30,7 +30,7 @@ services:
     env_file:
       - env_vars
     environment:
-      - _JAVA_OPTIONS=-Xmx512m -Xms50m
+      - _JAVA_OPTIONS=-Xmx128m -Xms50m
 #    ports:
 #      - "80:80"
     depends_on:
