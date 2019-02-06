@@ -145,6 +145,8 @@ nimbleinfra_kafka_1               0.0.0.0:9092->9092/tcp
 nimbleinfra_keycloak-db_1         5432/tcp
 nimbleinfra_config-server_1       0.0.0.0:8888->8888/tcp
 nimbleinfra_zookeeper_1           2888/tcp, 0.0.0.0:2181->2181/tcp, 3888/tcp
+nimbleinfra_maildev_1             25/tcp, 0.0.0.0:8025->80/tcp
+nimbleinfra_solr_1                0.0.0.0:8983->8983/tcp
 ```
 
 In case of port binding errors, the shown default port mappings can be adapted to local system requirements in `infra/docker-compose.yml`.
@@ -154,7 +156,7 @@ The infrastructure services can be tested by the following http-requests:
   * http://localhost:8888/env => list configuration properties from `nimbleinfra_config-server_1`
   * http://localhost:8761/ => list registered services from Eureka `nimbleinfra_service-discovery_1` (only "gateway-proxy" in the beginning)
   * http://localhost/mappings => list of mappings provided by the `nimbleinfra_gateway-proxy_1`
-  * http://localhost:8080, https://localhost:8443 => Administration console for managing identities and access control from `nimbleinfra_keycloak_1`. Login with `admin` and password `nimbleplatform`
+  * http://localhost:8080, https://localhost:8443 => Administration console for managing identities and access control from `nimbleinfra_keycloak_1`. Login with `admin` and password `password`
 
 ### Starting the NIMBLE core services
 
@@ -181,6 +183,7 @@ nimbleservices_marmotta-db_1                   0.0.0.0:5437->5432/tcp
 nimbleservices_category-db_1                   5432/tcp
 nimbleservices_sync-db_1                       5432/tcp
 nimbleservices_binary-content-db_1             0.0.0.0:5438->5432/tcp
+nimbleservices_indexing-service_1              0.0.0.0:9101->8080/tcp
 ...
 ```
 
