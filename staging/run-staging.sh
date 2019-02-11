@@ -8,6 +8,10 @@ if [[ "$1" = "infra" ]]; then
 
 	docker-compose -f infra/docker-compose.yml --project-name ${INFRA_PROJECT} up --build -d
 
+elif [[ "$1" = "database" ]]; then
+
+	docker-compose -f infra/docker-compose.yml --project-name ${INFRA_PROJECT} up -d staging-main-db
+
 elif [[ "$1" = "keycloak" ]]; then
 
 	docker-compose -f infra/keycloak/docker-compose.yml --project-name ${INFRA_PROJECT} up --build -d
