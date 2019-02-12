@@ -49,6 +49,8 @@ services:
       POSTGRES_PASSWORD: 'IRDMKUYCDTIDNLQG'
     ports:
       - 5432:5432
+    volumes:
+      - staging-main-db:/var/lib/postgresql/data
 
-#volumes:
-#  staging-main-db:
+volumes:
+  staging-main-db:
