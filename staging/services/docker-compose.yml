@@ -73,7 +73,7 @@ services:
     ports:
       - "9101:8080"
     environment:
-      - _JAVA_OPTIONS=-Xmx256m -Xms50m
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m
       - SOLR_HOST=http://solr:8983/solr/
     mem_limit: 1000m
     env_file:
@@ -91,7 +91,7 @@ services:
     ports:
       - "10095:8095"
     environment:
-      - _JAVA_OPTIONS=-Xmx512m -Xms50m
+      - _JAVA_OPTIONS=-Xmx768m -Xms50m
     mem_limit: 2000m
     env_file:
       - env_vars
