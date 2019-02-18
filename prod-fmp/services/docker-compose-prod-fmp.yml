@@ -33,8 +33,8 @@ services:
       - env_vars
       - env_vars-prod-fmp
     environment:
-      - _JAVA_OPTIONS=-Xmx2048m -Xms150m
-    mem_limit: 2000m
+      - _JAVA_OPTIONS=-Xmx2560m -Xms150m
+#    mem_limit: 2000m
     ports:
       - "8085:8085"
     networks:
@@ -50,7 +50,7 @@ services:
       - "10095:8095"
     environment:
       - _JAVA_OPTIONS=-Xmx2048m -Xms150m
-    mem_limit: 2000m
+#    mem_limit: 2000m
     env_file:
       - env_vars
       - env_vars-prod-fmp
