@@ -49,7 +49,7 @@ services:
     ports:
       - "10095:8095"
     environment:
-      - _JAVA_OPTIONS=-Xmx2048m -Xms150m
+      - _JAVA_OPTIONS=-Xmx2560m -Xms150m
 #    mem_limit: 2000m
     env_file:
       - env_vars
