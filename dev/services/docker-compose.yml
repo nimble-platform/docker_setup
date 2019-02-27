@@ -11,7 +11,7 @@ services:
     env_file:
       - env_vars
     environment:
-      - _JAVA_OPTIONS=-Xmx512m -Xms50m # -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
+      - _JAVA_OPTIONS=-Xmx256m -Xms50m # -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
       - POSTGRES_HOST=identity-service-db
       - POSTGRES_PORT=5432
       - POSTGRES_DB=identityDB
@@ -295,7 +295,7 @@ services:
       - env_vars
     environment:
       - PORT=9098
-      - _JAVA_OPTIONS=-Xmx256m -Xms128m
+      - _JAVA_OPTIONS=-Xmx128m -Xms128m
       - TRUST_DB_HOST=trust-service-db
       - TRUST_DB_NAME=trustdb
       - TRUST_DB_USERNAME=postgres
@@ -329,7 +329,7 @@ services:
     ports:
       - "9101:8080"
     environment:
-      - _JAVA_OPTIONS=-Xmx1536m -Xms50m
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m
       - SOLR_HOST=http://solr:8983/solr/
     mem_limit: 2000m
     env_file:

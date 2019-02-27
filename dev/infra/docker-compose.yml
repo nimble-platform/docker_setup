@@ -35,7 +35,7 @@ services:
       - config-server
       - service-discovery
     environment:
-      _JAVA_OPTIONS: -Xmx256m -Xms50m
+      _JAVA_OPTIONS: -Xmx128m -Xms50m
 
   ##########################
   ######## Keycloak ########
@@ -52,6 +52,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_PORT_5432_TCP_ADDR: keycloak-db
       PROXY_ADDRESS_FORWARDING: "true"
+      _JAVA_OPTIONS: -Xmx128m -Xms50m
     command:
       - "-b"
       - "0.0.0.0"
@@ -93,6 +94,7 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_CREATE_TOPICS: "test:1:1"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      _JAVA_OPTIONS: -Xmx128m -Xms50m
     depends_on:
       - zookeeper
 
