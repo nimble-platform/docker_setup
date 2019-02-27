@@ -48,6 +48,9 @@ services:
       - env_vars
       - env_secret
     ports:
-      - 5432:5432
+      - 5433:5432
     volumes:
-      - staging-main-db:/var/lib/postgresql/data
+      - fmp-main-db:/var/lib/postgresql/data
+
+volumes:
+  fmp-main-db:
