@@ -16,6 +16,10 @@ elif [[ "$1" = "keycloak" ]]; then
 
 	docker-compose -f infra/keycloak/docker-compose-prod-fmp.yml --project-name ${INFRA_PROJECT} up --build -d
 
+elif [[ "$1" = "solr" ]]; then
+
+	docker-compose -f infra/solr/docker-compose.yml --project-name ${INFRA_PROJECT} up -d
+
 elif [[ "$1" = "marmotta" ]]; then
 
 	docker-compose -f infra/marmotta/docker-compose-marmotta-prod-fmp.yml --project-name ${INFRA_PROJECT} pull

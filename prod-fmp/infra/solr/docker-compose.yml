@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  solr:
+    image: solr:7.6.0
+    command: "-cloud"
+    ports:
+      - "8983:8983"
+    volumes:
+      - solr_data:/opt/solr/server/solr/
+    networks:
+      - nimble-cloud-infra
+
+volumes:
+  solr_data:
+
+networks:
+  nimble-cloud-infra:
+    external:
+      name: nimbleinfra-fmp-prod_default

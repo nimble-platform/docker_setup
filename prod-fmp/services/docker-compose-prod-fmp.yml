@@ -72,8 +72,26 @@ services:
       - "MARMOTTA_URL=http://nimble-staging.salzburgresearch.at/marmotta"
       - "LANGUAGE_LABEL=http://www.w3.org/2004/02/skos/core#prefLabel"
       - "CATALOG_SEARCH_CONFIG:/resources/sqpConfiguration-staging.xml"
-      - "_JAVA_OPTIONS=-Xmx512m -Xms50m"
+      - "_JAVA_OPTIONS=-Xmx1024m -Xms50m"
     mem_limit: 1000m
+    networks:
+      - infra
+
+  ##############################
+  ####### Indexing Service #####
+  ##############################
+
+  indexing-service:
+    image: nimbleplatform/indexing-service:latest
+    ports:
+      - "9101:8080"
+    environment:
+      - _JAVA_OPTIONS=-Xmx1024m -Xms50m
+      - SOLR_HOST=http://solr:8983/solr/
+    mem_limit: 1000m
+    env_file:
+      - env_vars
+      - env_vars-prod-fmp
     networks:
       - infra
 

@@ -24,6 +24,10 @@ elif [[ "$1" = "marmotta" ]]; then
 	docker-compose -f infra/marmotta/docker-compose-marmotta.yml --project-name nimbleinfra-prod pull
 	docker-compose -f infra/marmotta/docker-compose-marmotta.yml --project-name nimbleinfra-prod up --build -d
 
+elif [[ "$1" = "solr" ]]; then
+
+	docker-compose -f infra/solr/docker-compose.yml --project-name nimbleinfra-prod up -d
+
 elif [[ "$1" = "elk" ]]; then
 
 	docker-compose -f infra/elk-prod/docker-compose-elk.yml --project-name nimbleinfra-prod up --build -d
