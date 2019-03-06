@@ -50,14 +50,6 @@ services:
       - env_vars-staging
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms50m
-#      - BUSINESS_PROCESS_DB_HOST=sl-eu-lon-2-portal.1.dblayer.com
-#      - BUSINESS_PROCESS_DB_PORT=21736
-#      - BUSINESS_PROCESS_DB_NAME=businessprocessdb
-#      - BUSINESS_PROCESS_DB_USERNAME=admin
-#      - CAMUNDA_DB_HOST=sl-eu-lon-2-portal.1.dblayer.com
-#      - CAMUNDA_DB_PORT=21736
-#      - CAMUNDA_DB_NAME=camundadb
-#      - CAMUNDA_DB_USERNAME=admin
     mem_limit: 2000m
     ports:
       - "8085:8085"
