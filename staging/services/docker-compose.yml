@@ -11,6 +11,7 @@ services:
     env_file:
       - env_vars
       - env_vars-staging
+      - platform-config
     environment:
       - POSTGRES_HOST=sl-eu-lon-2-portal.1.dblayer.com
       - POSTGRES_PORT=21736
@@ -30,6 +31,7 @@ services:
     env_file:
       - env_vars
       - env_vars-staging
+      - platform-config
     environment:
       - BUSINESS_PROCESS_DB_HOST=sl-eu-lon-2-portal.1.dblayer.com
       - BUSINESS_PROCESS_DB_PORT=21736
@@ -55,6 +57,7 @@ services:
     env_file:
       - env_vars
       - env_vars-staging
+      - platform-config
     networks:
       - infra
 
@@ -69,6 +72,7 @@ services:
     env_file:
       - env_vars
       - env_vars-staging
+      - platform-config
     networks:
       - infra
     depends_on:
@@ -81,6 +85,7 @@ services:
     env_file:
       - env_vars
       - env_vars-staging
+      - platform-config
     environment:
       SIDECAR_NAME: frontend-service
       SIDECAR_APP_HOST: frontend-service
