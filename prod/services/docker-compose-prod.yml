@@ -11,6 +11,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod  # stores secretes and deployment specific information on the host machine.
+      - platform-config
     environment:
       - _JAVA_OPTIONS=-Xmx768m -Xms50m
     ports:
@@ -27,6 +28,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod  # stores secretes and deployment specific information on the host machine.
+      - platform-config
     environment:
       - _JAVA_OPTIONS=-Xmx1536m -Xms50m
     ports:
@@ -45,6 +47,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod  # stores secretes and deployment specific information on the host machine.
+      - platform-config
     environment:
       - _JAVA_OPTIONS=-Xmx1536m -Xms50m
     networks:
@@ -65,6 +68,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod
+      - platform-config
     networks:
       - infra
 
@@ -79,6 +83,7 @@ services:
       - "10096:8090"
     env_file:
       - env_vars
+      - platform-config
     environment:
       - "SPRING_PROFILES_ACTIVE=productive"
       - "MARMOTTA_URL=https://nimble-platform.salzburgresearch.at/marmotta"
@@ -100,6 +105,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod
+      - platform-config
     environment:
       _JAVA_OPTIONS: -Xmx512m -Xms50m
     networks:
@@ -112,6 +118,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod
+      - platform-config
     environment:
       SIDECAR_NAME: frontend-service
       SIDECAR_APP_HOST: frontend-service
@@ -132,6 +139,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod
+      - platform-config
     environment:
       _JAVA_OPTIONS: -Xmx768m -Xms50m
     ports:
@@ -148,6 +156,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod
+      - platform-config
     environment:
       _JAVA_OPTIONS: -Xmx256m -Xms50m
     mem_limit: 500m
@@ -166,6 +175,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod
+      - platform-config
     environment:
       _JAVA_OPTIONS: -Xmx128m -Xms50m
     mem_limit: 400m
@@ -184,6 +194,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod
+      - platform-config
     environment:
       _JAVA_OPTIONS: -Xmx64m -Xms50m
     mem_limit: 200m
@@ -200,6 +211,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod
+      - platform-config
     environment:
       PORT: 9098
       _JAVA_OPTIONS: -Xmx128m -Xms50m
