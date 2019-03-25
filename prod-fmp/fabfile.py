@@ -42,4 +42,4 @@ def update_files():
     rsync_project(local_dir='.', remote_dir=WORKING_DIR,
                   extra_opts='--progress',
                   exclude=['services/env_vars-prod-fmp', '.git', '*.pyc', '.idea', '__pycache__', '.python-version'
-                                                                                                  'infra/keycloak/keycloak_secrets'])
+                                                                                                  'infra/keycloak/keycloak_secrets',"services/platform-config"])
