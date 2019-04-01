@@ -1,0 +1,5 @@
+SPRING_PROFILES_ACTIVE=docker,dev
+CONFIG_SERVER_URI=http://config-server:8888
+DISCOVERY_SERVER_URI=http://service-discovery:8761
+DISCOVERY_PREFER_IP=false
+LOGSTASH_URI=logstash:5000

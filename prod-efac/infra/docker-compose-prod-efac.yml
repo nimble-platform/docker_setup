@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  ##########################
+  #### MS Infrastructure ###
+  ##########################
+
+  config-server:
+    image: nimbleplatform/config-server:latest
+    env_file:
+      - env_vars
+    ports:
+      - "8888:8888"
+    environment:
+      _JAVA_OPTIONS: -Xmx256m -Xms50m
+
+  service-discovery:
+    image: nimbleplatform/service-discovery:latest
+    env_file:
+      - env_vars
+    ports:
+      - "8761:8761"
+    depends_on:
+      - config-server
+    environment:
+      _JAVA_OPTIONS: -Xmx256m -Xms50m
+
+  gateway-proxy:
+    image: nimbleplatform/gateway-proxy:latest
+    env_file:
+      - env_vars
+#    ports:
+#      - "443:80"
+    depends_on:
+      - config-server
+      - service-discovery
+    environment:
+      _JAVA_OPTIONS: -Xmx256m -Xms50m
+
+  ##########################
+  ######## Databases #######
+  ##########################
+
+  efac-main-db:
+    image: postgres:10
+    restart: always
+    env_file:
+      - env_vars
+      - env_secret
+    ports:
+      - 5433:5432
+    volumes:
+      - efac-main-db:/var/lib/postgresql/data
+
+volumes:
+  efac-main-db:
