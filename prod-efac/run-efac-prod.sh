@@ -20,22 +20,24 @@ elif [[ "$1" = "solr" ]]; then
 
 	docker-compose -f infra/solr/docker-compose.yml --project-name ${INFRA_PROJECT} up -d
 
-#elif [[ "$1" = "services" ]]; then
-#
-#	# update services
-#	docker-compose -f services/docker-compose.yml --project-name ${SERVICE_PROJECT} pull
-#
-#	# start services
-#	docker-compose -f services/docker-compose.yml --project-name ${SERVICE_PROJECT} up \
-#		-d \
-#		--build \
-#		identity-service business-process-service frontend-service catalog-service-srdc frontend-service-sidecar search-service
-#
-#elif [[ "$1" = "start" ]]; then
-#
-#	update_images
-#	start_all
-#
+elif [[ "$1" = "services" ]]; then
+
+	# update services
+	docker-compose -f services/docker-compose-prod-efac.yml --project-name ${SERVICE_PROJECT} pull
+
+	# start services
+	docker-compose -f services/docker-compose-prod-efac.yml --project-name ${SERVICE_PROJECT} up \
+		-d \
+		--build \
+		--force-recreate \
+		identity-service business-process-service frontend-service catalogue-service \
+		frontend-service-sidecar indexing-service data-aggregation-service trust-service
+
+elif [[ "$1" = "start" ]]; then
+
+	update_images
+	start_all
+
 elif [[ "$1" = "restart-single" ]]; then
 
 	# update services
