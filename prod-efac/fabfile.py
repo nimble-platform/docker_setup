@@ -3,7 +3,7 @@ from fabric.context_managers import cd
 from fabric.contrib.project import rsync_project
 
 env.use_ssh_config = True
-WORKING_DIR = '/srv/nimble-fmp'
+WORKING_DIR = '/srv/nimble-efac'
 
 
 @task(default=True)
@@ -11,16 +11,16 @@ def deploy_infra():
     update_files()
 
     with cd(WORKING_DIR):
-        run('./run-fmp-prod.sh infra')
-        run('./run-fmp-prod.sh keycloak')
-        run('./run-fmp-prod.sh marmotta')
+        run('./run-efac-prod.sh infra')
+        run('./run-efac-prod.sh keycloak')
+        run('./run-efac-prod.sh marmotta')
 
 
 @task
 def restart_single(service):
     with cd(WORKING_DIR):
-        run('./run-fmp-prod.sh restart-single ' + service)
-        run('./run-fmp-prod.sh service-logs ' + service)
+        run('./run-efac-prod.sh restart-single ' + service)
+        run('./run-efac-prod.sh service-logs ' + service)
 
 
 @task
@@ -41,5 +41,5 @@ def update_files():
     run('mkdir -p ' + WORKING_DIR)
     rsync_project(local_dir='.', remote_dir=WORKING_DIR,
                   extra_opts='--progress',
-                  exclude=['services/env_vars-prod-fmp', '.git', '*.pyc', '.idea', '__pycache__', '.python-version'
+                  exclude=['services/env_vars-prod-efac', '.git', '*.pyc', '.idea', '__pycache__', '.python-version'
                                                                                                   'infra/keycloak/keycloak_secrets',"services/platform-config"])

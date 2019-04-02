@@ -11,6 +11,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod-fmp
+      - platform-config
     environment:
       - _JAVA_OPTIONS=-Xmx256m -Xms50m
     mem_limit: 1000m
@@ -28,6 +29,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod-fmp
+      - platform-config
     environment:
       - _JAVA_OPTIONS=-Xmx2560m -Xms150m
     mem_limit: 3000m
@@ -50,6 +52,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod-fmp
+      - platform-config
     networks:
       - infra
 
@@ -63,6 +66,7 @@ services:
       - "10096:8090"
     env_file:
       - env_vars
+      - platform-config
     environment:
       - "SPRING_PROFILES_ACTIVE=productive"
       - "MARMOTTA_URL=http://nimble-staging.salzburgresearch.at/marmotta"
@@ -88,6 +92,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod-fmp
+      - platform-config
     networks:
       - infra
 
@@ -102,6 +107,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod-fmp
+      - platform-config
     environment:
       _JAVA_OPTIONS: -Xmx512m -Xms50m
     mem_limit: 1000m
@@ -117,6 +123,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod-fmp
+      - platform-config
     environment:
       SIDECAR_NAME: frontend-service
       SIDECAR_APP_HOST: frontend-service
@@ -137,6 +144,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod-fmp
+      - platform-config
     environment:
       _JAVA_OPTIONS: -Xmx768m -Xms50m
     mem_limit: 1000m
@@ -155,6 +163,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod-fmp
+      - platform-config
     environment:
       _JAVA_OPTIONS: -Xmx128m -Xms50m
     mem_limit: 400m
@@ -173,6 +182,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod-fmp
+      - platform-config
     environment:
       _JAVA_OPTIONS: -Xmx64m -Xms50m
     mem_limit: 400m
@@ -189,6 +199,7 @@ services:
     env_file:
       - env_vars
       - env_vars-prod-fmp
+      - platform-config
     environment:
       PORT: 9098
       _JAVA_OPTIONS: -Xmx256m -Xms128m

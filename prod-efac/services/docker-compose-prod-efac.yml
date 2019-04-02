@@ -10,10 +10,15 @@ services:
     image: nimbleplatform/identity-service:latest
     env_file:
       - env_vars
-      - env_vars-prod  # stores secretes and deployment specific information on the host machine.
+      - env_vars-prod-efac
       - platform-config
     environment:
-      - _JAVA_OPTIONS=-Xmx768m -Xms50m
+      - POSTGRES_HOST=sl-eu-fra-2-portal.5.dblayer.com
+      - POSTGRES_PORT=18219
+      - POSTGRES_DB=identitydb
+      - POSTGRES_USER=admin
+      - _JAVA_OPTIONS=-Xmx256m -Xms50m
+    mem_limit: 1000m
     ports:
       - "9096:9096"
     networks:
@@ -27,10 +32,11 @@ services:
     image: nimbleplatform/business-process-service:latest
     env_file:
       - env_vars
-      - env_vars-prod  # stores secretes and deployment specific information on the host machine.
+      - env_vars-prod-efac
       - platform-config
     environment:
-      - _JAVA_OPTIONS=-Xmx1536m -Xms50m
+      - _JAVA_OPTIONS=-Xmx2560m -Xms150m
+    mem_limit: 3000m
     ports:
       - "8085:8085"
     networks:
@@ -40,16 +46,38 @@ services:
   ####### Catalog Service ######  
   ##############################
   
-  catalog-service-srdc:
+  catalogue-service:
     image: nimbleplatform/catalogue-service-micro:latest
     ports:
       - "10095:8095"
+    environment:
+      - _JAVA_OPTIONS=-Xmx2560m -Xms150m
+    mem_limit: 3000m
     env_file:
       - env_vars
-      - env_vars-prod  # stores secretes and deployment specific information on the host machine.
+      - env_vars-prod-efac
+      - platform-config
+    networks:
+      - infra
+
+  ##############################
+  ####### Search Service ######
+  ##############################
+
+  search-service:
+    image: nimbleplatform/catalog-search-service:latest
+    ports:
+      - "10096:8090"
+    env_file:
+      - env_vars
       - platform-config
     environment:
-      - _JAVA_OPTIONS=-Xmx1536m -Xms50m
+      - "SPRING_PROFILES_ACTIVE=productive"
+      - "MARMOTTA_URL=http://nimble-staging.salzburgresearch.at/marmotta"
+      - "LANGUAGE_LABEL=http://www.w3.org/2004/02/skos/core#prefLabel"
+      - "CATALOG_SEARCH_CONFIG:/resources/sqpConfiguration-staging.xml"
+      - "_JAVA_OPTIONS=-Xmx1024m -Xms50m"
+    mem_limit: 1000m
     networks:
       - infra
 
@@ -62,35 +90,13 @@ services:
     ports:
       - "9101:8080"
     environment:
-      - _JAVA_OPTIONS=-Xmx512m -Xms50m
+      - _JAVA_OPTIONS=-Xmx1024m -Xms50m
       - SOLR_HOST=http://solr:8983/solr/
     mem_limit: 1000m
     env_file:
       - env_vars
-      - env_vars-prod
+      - env_vars-prod-efac
       - platform-config
-    networks:
-      - infra
-
-  ##############################
-  ####### Search Service #######
-  ##############################
-
-  search-service:
-    image: nimbleplatform/catalog-search-service:latest
-    restart: always
-    ports:
-      - "10096:8090"
-    env_file:
-      - env_vars
-      - platform-config
-    environment:
-      - "SPRING_PROFILES_ACTIVE=productive"
-      - "MARMOTTA_URL=https://nimble-platform.salzburgresearch.at/marmotta"
-      - "LANGUAGE_LABEL=http://www.w3.org/2004/02/skos/core#prefLabel"
-      - "CATALOG_SEARCH_CONFIG:/resources/sqpConfiguration-productive.xml"
-      - "_JAVA_OPTIONS=-Xmx256m -Xms50m"
-    mem_limit: 1000m
     networks:
       - infra
 
@@ -101,15 +107,18 @@ services:
   frontend-service:
     image: nimbleplatform/frontend-service:latest
     ports:
-      - "9092:8080"
+      - "8081:8080"
     env_file:
       - env_vars
-      - env_vars-prod
+      - env_vars-prod-efac
       - platform-config
     environment:
       _JAVA_OPTIONS: -Xmx512m -Xms50m
+    mem_limit: 1000m
     networks:
       - infra
+    depends_on:
+      - frontend-service-sidecar
   
   frontend-service-sidecar:
     image: nimbleplatform/sidecar:latest
@@ -117,7 +126,7 @@ services:
       - "9097:9097"
     env_file:
       - env_vars
-      - env_vars-prod
+      - env_vars-prod-efac
       - platform-config
     environment:
       SIDECAR_NAME: frontend-service
@@ -126,6 +135,7 @@ services:
       SIDECAR_APP_HEALTH_URI: http://frontend-service:8080/health.json
       SIDECAR_APP_HOMEPAGE_URI: http://frontend-service:8080/
       _JAVA_OPTIONS: -Xmx768m -Xms50m
+    mem_limit: 1000m
     networks:
       - infra
 
@@ -135,33 +145,15 @@ services:
 
   data-channel-service:
     image: nimbleplatform/data-channel-service:latest
-    restart: always
     env_file:
       - env_vars
-      - env_vars-prod
+      - env_vars-prod-efac
       - platform-config
     environment:
       _JAVA_OPTIONS: -Xmx768m -Xms50m
+    mem_limit: 1000m
     ports:
       - "9099:9099"
-    networks:
-      - infra
-
-  ###############################
-  ######### Data Pipes ##########
-  ###############################
-
-  data-pipes:
-    image: nimbleplatform/data-pipes:latest
-    env_file:
-      - env_vars
-      - env_vars-prod
-      - platform-config
-    environment:
-      _JAVA_OPTIONS: -Xmx256m -Xms50m
-    mem_limit: 500m
-    ports:
-      - "8082:8080"
     networks:
       - infra
 
@@ -174,7 +166,7 @@ services:
     restart: always
     env_file:
       - env_vars
-      - env_vars-prod
+      - env_vars-prod-efac
       - platform-config
     environment:
       _JAVA_OPTIONS: -Xmx128m -Xms50m
@@ -193,11 +185,11 @@ services:
     restart: always
     env_file:
       - env_vars
-      - env_vars-prod
+      - env_vars-prod-efac
       - platform-config
     environment:
       _JAVA_OPTIONS: -Xmx64m -Xms50m
-    mem_limit: 200m
+    mem_limit: 400m
     networks:
       - infra
 
@@ -210,11 +202,11 @@ services:
     restart: always
     env_file:
       - env_vars
-      - env_vars-prod
+      - env_vars-prod-efac
       - platform-config
     environment:
       PORT: 9098
-      _JAVA_OPTIONS: -Xmx128m -Xms50m
+      _JAVA_OPTIONS: -Xmx256m -Xms128m
     mem_limit: 800m
     ports:
       - "9098:9098"
@@ -224,4 +216,4 @@ services:
 networks:
   infra:
     external:
-      name: nimbleinfraprod_default
+      name: nimbleinfra-efac-prod_default
