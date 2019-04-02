@@ -12,10 +12,6 @@ services:
       - env_vars
       - env_vars-prod-fmp
     environment:
-      - POSTGRES_HOST=sl-eu-fra-2-portal.5.dblayer.com
-      - POSTGRES_PORT=18219
-      - POSTGRES_DB=identitydb
-      - POSTGRES_USER=admin
       - _JAVA_OPTIONS=-Xmx256m -Xms50m
     mem_limit: 1000m
     ports:
