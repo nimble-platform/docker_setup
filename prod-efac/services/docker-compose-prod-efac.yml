@@ -80,7 +80,7 @@ services:
   ###############################
   
   frontend-service:
-    image: nimbleplatform/frontend-service:latest
+    image: nimbleplatform/frontend-service:efac
     ports:
       - "8081:8080"
     env_file:
