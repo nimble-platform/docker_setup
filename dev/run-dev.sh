@@ -93,7 +93,26 @@ elif [[ "$1" = "down" ]]; then
 elif [[ "$1" = "services-logs" ]]; then
 	
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices logs -f
-	
+
+elif [[ "$1" = "cloud-infra" ]]; then
+
+	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra up -d --build --force-recreate config-server service-discovery gateway-proxy
+	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra logs -f config-server service-discovery gateway-proxy
+
+elif [[ "$1" = "keycloak" ]]; then
+
+	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra up -d --build --force-recreate keycloak
+	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra logs -f keycloak keycloak-db
+
+elif [[ "$1" = "dev-infra" ]]; then
+
+	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra up -d --build --force-recreate kafka maildev solr dev-main-db
+	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra logs -f kafka maildev solr dev-main-db
+
+elif [[ "$1" = "create-network" ]]; then
+
+    docker network create nimbleinfra_default
+
 else
     echo Usage: $0 COMMAND
     echo Commands:

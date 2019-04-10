@@ -12,7 +12,7 @@ services:
     ports:
       - "8888:8888"
     environment:
-      _JAVA_OPTIONS: -Xmx256m -Xms50m
+      _JAVA_OPTIONS: -Xmx128m -Xms50m
 
   service-discovery:
     image: nimbleplatform/service-discovery:latest
@@ -23,7 +23,7 @@ services:
     depends_on:
       - config-server
     environment:
-      _JAVA_OPTIONS: -Xmx256m -Xms50m
+      _JAVA_OPTIONS: -Xmx128m -Xms50m
 
   gateway-proxy:
     image: nimbleplatform/gateway-proxy:latest
@@ -94,7 +94,7 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_CREATE_TOPICS: "test:1:1"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      _JAVA_OPTIONS: -Xmx128m -Xms50m
+      _JAVA_OPTIONS: -Xmx256m -Xms50m
     depends_on:
       - zookeeper
 
@@ -122,9 +122,22 @@ services:
     networks:
       - infra
 
+  dev-main-db:
+    image: postgres:10
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./initdb/:/docker-entrypoint-initdb.d/
+      - dev-main-db:/var/lib/postgresql/data
+
 volumes:
   keycloak_postgres_data:
   solr_data:
+  dev-main-db:
 
 networks:
   infra:

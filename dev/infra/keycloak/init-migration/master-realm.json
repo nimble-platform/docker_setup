@@ -1403,17 +1403,14 @@
     "contentSecurityPolicy": "frame-src 'self'; frame-ancestors 'self'; object-src 'none';"
   },
   "smtpServer": {
-    "password": "**********",
     "replyToDisplayName": "NIMBLE Staging",
     "starttls": "",
-    "auth": "true",
     "port": "25",
-    "host": "in-v3.mailjet.com",
+    "host": "maildev",
     "replyTo": "johannes.innerbichler@salzburgresearch.at",
     "from": "johannes.innerbichler@salzburgresearch.at",
     "fromDisplayName": "NIMBLE Staging",
-    "ssl": "",
-    "user": "0adfa4014f159b37090bd7af314ac80c"
+    "ssl": ""
   },
   "eventsEnabled": false,
   "eventsListeners": [
