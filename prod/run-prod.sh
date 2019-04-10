@@ -13,7 +13,8 @@ elif [[ "$1" = "services" ]]; then
 		-d \
 		--build \
 		--force-recreate \
-		identity-service business-process-service frontend-service catalog-service-srdc frontend-service-sidecar
+		identity-service business-process-service frontend-service catalog-service-srdc frontend-service-sidecar \
+		data-aggregation-service trust-service
 
 elif [[ "$1" = "keycloak" ]]; then
 

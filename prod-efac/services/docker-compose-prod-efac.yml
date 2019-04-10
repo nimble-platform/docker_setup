@@ -13,10 +13,6 @@ services:
       - env_vars-prod-efac
       - platform-config
     environment:
-      - POSTGRES_HOST=sl-eu-fra-2-portal.5.dblayer.com
-      - POSTGRES_PORT=18219
-      - POSTGRES_DB=identitydb
-      - POSTGRES_USER=admin
       - _JAVA_OPTIONS=-Xmx256m -Xms50m
     mem_limit: 1000m
     ports:
@@ -61,27 +57,6 @@ services:
       - infra
 
   ##############################
-  ####### Search Service ######
-  ##############################
-
-  search-service:
-    image: nimbleplatform/catalog-search-service:latest
-    ports:
-      - "10096:8090"
-    env_file:
-      - env_vars
-      - platform-config
-    environment:
-      - "SPRING_PROFILES_ACTIVE=productive"
-      - "MARMOTTA_URL=http://nimble-staging.salzburgresearch.at/marmotta"
-      - "LANGUAGE_LABEL=http://www.w3.org/2004/02/skos/core#prefLabel"
-      - "CATALOG_SEARCH_CONFIG:/resources/sqpConfiguration-staging.xml"
-      - "_JAVA_OPTIONS=-Xmx1024m -Xms50m"
-    mem_limit: 1000m
-    networks:
-      - infra
-
-  ##############################
   ####### Indexing Service #####
   ##############################
 
@@ -105,7 +80,7 @@ services:
   ###############################
   
   frontend-service:
-    image: nimbleplatform/frontend-service:latest
+    image: nimbleplatform/frontend-service:efac
     ports:
       - "8081:8080"
     env_file:
