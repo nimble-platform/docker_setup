@@ -68,6 +68,16 @@ elif [[ "$1" = "stop" ]]; then
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices stop
 	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra stop
 
+elif [[ "$1" = "down" ]]; then
+
+	read -p "Are you sure? " -n 1 -r
+    echo    # (optional) move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        docker-compose -f services/docker-compose.yml --project-name nimbleservices down -v
+	    docker-compose -f infra/docker-compose.yml --project-name nimbleinfra down -v
+    fi
+
 elif [[ "$1" = "stop-services" ]]; then
 	
 	docker-compose -f services/docker-compose.yml --project-name nimbleservices stop

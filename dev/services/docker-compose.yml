@@ -203,7 +203,7 @@ services:
   ##############################
 
   indexing-service:
-    image: nimbleplatform/indexing-service:2.0.0
+    image: nimbleplatform/indexing-service:staging
     ports:
       - "9101:8080"
     environment:
