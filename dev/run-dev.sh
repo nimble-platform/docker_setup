@@ -126,7 +126,7 @@ elif [[ "$1" = "create-network" ]]; then
 else
     echo Usage: $0 COMMAND
     echo Commands:
-    echo "  infrastructure   start only infastructure components"
+    echo "  infrastructure   start only infrastructure components"
     echo "  services         start nimble core services"
     echo "  start            start infrastructure and core services"
     echo "  start-no-update  start infrastructure and core services, without updating the images"
