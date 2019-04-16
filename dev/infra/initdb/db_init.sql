@@ -1,0 +1,11 @@
+CREATE DATABASE identitydb WITH OWNER postgres;
+CREATE DATABASE catalogcategorydb WITH OWNER postgres;
+CREATE DATABASE camundadb WITH OWNER postgres;
+CREATE DATABASE businessprocessdb WITH OWNER postgres;
+CREATE DATABASE ubldb WITH OWNER postgres;
+CREATE DATABASE modalmldb WITH OWNER postgres;
+CREATE DATABASE catalogsyncdb WITH OWNER postgres;
+CREATE DATABASE datachanneldb WITH OWNER postgres;
+CREATE DATABASE trustdb WITH OWNER postgres;
+CREATE DATABASE keycloak WITH OWNER postgres;
+CREATE DATABASE binarycontentdb WITH OWNER postgres;
