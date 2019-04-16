@@ -25,6 +25,10 @@ elif [[ "$1" = "marmotta" ]]; then
 	docker-compose -f infra/marmotta/docker-compose-marmotta-prod-fmp.yml --project-name ${INFRA_PROJECT} pull
 	docker-compose -f infra/marmotta/docker-compose-marmotta-prod-fmp.yml --project-name ${INFRA_PROJECT} up --build -d
 
+elif [[ "$1" = "elk" ]]; then
+
+	docker-compose -f infra/elk/docker-compose-elk.yml --project-name ${INFRA_PROJECT} up --build -d
+
 elif [[ "$1" = "services" ]]; then
 
 	# update services
