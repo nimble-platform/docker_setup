@@ -88,7 +88,7 @@ services:
     environment:
       - _JAVA_OPTIONS=-Xmx1024m -Xms50m
       - SOLR_HOST=http://solr:8983/solr/
-    mem_limit: 1000m
+    mem_limit: 2000m
     env_file:
       - env_vars
       - env_vars-prod-fmp
