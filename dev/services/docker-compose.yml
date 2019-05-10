@@ -135,6 +135,7 @@ services:
       - BINARY_CONTENT_DB_PASSWORD=postgres
       - BINARY_CONTENT_URL=http://not-yet-in-use/
       - INDEXING_SERVICE_SOLR_URL=http://solr:8983/solr/
+      - INDEXING_SERVICE_URL=http://indexing-service:8080/
       - INDEXING_SERVICE_SOLR_USERNAME=
       - INDEXING_SERVICE_SOLR_PASSWORD=
       - INDEXING_SYNC=true
