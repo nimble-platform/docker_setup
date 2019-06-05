@@ -11,7 +11,6 @@ services:
       - ROOT_URL=http://nimble-staging.salzburgresearch.at
       - MONGO_URL=mongodb://mongo:27017/rocketchat
       - MONGO_OPLOG_URL=mongodb://mongo:27017/local
-      - MAIL_URL=smtp://smtp.email
       - HTTP_PROXY=http://nimble-staging.salzburgresearch.at
 #      - HTTPS_PROXY=https://proxy.domain.com
     depends_on:
