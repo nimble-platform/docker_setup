@@ -159,10 +159,14 @@ services:
       - DATACHANNEL_DB_USERNAME=postgres
       - DATACHANNEL_DB_PASSWORD=postgres
       - IDENTITY_SERVICE_URL=http://identity-service:9096/
-      - LOCAL_DATA_PIPE=
-      - LOCAL_DCFS=
-      - DATA_PIPE_URL=
-      - DCFS_URL=
+      - LOCAL_DATA_PIPE=  
+      # internal url (not publicly exposed) / leave empty if want only private data channel
+      - LOCAL_DCFS=  
+      # internal url (not publicly exposed) / leave empty if want only private data channel
+      - DATA_PIPE_URL=  
+      # external url / leave empty if want only private data channel
+      - DCFS_URL=  
+      # external url / leave empty if want only private data channel
     ports:
         - "9099:9099"
     networks:
