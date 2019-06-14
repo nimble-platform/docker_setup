@@ -5,7 +5,7 @@ services:
   ############################
   ##### Identity Service #####
   ############################
- 
+
   identity-service:
     image: nimbleplatform/identity-service:latest
     env_file:
@@ -39,9 +39,9 @@ services:
       - infra
 
   ##############################
-  ####### Catalog Service ######  
+  ####### Catalog Service ######
   ##############################
-  
+
   catalogue-service:
     image: nimbleplatform/catalogue-service-micro:latest
     ports:
@@ -78,7 +78,7 @@ services:
   ###############################
   ###### Frontend Service #######
   ###############################
-  
+
   frontend-service:
     image: nimbleplatform/frontend-service:efac
     ports:
@@ -94,7 +94,7 @@ services:
       - infra
     depends_on:
       - frontend-service-sidecar
-  
+
   frontend-service-sidecar:
     image: nimbleplatform/sidecar:latest
     ports:
@@ -164,7 +164,9 @@ services:
       - platform-config
     environment:
       _JAVA_OPTIONS: -Xmx64m -Xms50m
-    mem_limit: 400m
+    mem_limit: 800m
+    ports:
+      - "9099:9099"
     networks:
       - infra
 
