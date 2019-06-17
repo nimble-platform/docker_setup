@@ -184,8 +184,8 @@ services:
       - env_vars-prod-fmp
       - platform-config
     environment:
-      _JAVA_OPTIONS: -Xmx64m -Xms50m
-    mem_limit: 400m
+      _JAVA_OPTIONS: -Xmx1024m -Xms150m
+    mem_limit: 2000m
     networks:
       - infra
 
