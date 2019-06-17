@@ -12,7 +12,7 @@ services:
     ports:
       - "8888:8888"
     environment:
-      _JAVA_OPTIONS: -Xmx256m -Xms50m
+      _JAVA_OPTIONS: -Xmx512m -Xms50m
 
   service-discovery:
     image: nimbleplatform/service-discovery:latest
@@ -23,7 +23,7 @@ services:
     depends_on:
       - config-server
     environment:
-      _JAVA_OPTIONS: -Xmx256m -Xms50m
+      _JAVA_OPTIONS: -Xmx512m -Xms50m
 
   gateway-proxy:
     image: nimbleplatform/gateway-proxy:latest
@@ -35,4 +35,4 @@ services:
       - config-server
       - service-discovery
     environment:
-      _JAVA_OPTIONS: -Xmx256m -Xms50m
+      _JAVA_OPTIONS: -Xmx512m -Xms50m
