@@ -196,7 +196,7 @@ services:
       - env_vars-prod
       - platform-config
     environment:
-      _JAVA_OPTIONS: -Xmx64m -Xms50m
+      _JAVA_OPTIONS: -Xmx512m -Xms50m
     networks:
       - infra
 
