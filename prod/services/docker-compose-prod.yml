@@ -220,6 +220,23 @@ services:
     networks:
       - infra
 
+  ###############################
+  ###### Delegate Service #######
+  ###############################
+
+  delegate-service:
+    image: nimbleplatform/delegate-service:staging
+    env_file:
+      - env_vars
+    environment:
+      - FRONTEND_URL=http://nimble-staging.salzburgresearch.at/frontend/
+      - INDEXING_SERVICE_URL=nimble-staging.salzburgresearch.at/indexing-service
+      - INDEXING_SERVICE_PORT=-1
+    ports:
+      - "9265:8080"
+    networks:
+      - infra
+
 networks:
   infra:
     external:
