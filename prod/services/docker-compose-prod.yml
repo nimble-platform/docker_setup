@@ -230,7 +230,7 @@ services:
       - env_vars
     environment:
       - FRONTEND_URL=http://nimble-staging.salzburgresearch.at/frontend/
-      - INDEXING_SERVICE_URL=nimble-staging.salzburgresearch.at/indexing-service
+      - INDEXING_SERVICE_URL=http://nimble-staging.salzburgresearch.at/indexing-service
       - INDEXING_SERVICE_PORT=-1
     ports:
       - "9265:8080"
