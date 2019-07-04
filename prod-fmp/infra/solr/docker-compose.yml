@@ -4,8 +4,8 @@ services:
   solr:
     image: solr:7.6.0
     command: "-cloud"
-    ports:
-      - "8983:8983"
+#    ports:
+#      - "8983:8983"
     volumes:
       - solr_data:/opt/solr/server/solr/
     networks:
