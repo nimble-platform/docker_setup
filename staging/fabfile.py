@@ -44,4 +44,4 @@ def nginx_logs():
 def update_files():
     run('mkdir -p ' + WORKING_DIR)
     rsync_project(local_dir='.', remote_dir=WORKING_DIR,
-                  extra_opts='--progress', exclude=['services/env_vars-staging', '.git', '*.pyc', '.idea', '__pycache__','services/platform-config'])
+                  extra_opts='--progress', exclude=['services/env_vars-staging', '.git', '*.pyc', '.idea', '__pycache__','infra/keycloak/keycloak_secrets','services/platform-config'])
