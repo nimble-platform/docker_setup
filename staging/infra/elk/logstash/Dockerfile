@@ -1,8 +1,7 @@
-FROM docker.elastic.co/logstash/logstash-oss:6.1.2
-MAINTAINER Salzburg Research <nimble-srfg@salzburgresearch.at>
+ARG ELK_VERSION
 
-# adding configuration
-ADD config/logstash.conf /etc/logstash/conf.d/logstash.conf
+# https://github.com/elastic/logstash-docker
+FROM docker.elastic.co/logstash/logstash:${ELK_VERSION}
 
-#ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["--log.level", "debug", "--verbose", "--config.debug", "-f", "/etc/logstash/conf.d/logstash.conf"]
+# Add your logstash plugins setup here
+# Example: RUN logstash-plugin install logstash-filter-json
