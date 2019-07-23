@@ -1,6 +1,24 @@
-server:
-  host: 0.0.0.0
-  port: 5601
+---
+## Default Kibana configuration from kibana-docker.
+## https://github.com/elastic/kibana-docker/blob/master/.tedi/template/kibana.yml.j2
+#
+server.name: kibana
+server.host: "0"
+server.basePath: "/kibana"
+elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+xpack.monitoring.ui.container.elasticsearch.enabled: true
 
-elasticsearch:
-  url: http://elasticsearch:9200
+## X-Pack settings
+## see https://www.elastic.co/guide/en/kibana/current/security-settings-kb.html
+#
+xpack.security.enabled: false
+
+## Search Guard
+#
+elasticsearch.username: kibanaserver
+elasticsearch.password: kibanaserver
+
+searchguard.cookie.password: 123567818187654rwrwfsfshdhdhtegdhfzftdhncn
+
+server.cors: true
+elasticsearch.requestHeadersWhitelist: [ "Authorization", "x-forwarded-for", "x-forwarded-by", "x-proxy-user", "x-proxy-roles" , "Access-Control-Allow-Origin"]
