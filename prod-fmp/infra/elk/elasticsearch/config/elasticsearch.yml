@@ -1,14 +1,40 @@
-# set indexes to be created
-#action.auto_create_index: +logstash*,+performance*
-
+---
+## Default Elasticsearch configuration from elasticsearch-docker.
+## from https://github.com/elastic/elasticsearch-docker/blob/master/.tedi/template/elasticsearch.yml
+#
+cluster.name: "docker-cluster"
 network.host: 0.0.0.0
 
-# this value is required because we set "network.host"
-# be sure to modify it appropriately for a production cluster deployment
+# minimum_master_nodes need to be explicitly set when bound on a public IP
+# set to 1 to allow single node clusters
+# Details: https://github.com/elastic/elasticsearch/pull/17288
 discovery.zen.minimum_master_nodes: 1
 
-#enabling CORS
+## Use single node discovery in order to disable production mode and avoid bootstrap checks
+## see https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
+#
+discovery.type: single-node
+
+## X-Pack settings
+## see https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-xpack.html
+#
+xpack.license.self_generated.type: basic
+xpack.security.enabled: false
+
+## Search Guard
+#
+searchguard.enterprise_modules_enabled: true
+
+searchguard.ssl.transport.keystore_filepath: sg/node-0-keystore.jks
+searchguard.ssl.transport.truststore_filepath: sg/truststore.jks
+searchguard.ssl.transport.enforce_hostname_verification: false
+
+searchguard.authcz.admin_dn:
+  - "CN=kirk,OU=client,O=client,l=tEst,C=De"
+
 http.cors.enabled: true
-http.cors.allow-origin: "*"
-http.cors.allow-methods: OPTIONS, HEAD, GET, POST, PUT, DELETE
-http.cors.allow-headers: X-Requested-With,X-Auth-Token,Content-Type, Content-Length
+http.cors.allow-origin: "/.*/"
+http.cors.allow-credentials: true
+http.cors.max-age : 1728000
+http.cors.allow-methods : OPTIONS, HEAD, GET, POST, PUT, DELETE
+http.cors.allow-headers: "x-requested-with, Content-Type, origin, authorization, accept, client-security-token,Access-Control-Allow-Origin"
