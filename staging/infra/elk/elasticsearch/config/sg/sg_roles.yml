@@ -294,3 +294,13 @@ sg_alerting:
     '*':
       '*':
         - READ
+
+#anonymous role
+sg_anonymous:
+  readonly: true
+  cluster:
+    - CLUSTER_COMPOSITE_OPS_RO
+  indices:
+    '*':
+      '*':
+        - READ

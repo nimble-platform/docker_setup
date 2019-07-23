@@ -22,3 +22,6 @@ searchguard.cookie.password: 123567818187654rwrwfsfshdhdhtegdhfzftdhncn
 
 server.cors: true
 elasticsearch.requestHeadersWhitelist: [ "Authorization", "x-forwarded-for", "x-forwarded-by", "x-proxy-user", "x-proxy-roles" , "Access-Control-Allow-Origin"]
+
+#enable anonymous user to see dashboards without login
+searchguard.auth.anonymous_auth_enabled: true
