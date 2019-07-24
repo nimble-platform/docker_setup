@@ -67,7 +67,7 @@ searchguard:
       #index: '.kibana'
       #do_not_fail_on_forbidden: false
     http:
-      anonymous_auth_enabled: false
+      anonymous_auth_enabled: true
       xff:
         enabled: false
         internalProxies: '192\.168\.0\.10|192\.168\.0\.11' # regex pattern
@@ -235,4 +235,3 @@ searchguard:
 #        block_expiry_seconds: 600
 #        max_blocked_clients: 100000
 #        max_tracked_clients: 100000
-        
