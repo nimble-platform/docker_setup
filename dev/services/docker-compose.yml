@@ -32,7 +32,8 @@ services:
       - SMTP_PASSWORD=
       - SMTP_AUTH=false
       - SMTP_STARTTLS=false
-      - KEYCLOAK_URL=http://keycloak:8080/auth
+      #- KEYCLOAK_URL=http://keycloak:8080/auth
+      - KEYCLOAK_URL=http://nimblewg.holonix.biz:8080/auth
       - KEYCLOAK_REALM=master
       - KEYCLOAK_ADMIN_USERNAME=admin
       - KEYCLOAK_ADMIN_PASSWORD=password
@@ -40,7 +41,9 @@ services:
       - KEYCLOAK_ADMIN_CLIENT_SECRET=cd2c2640-bca0-4d1d-9dab-b5705a17fbf8
       - OAUTH_CLIENT_ID=nimble_client
       - OAUTH_CLIENT_SECRET=cbcd2e6f-e58a-42b4-9d2d-95a933ee29ae
-      - OAUTH_CLIENT_ACCESSTOKEN_URI=http://keycloak:8080/auth/realms/master/protocol/openid-connect/token
+      #- OAUTH_CLIENT_ACCESSTOKEN_URI=http://keycloak:8080/auth/realms/master/protocol/openid-connect/token
+      - OAUTH_CLIENT_ACCESSTOKEN_URI=http://nimblewg.holonix.biz:8080/auth/realms/master/protocol/openid-connect/token
+      
     ports:
       - "9096:9096"
       # - "8000:8000"
@@ -48,12 +51,60 @@ services:
       - infra
       - identity-backend
 
+
+  ##############################
+  ## data-pipes-service       ##
+  ##############################
+
+
+  data-pipes-service:
+    image: nimbleplatform/data-pipes-service:locstaging
+    env_file:
+      - env_vars
+    environment:
+      - MESSAGE_HUB_CREDENTIALS={'instance_id':'5c28444d-b9a1-4c47-a3f2-32354486f12f','mqlight_lookup_url':'https://mqlight-lookup-prod02.messagehub.services.eu-gb.bluemix.net/Lookup?serviceId=5c28444d-b9a1-4c47-a3f2-32354486f12f','api_key':'askibm','kafka_admin_url':'https://kafka-admin-prod02.messagehub.services.eu-gb.bluemix.net:443','kafka_rest_url':'https://kafka-rest-prod02.messagehub.services.eu-gb.bluemix.net:443','kafka_brokers_sasl':['kafka01-prod02.messagehub.services.eu-gb.bluemix.net:9093','kafka02-prod02.messagehub.services.eu-gb.bluemix.net:9093','kafka03-prod02.messagehub.services.eu-gb.bluemix.net:9093','kafka05-prod02.messagehub.services.eu-gb.bluemix.net:9093','kafka04-prod02.messagehub.services.eu-gb.bluemix.net:9093'],'user':'askibm','password':'askibm'}
+      - DATA_PIPES_ENVIRONMENT=prod
+      - DATA_PIPES_POSTGRES_URL=dev-main-db:5432/datapipesdb
+      - DATA_PIPES_POSTGRES_USERNAME=postgres
+      - DATA_PIPES_POSTGRES_PASSWORD=postgres
+      - IDENTITY_SERVICE_URL=http://161.156.70.122/identity
+      - DATACHANNEL_URL=http://161.156.70.122/datachannel
+    ports:
+        - "8889:8889"
+    networks:
+      - infra
+
+  ##############################
+  ## DataChannel Service      ##
+  ##############################
+
+
+  datachannel-service:
+    image: nimbleplatform/data-channel-service:staging
+    env_file:
+      - env_vars
+    environment:
+      - DATACHANNEL_DB_HOST=dev-main-db
+      - DATACHANNEL_DB_HOST_PORT=5432
+      - DATACHANNEL_DB_NAME=datachanneldb
+      - DATACHANNEL_DB_USERNAME=postgres
+      - DATACHANNEL_DB_PASSWORD=postgres
+      - IDENTITY_SERVICE_URL=http://identity-service:9096/
+      - LOCAL_DATA_PIPE=
+      - LOCAL_DCFS=
+      - DATA_PIPE_URL=
+      - DCFS_URL=
+    ports:
+        - "9099:9099"
+    networks:
+      - infra
+
   ##############################
   ## Business Process Service ##
   ##############################
 
   business-process-service:
-    image: nimbleplatform/business-process-service:8.0.0
+    image: nimbleplatform/business-process-service:staging
     env_file:
       - env_vars
     environment:
@@ -100,7 +151,7 @@ services:
   ##############################
 
   catalog-service:
-    image: nimbleplatform/catalogue-service-micro:8.0.4
+    image: nimbleplatform/catalogue-service-micro:staging
     # image: nimbleplatform/catalogue-service:latest
     ports:
       - "10095:8095"
@@ -143,41 +194,12 @@ services:
       - CATALOG_SERVICE_OAUTH_SECRET=
       - OAUTH_CLIENT_ACCESSTOKEN_URI=
 
-  ##############################
-  ## DataChannel Service      ##
-  ##############################
-
-
-  datachannel-service:
-    image: nimbleplatform/data-channel-service:latest
-    env_file:
-      - env_vars
-    environment:
-      - DATACHANNEL_DB_HOST=dev-main-db
-      - DATACHANNEL_DB_HOST_PORT=5432
-      - DATACHANNEL_DB_NAME=datachanneldb
-      - DATACHANNEL_DB_USERNAME=postgres
-      - DATACHANNEL_DB_PASSWORD=postgres
-      - IDENTITY_SERVICE_URL=http://identity-service:9096/
-      - LOCAL_DATA_PIPE=  
-      # internal url (not publicly exposed) / leave empty if want only private data channel
-      - LOCAL_DCFS=  
-      # internal url (not publicly exposed) / leave empty if want only private data channel
-      - DATA_PIPE_URL=  
-      # external url / leave empty if want only private data channel
-      - DCFS_URL=  
-      # external url / leave empty if want only private data channel
-    ports:
-        - "9099:9099"
-    networks:
-      - infra
-
   ###############################
   ###### Frontend Service #######
   ###############################
 
   frontend-service:
-    image: nimbleplatform/frontend-service:8.0.2
+    image: nimbleplatform/frontend-service:staging
     environment:
       TARGET_ENVIRONMENT: dev
     ports:

@@ -32,3 +32,9 @@ sg_manage_snapshots:
 sg_own_index:
   users:
     - '*'
+
+sg_anonymous:
+  readonly: true
+  backendroles:
+    - sg_anonymous_backendrole
+    - kibana_read_only
