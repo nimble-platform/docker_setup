@@ -14,7 +14,7 @@ services:
 #      - "9200:9200"
 #      - "9300:9300"
     environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ES_JAVA_OPTS: "-Xmx1024m -Xms1024m"
     networks:
       - elk
       - infra
@@ -32,7 +32,7 @@ services:
       - "8082:8082"
       - "9600:9600"
     environment:
-      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      _JAVA_OPTIONS: -Xmx768m -Xms50m
     networks:
       - elk
       - infra
@@ -49,6 +49,8 @@ services:
       - ./kibana/config/:/usr/share/kibana/config:ro
     ports:
       - "5601:5601"
+    environment:
+      _JAVA_OPTIONS: -Xmx768m -Xms50m
     networks:
       - elk
       - infra
