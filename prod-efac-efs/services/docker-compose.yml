@@ -18,6 +18,42 @@ services:
     networks:
       - efactory-network
 
+  ###############################
+  ###### Frontend Service #######
+  ###############################
+
+  frontend-service:
+    image: nimbleplatform/frontend-service:staging
+    ports:
+      - "8081:8080"
+    env_file:
+      - env_vars
+      - platform-config
+    environment:
+      _JAVA_OPTIONS: -Xmx512m -Xms50m
+    mem_limit: 1000m
+    networks:
+      - efactory-network
+    depends_on:
+      - frontend-service-sidecar
+
+  frontend-service-sidecar:
+    image: nimbleplatform/sidecar:latest
+    ports:
+      - "9097:9097"
+    env_file:
+      - env_vars
+      - platform-config
+    environment:
+      SIDECAR_NAME: frontend-service
+      SIDECAR_APP_HOST: frontend-service
+      SIDECAR_APP_PORT: 8080 # use internal port of network (not publicly exposed)
+      SIDECAR_APP_HEALTH_URI: http://frontend-service:8080/health.json
+      SIDECAR_APP_HOMEPAGE_URI: http://frontend-service:8080/
+      _JAVA_OPTIONS: -Xmx768m -Xms50m
+    mem_limit: 1000m
+    networks:
+      - efactory-network
 networks:
   efactory-network:
     external:
