@@ -58,7 +58,7 @@ services:
 
 
   data-pipes-service:
-    image: nimbleplatform/data-pipes-service:locstaging
+    image: nimbleplatform/data-pipes-service:latest
     env_file:
       - env_vars
     environment:
@@ -67,13 +67,12 @@ services:
       - DATA_PIPES_POSTGRES_URL=dev-main-db:5432/datapipesdb
       - DATA_PIPES_POSTGRES_USERNAME=postgres
       - DATA_PIPES_POSTGRES_PASSWORD=postgres
-      - IDENTITY_SERVICE_URL=http://161.156.70.122/identity
-      - DATACHANNEL_URL=http://161.156.70.122/datachannel
+      - IDENTITY_SERVICE_URL=http://identity-service:9096/identity
+      - DATACHANNEL_URL=http://datachannel-service:9096/
     ports:
         - "8889:8889"
     networks:
       - infra
-
   ##############################
   ## DataChannel Service      ##
   ##############################
