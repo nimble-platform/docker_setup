@@ -7,7 +7,7 @@ services:
   ############################
 
   identity-service:
-    image: nimbleplatform/identity-service:8.0.0
+    image: nimbleplatform/identity-service:staging
     env_file:
       - env_vars
     environment:
@@ -32,17 +32,23 @@ services:
       - SMTP_PASSWORD=
       - SMTP_AUTH=false
       - SMTP_STARTTLS=false
-      #- KEYCLOAK_URL=http://keycloak:8080/auth
-      - KEYCLOAK_URL=http://nimblewg.holonix.biz:8080/auth
+      - KEYCLOAK_URL=http://keycloak:8080/auth
+#      - KEYCLOAK_URL=http://nimblewg.holonix.biz:8080/auth
       - KEYCLOAK_REALM=master
       - KEYCLOAK_ADMIN_USERNAME=admin
       - KEYCLOAK_ADMIN_PASSWORD=password
       - KEYCLOAK_ADMIN_CLIENT_ID=admin-cli
+      - CATALOG_SERVICE_OAUTH_CLIENT_ID=catalog-service-client
+      - CATALOG_SERVICE_OAUTH_SECRET=a0ea1248-084d-461b-ba19-52298c7ea680
+      - BP_SERVICE_OAUTH_CLIENT_ID=bp-service-client
+      - BP_SERVICE_OAUTH_SECRET=e497e7f3-d719-4e23-9f03-9cab09333f36
       - KEYCLOAK_ADMIN_CLIENT_SECRET=cd2c2640-bca0-4d1d-9dab-b5705a17fbf8
       - OAUTH_CLIENT_ID=nimble_client
       - OAUTH_CLIENT_SECRET=cbcd2e6f-e58a-42b4-9d2d-95a933ee29ae
-      #- OAUTH_CLIENT_ACCESSTOKEN_URI=http://keycloak:8080/auth/realms/master/protocol/openid-connect/token
-      - OAUTH_CLIENT_ACCESSTOKEN_URI=http://nimblewg.holonix.biz:8080/auth/realms/master/protocol/openid-connect/token
+      - OAUTH_CLIENT_ACCESSTOKEN_URI=http://keycloak:8080/auth/realms/master/protocol/openid-connect/token
+      - ROCKET_CHAT=false
+
+      #      - OAUTH_CLIENT_ACCESSTOKEN_URI=http://nimblewg.holonix.biz:8080/auth/realms/master/protocol/openid-connect/token
       
     ports:
       - "9096:9096"
@@ -52,30 +58,31 @@ services:
       - identity-backend
 
 
-  ##############################
-  ## data-pipes-service       ##
-  ##############################
-
-
-  data-pipes-service:
-    image: nimbleplatform/data-pipes-service:latest
-    env_file:
-      - env_vars
-    environment:
-      - MESSAGE_HUB_CREDENTIALS={'instance_id':'5c28444d-b9a1-4c47-a3f2-32354486f12f','mqlight_lookup_url':'https://mqlight-lookup-prod02.messagehub.services.eu-gb.bluemix.net/Lookup?serviceId=5c28444d-b9a1-4c47-a3f2-32354486f12f','api_key':'askibm','kafka_admin_url':'https://kafka-admin-prod02.messagehub.services.eu-gb.bluemix.net:443','kafka_rest_url':'https://kafka-rest-prod02.messagehub.services.eu-gb.bluemix.net:443','kafka_brokers_sasl':['kafka01-prod02.messagehub.services.eu-gb.bluemix.net:9093','kafka02-prod02.messagehub.services.eu-gb.bluemix.net:9093','kafka03-prod02.messagehub.services.eu-gb.bluemix.net:9093','kafka05-prod02.messagehub.services.eu-gb.bluemix.net:9093','kafka04-prod02.messagehub.services.eu-gb.bluemix.net:9093'],'user':'askibm','password':'askibm'}
-      - DATA_PIPES_ENVIRONMENT=prod
-      - DATA_PIPES_POSTGRES_URL=dev-main-db:5432/datapipesdb
-      - DATA_PIPES_POSTGRES_USERNAME=postgres
-      - DATA_PIPES_POSTGRES_PASSWORD=postgres
-      - IDENTITY_SERVICE_URL=http://identity-service:9096/identity
-      - DATACHANNEL_URL=http://datachannel-service:9096/
-    ports:
-        - "8889:8889"
-    networks:
-      - infra
-  ##############################
-  ## DataChannel Service      ##
-  ##############################
+#  ##############################
+#  ## data-pipes-service       ##
+#  ##############################
+#
+#
+#  data-pipes-service:
+#    image: nimbleplatform/data-pipes-service:locstaging
+#    env_file:
+#      - env_vars
+#    environment:
+#      - MESSAGE_HUB_CREDENTIALS={'instance_id':'5c28444d-b9a1-4c47-a3f2-32354486f12f','mqlight_lookup_url':'https://mqlight-lookup-prod02.messagehub.services.eu-gb.bluemix.net/Lookup?serviceId=5c28444d-b9a1-4c47-a3f2-32354486f12f','api_key':'askibm','kafka_admin_url':'https://kafka-admin-prod02.messagehub.services.eu-gb.bluemix.net:443','kafka_rest_url':'https://kafka-rest-prod02.messagehub.services.eu-gb.bluemix.net:443','kafka_brokers_sasl':['kafka01-prod02.messagehub.services.eu-gb.bluemix.net:9093','kafka02-prod02.messagehub.services.eu-gb.bluemix.net:9093','kafka03-prod02.messagehub.services.eu-gb.bluemix.net:9093','kafka05-prod02.messagehub.services.eu-gb.bluemix.net:9093','kafka04-prod02.messagehub.services.eu-gb.bluemix.net:9093'],'user':'askibm','password':'askibm'}
+#      - DATA_PIPES_ENVIRONMENT=prod
+#      - DATA_PIPES_POSTGRES_URL=dev-main-db:5432/datapipesdb
+#      - DATA_PIPES_POSTGRES_USERNAME=postgres
+#      - DATA_PIPES_POSTGRES_PASSWORD=postgres
+#      - IDENTITY_SERVICE_URL=http://161.156.70.122/identity
+#      - DATACHANNEL_URL=http://161.156.70.122/datachannel
+#    ports:
+#        - "8889:8889"
+#    networks:
+#      - infra
+#
+#  ##############################
+#  ## DataChannel Service      ##
+#  ##############################
 
 
   datachannel-service:
@@ -138,6 +145,11 @@ services:
       - SMTP_PASSWORD=
       - SMTP_AUTH=false
       - SMTP_STARTTLS=false
+      - BP_SERVICE_OAUTH_CLIENT_ID=bp-service-client
+      - BP_SERVICE_OAUTH_SECRET=e497e7f3-d719-4e23-9f03-9cab09333f36
+      - IDENTITY_SERVICE_URL=http://identity-service:9096/
+      - TRUST_SERVICE_URL=http://trust-service:9098/
+
     mem_limit: 2000m
     ports:
       - "8085:8085"
@@ -185,12 +197,13 @@ services:
       - BINARY_CONTENT_DB_PASSWORD=postgres
       - BINARY_CONTENT_URL=http://not-yet-in-use/
       - INDEXING_SERVICE_SOLR_URL=http://solr:8983/solr/
+      - IDENTITY_SERVICE_URL=http://identity-service:9096/
       - INDEXING_SERVICE_URL=http://indexing-service:8080/
       - INDEXING_SERVICE_SOLR_USERNAME=
       - INDEXING_SERVICE_SOLR_PASSWORD=
       - INDEXING_SYNC=true
-      - CATALOG_SERVICE_OAUTH_CLIENT_ID=
-      - CATALOG_SERVICE_OAUTH_SECRET=
+      - CATALOG_SERVICE_OAUTH_CLIENT_ID=catalog-service-client
+      - CATALOG_SERVICE_OAUTH_SECRET=a0ea1248-084d-461b-ba19-52298c7ea680
       - OAUTH_CLIENT_ACCESSTOKEN_URI=
 
   ###############################
@@ -198,7 +211,7 @@ services:
   ###############################
 
   frontend-service:
-    image: nimbleplatform/frontend-service:staging
+    image: nimbleplatform/frontend-service:dev
     environment:
       TARGET_ENVIRONMENT: dev
     ports:
@@ -231,7 +244,7 @@ services:
   ###############################
 
   trust-service:
-    image: nimbleplatform/trust-service:8.0.0
+    image: nimbleplatform/trust-service:staging
     env_file:
       - env_vars
     environment:
@@ -265,6 +278,22 @@ services:
       - env_vars
     networks:
      - infra
+
+  ###############################
+  ## Data Aggregation Service ###
+  ###############################
+
+  data-aggregation-service:
+    image: nimbleplatform/data-aggregation-service:staging
+    restart: always
+    environment:
+      - IDENTITY_SERVICE_URL=http://identity-service:9096/
+      - BUSINESS_PROCESS_SERVICE_URL=http://business-process-service:8085/
+      - CATALOGUE_SERVICE_URL=http://catalog-service:10095/
+      - _JAVA_OPTIONS=-Xmx256m -Xms50m
+    mem_limit: 1000m
+    networks:
+      - infra
 
 networks:
   infra:
