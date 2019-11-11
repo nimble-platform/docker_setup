@@ -7,9 +7,9 @@
     "enabled" : true,
     "totp" : false,
     "emailVerified" : false,
-    "firstName" : "Johannes",
-    "lastName" : "Innerbichler",
-    "email" : "johannes.innerbichler@salzburgresearch.at",
+    "firstName" : "Ayeshmantha",
+    "lastName" : "Perera",
+    "email" : "ayeshmantha.perera@salzburgresearch.at",
     "credentials" : [ {
       "type" : "password",
       "hashedSaltedValue" : "bfBMCVqq6ZvkSGEuFfZOdO2jskpYHfWTNKWl1hmuSyoksSd5/qL0HatjqydjhZV8K+7KgrYwI2tD8rgAzVlj4Q==",

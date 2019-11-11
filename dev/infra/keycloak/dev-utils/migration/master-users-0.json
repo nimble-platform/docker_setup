@@ -7,8 +7,8 @@
     "enabled" : true,
     "totp" : false,
     "emailVerified" : true,
-    "firstName" : "Johannes",
-    "lastName" : "Innerbichler",
+    "firstName" : "Ayeshmantha",
+    "lastName" : "Perera",
     "email" : "test@test.com",
     "credentials" : [ {
       "type" : "password",
