@@ -38,7 +38,8 @@ if [[ "$1" = "infrastructure" ]]; then
 		update_images
 	fi
 
-	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra up --build
+	docker-compose -f infra/docker-compose.yml --project-name nimbleinfra up  -d  --build
+
 
 elif [[ "$1" = "services" ]]; then
 
@@ -49,9 +50,9 @@ elif [[ "$1" = "services" ]]; then
 	# start services
 	docker-compose -f services/docker-compose.yml \
 		--project-name nimbleservices up \
+		--d \
 		--build \
-        --force-recreate identity-service business-process-service frontend-service catalog-service frontend-service-sidecar trust-service indexing-service datachannel-service 
-		#data-pipes-service
+        --force-recreate identity-service business-process-service frontend-service catalog-service frontend-service-sidecar trust-service indexing-service datachannel-service
 
 #    docker-compose -f services/docker-compose.yml --project-name nimbleservices up --build --force-recreate identity-service
 
@@ -85,12 +86,7 @@ elif [[ "$1" = "stop-services" ]]; then
 
 elif [[ "$1" = "restart-single" ]]; then
 
-	docker-compose -f services/docker-compose.yml \
-		--project-name nimbleservices up \
-		--build \
-		--no-deps \
-		-d \
-		--force-recreate $2
+	docker-compose -f services/docker-compose.yml --project-name nimbleservices up --build -d --force-recreate $2
 
 	docker-compose -f services/docker-compose.yml \
 		--project-name nimbleservices \
