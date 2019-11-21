@@ -1,0 +1,46 @@
+version: "3"
+services:
+  zookeeper:
+    hostname: zookeeper
+    container_name: zookeeper
+    image: 'bitnami/zookeeper:latest'
+    networks:
+      - efactory-network
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+  nifi:
+    image: apache/nifi:1.9.2
+    ports:
+      - 8082:8080 # Unsecured HTTP Web Port
+    environment:
+      - NIFI_ZK_CONNECT_STRING=zookeeper:2181
+
+    networks:
+      - efactory-network
+    volumes:
+      - state:/opt/nifi/nifi-1.9.2/state
+      - conf:/opt/nifi/nifi-1.9.2/conf
+      - content:/opt/nifi/nifi-1.9.2/content_repository
+      - db:/opt/nifi/nifi-1.9.2/database_repository
+      - flowfile:/opt/nifi/nifi-1.9.2/flowfile_repository
+      - provenance:/opt/nifi/nifi-1.9.2/provenance_repository
+      - logs:/opt/nifi/nifi-1.9.2/logs
+      - data:/opt/nifi/nifi-1.9.2/data
+    extra_hosts:
+      - efactory-security-portal.salzburgresearch.at:159.69.214.42
+
+networks:
+  efactory-network:
+    external:
+      name: security-network
+
+volumes:
+  conf:
+  content:
+  db:
+  flowfile:
+  provenance:
+  logs:
+  state:
+  data:
+
