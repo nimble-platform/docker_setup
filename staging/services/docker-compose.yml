@@ -236,6 +236,64 @@ services:
       - infra
 
   ###############################
+  ##### Frontend Service EFACTORY ####
+  ###############################
+
+  frontend-service-efs:
+    image: nimbleplatform/frontend-service:efac-fed-search
+    ports:
+      - "7083:8080"
+    env_file:
+      - env_vars
+      - env_vars-staging
+      - platform-config
+    environment:
+      _JAVA_OPTIONS: -Xmx512m -Xms50m
+    mem_limit: 1000m
+    networks:
+      - infra
+    depends_on:
+      - frontend-service-sidecar-efs
+
+  frontend-service-sidecar-efs:
+    image: nimbleplatform/sidecar:latest
+    ports:
+      - "7084:9097"
+    env_file:
+      - env_vars
+      - env_vars-staging
+      - platform-config
+    environment:
+      SIDECAR_NAME: frontend-service-efactory
+      SIDECAR_APP_HOST: frontend-service-efactory
+      SIDECAR_APP_PORT: 8080 # use internal port of network (not publicly exposed)
+      SIDECAR_APP_HEALTH_URI: http://frontend-service-efs:8080/health.json
+      SIDECAR_APP_HOMEPAGE_URI: http://frontend-service-efs:8080/
+      _JAVA_OPTIONS: -Xmx768m -Xms50m
+    mem_limit: 1000m
+    networks:
+      - infra
+
+  ##############################
+  ####### Indexing Service efs #####
+  ##############################
+
+  indexing-service-efs:
+      image: nimbleplatform/indexing-service:staging
+      ports:
+        - "9101:8080"
+      environment:
+        - _JAVA_OPTIONS=-Xmx512m -Xms50m
+        - SOLR_HOST=https://efactory-security-portal.salzburgresearch.at/solr/
+      mem_limit: 1000m
+      env_file:
+        - env_vars
+        - env_vars-staging
+        - platform-config
+      networks:
+        - infra
+
+  ###############################
   #### Data Channel Service #####
   ###############################
 
@@ -326,6 +384,8 @@ services:
       - "9098:9098"
     networks:
       - infra
+
+
 
 networks:
   infra:
