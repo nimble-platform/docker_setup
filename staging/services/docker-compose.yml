@@ -385,6 +385,23 @@ services:
     networks:
       - infra
 
+  ###############################
+  ######## Delegate Service ########
+  ###############################
+  delegate-service:
+    image: nimbleplatform/delegate-service:staging
+    restart: always
+    env_file:
+      - env_vars
+      - env_vars_delegate
+      - platform-config
+    environment:
+      _JAVA_OPTIONS: -Xmx256m -Xms128m
+    mem_limit: 1000m
+    ports:
+      - "9265:8080"
+    networks:
+      - infra
 
 
 networks:
