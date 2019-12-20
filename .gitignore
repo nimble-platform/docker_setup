@@ -5,3 +5,5 @@ prod/infra/keycloak/keycloak_secrets
 *.pyc
 *.pyo
 .vscode
+.idea
+dev/infra/data
