@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: jenkins-master
+  name: jenkins-master
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: jenkins-master
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsNonRoot: true
+      containers:
+      - env:
+        - name: JENKINS_OPTS
+          value: '"--prefix=/jenkins/"'
+        image: nimbleplatform/jenkins-master:latest
+        name: jenkins-master
+        ports:
+        - containerPort: 8080
+        - containerPort: 50000
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/jenkins-home
+          name: jenkins-master-claim0
+        - mountPath: /root/.ssh/config
+          name: jenkins-master-claim1
+        - mountPath: /var/run/docker.sock
+          name: jenkins-master-claim2
+        livenessProbe:
+          httpGet:
+            path: /login
+            port: 8080
+          initialDelaySeconds: 60
+          timeoutSeconds: 5
+      restartPolicy: Always
+      volumes:
+      - name: jenkins-master-claim0
+        persistentVolumeClaim:
+          claimName: jenkins-master-claim0
+      - name: jenkins-master-claim1
+        persistentVolumeClaim:
+          claimName: jenkins-master-claim1
+      - name: jenkins-master-claim2
+        persistentVolumeClaim:
+          claimName: jenkins-master-claim2
+status: {}
