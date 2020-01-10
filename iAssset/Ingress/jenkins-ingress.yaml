@@ -8,14 +8,14 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-send-timeout: "1000"
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "1000"
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
   name: jenkins
 spec:
   rules:
-  - host:
-    http: 
-      paths:
-      - backend:
-          serviceName: jenkins-master
-          servicePort: 50000
-        path: /solr
+    - host:
+      http:
+        paths:
+          - backend:
+              serviceName: jenkins-master
+              servicePort: 8080
+            path: /jenkins
