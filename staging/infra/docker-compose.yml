@@ -47,7 +47,11 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 'IRDMKUYCDTIDNLQG'
-    command: ["-c", "shared_buffers=300MB", "-c", "max_connections=375"]
+    command:
+      - "-c"
+      - "shared_buffers=300MB"
+      - "-c"
+      - "max_connections=375"
     ports:
       - 5432:5432
     volumes:
