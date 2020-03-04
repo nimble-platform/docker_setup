@@ -53,7 +53,7 @@ services:
       - platform-config
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms50m
-    mem_limit: 2000m
+#    mem_limit: 2000m
     ports:
       - "8085:8085"
     networks:
@@ -88,7 +88,7 @@ services:
       - "10095:8095"
     environment:
       - _JAVA_OPTIONS=-Xmx768m -Xms50m
-    mem_limit: 2000m
+#    mem_limit: 2000m
     env_file:
       - env_vars
       - env_vars-staging
