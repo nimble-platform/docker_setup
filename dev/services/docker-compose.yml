@@ -47,6 +47,7 @@ services:
       - OAUTH_CLIENT_SECRET=cbcd2e6f-e58a-42b4-9d2d-95a933ee29ae
       - OAUTH_CLIENT_ACCESSTOKEN_URI=http://keycloak:8080/auth/realms/master/protocol/openid-connect/token
       - ROCKET_CHAT=false
+      - INDEXING_SERVICE_URL=http://indexing-service:8080/
 
       #      - OAUTH_CLIENT_ACCESSTOKEN_URI=http://nimblewg.holonix.biz:8080/auth/realms/master/protocol/openid-connect/token
       
