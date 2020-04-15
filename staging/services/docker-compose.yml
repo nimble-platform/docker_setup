@@ -403,6 +403,22 @@ services:
     networks:
       - infra
 
+  ###############################
+  ######## Agent Service ########
+  ###############################
+  agent-service:
+    image: nimbleplatform/agent-service:staging
+    restart: always
+    env_file:
+      - env_vars
+      - env_vars_delegate
+      - platform-config
+    mem_limit: 400m
+    ports:
+      - "8383:8383"
+    networks:
+      - infra
+
 
 networks:
   infra:
