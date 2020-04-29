@@ -36,3 +36,28 @@ services:
       - service-discovery
     environment:
       _JAVA_OPTIONS: -Xmx512m -Xms50m
+
+  ##########################
+  ######## Databases #######
+  ##########################
+
+  mvp-main-db:
+    image: postgres:10
+    restart: always
+    environment:
+      POSTGRES_USER:
+      POSTGRES_PASSWORD: ''
+    command:
+      - "-c"
+      - "shared_buffers=300MB"
+      - "-c"
+      - "max_connections=375"
+    env_file:
+      - env_vars
+    ports:
+      - 5432:5432
+    volumes:
+      - mvp-main-db:/var/lib/postgresql/data
+
+volumes:
+  mvp-main-db:
