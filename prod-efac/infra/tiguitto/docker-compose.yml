@@ -3,7 +3,6 @@ version: "3"
 services:
   influxdb:
     image: nimbleplatform/influxdb:latest
-    container_name: influxdb
     ports:
       - "8083:8083"
       - "8086:8086"
@@ -14,7 +13,6 @@ services:
 
   mosquitto:
     image: nimbleplatform/eclipse-mosquitto:latest
-    container_name: mosquitto
     volumes:
       - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
       - ./mosquitto/log:/mosquitto/log
@@ -29,7 +27,6 @@ services:
 
   telegraf:
     image: nimbleplatform/telegraf:1.13
-    container_name: telegraf
     links:
       - influxdb
     volumes:
@@ -39,7 +36,6 @@ services:
 
   grafana:
     image: nimbleplatform/grafana:latest
-    container_name: grafana
     ports:
       - "3000:3000"
     user: "0"
