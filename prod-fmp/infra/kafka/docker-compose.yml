@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+
+  ##############################
+  ######## Apache Kafka ########
+  # ( for internal messaging ) #
+  ##############################
+
+  kafka:
+    image: nimbleplatform/kafka_infra:latest # derived from https://github.com/wurstmeister/kafka-docker
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_CREATE_TOPICS: ""
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      _JAVA_OPTIONS: -Xmx256m -Xms50m
+    depends_on:
+      - zookeeper
+    networks:
+      - infra
+
+  zookeeper:
+    image: nimbleplatform/zookeeper:3.4
+    networks:
+      - infra
+
+
+networks:
+  infra:
+    external:
+      name: nimbleinfra-fmp-prod_default
