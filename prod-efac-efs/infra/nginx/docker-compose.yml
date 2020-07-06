@@ -18,4 +18,3 @@ networks:
   efactory-network:
     external:
       name: security-network
-
