@@ -7,9 +7,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: keycloak
-      POSTGRES_USER: keycloak
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB:
+      POSTGRES_USER:
+      POSTGRES_PASSWORD:
     networks:
       - efactory-network
 
@@ -19,11 +19,11 @@ services:
       DB_VENDOR: POSTGRES
       DB_ADDR: postgres
       DB_DATABASE: keycloak
-      DB_USER: keycloak
+      DB_USER:
       DB_SCHEMA: public
-      DB_PASSWORD: password
+      DB_PASSWORD:
       KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: 1qaz2wsx
+      KEYCLOAK_PASSWORD:
       PROXY_ADDRESS_FORWARDING: "true"
       JDBC_PARAMS: "ssl=false"
     ports:
