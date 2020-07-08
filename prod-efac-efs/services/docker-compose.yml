@@ -54,6 +54,16 @@ services:
     mem_limit: 1000m
     networks:
       - efactory-network
+
+  asg-importer:
+    image: nimbleplatform/asg-importer:latest
+    environment:
+      EFS_URL:
+      SR_URL:
+      X_API_KEY:
+    networks:
+      - efactory-network
+
 networks:
   efactory-network:
     external:
