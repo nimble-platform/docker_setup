@@ -61,6 +61,8 @@ services:
       EFS_URL:
       SR_URL:
       X_API_KEY:
+      CLIENT_ID:
+      CLIENT_SECRET:
     networks:
       - efactory-network
 
