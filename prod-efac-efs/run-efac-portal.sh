@@ -23,6 +23,10 @@ elif [[ "$1" = "apisix" ]]; then
 
 	docker-compose -f infra/apisix/docker-compose.yml --project-name ${INFRA_PROJECT} up -d
 
+elif [[ "$1" = "nginx" ]]; then
+
+	docker-compose -f infra/nginx/docker-compose.yml --project-name ${INFRA_PROJECT} up -d
+
 else
     echo "Invalid usage"
     exit 2

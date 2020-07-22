@@ -3,7 +3,7 @@ version: '2'
 services:
 
   postgres:
-    image: postgres
+    image: postgres:10.11
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
@@ -14,7 +14,7 @@ services:
       - efactory-network
 
   efackeycloak:
-    image: jboss/keycloak
+    image: jboss/keycloak:6.0.1
     environment:
       DB_VENDOR: POSTGRES
       DB_ADDR: postgres
