@@ -349,6 +349,26 @@ services:
       - infra
 
   ###############################
+  ## Tracking Analysis Service ##
+  ###############################
+
+  tracking-service:
+    image: nimbleplatform/tracking-service:staging
+    restart: always
+    env_file:
+      - env_vars
+      - env_vars-staging
+      - platform-config
+    environment:
+      _JAVA_OPTIONS: -Xmx128m -Xms50m
+    mem_limit: 400m
+    ports:
+      - "8090:8090"
+    networks:
+      - infra
+
+
+  ###############################
   ## Data Aggregation Service ###
   ###############################
 
