@@ -349,7 +349,7 @@ services:
       - infra
 
   ###############################
-  ## Tracking Analysis Service ##
+  ## Tracking Service ##
   ###############################
 
   tracking-service:
