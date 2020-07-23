@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  epcis-server-db:
+    image: mongo:4.0
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=
+    restart: on-failure
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodbdata_server:/data/db
+    networks:
+      - nimble-cloud-infra
+volumes:
+  mongodbdata_server:
+
+networks:
+  nimble-cloud-infra:
+    external:
+      name: nimbleinfrastaging_default
