@@ -439,6 +439,28 @@ services:
     networks:
       - infra
 
+  ###############################
+  ######## EPCIS Service ########
+  ###############################
+  epcis-service:
+    image: nimbleplatform/epcis-server:staging
+    env_file:
+      - env_vars
+      - env_vars_delegate
+      - platform-config
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms50m
+      - EPCIS_DB_NAME=epcis
+      - EPCIS_DB_SSL=false
+      - EPCIS_DB_URL=mongodb://admin:nimble_platform_password@epcis-server-db:27017/
+      - IDENTITY_SERVER_URI=http://identity-service:9096
+      - EPCIS_SERVICE_URL=http://nimble-dev.ikap.biba.uni-bremen.de/epcis-server
+    ports:
+      - 8119:8080
+    mem_limit: 1000m
+    networks:
+      - infra
+
 
 networks:
   infra:
