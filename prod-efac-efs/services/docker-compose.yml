@@ -57,16 +57,9 @@ services:
 
   asg-importer:
     image: nimbleplatform/asg-importer:latest
-    environment:
-      EFS_URL:
-      SR_URL:
-      X_API_KEY:
-      CLIENT_ID:
-      CLIENT_SECRET:
-      PUBLIC_KEY: |
-        -----BEGIN PUBLIC KEY----
-        KEY_HERE
-        -----END PUBLIC KEY-----
+    env_file:
+      - env_vars
+      - platform-config
     networks:
       - efactory-network
 
