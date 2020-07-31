@@ -55,6 +55,10 @@ services:
     networks:
       - efactory-network
 
+  ################################################
+  ###### Service Registry Importer Service #######
+  ################################################
+  
   asg-importer:
     image: nimbleplatform/asg-importer:latest
     env_file:
