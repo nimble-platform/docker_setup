@@ -63,6 +63,10 @@ services:
       X_API_KEY:
       CLIENT_ID:
       CLIENT_SECRET:
+      PUBLIC_KEY: |
+        -----BEGIN PUBLIC KEY----
+        KEY_HERE
+        -----END PUBLIC KEY-----
     networks:
       - efactory-network
 
