@@ -11,8 +11,8 @@ services:
     ports:
       - 9080:9080
       - 9443:9443
-    networks:
-      - efactory-network
+#    networks:
+#      - efactory-network
 
   etcd:
     image: gcr.io/etcd-development/etcd:v3.3.12
@@ -24,13 +24,13 @@ services:
       ETCD_DATA_DIR: /etcd_data
     ports:
       - "127.0.0.1:2379:2379/tcp"
-    networks:
-      - efactory-network
+#    networks:
+#      - efactory-network
 
 volumes:
   etcd_data:
 
-networks:
-  efactory-network:
-    external:
-      name: security-network
+#networks:
+#  efactory-network:
+#    external:
+#      name: security-network
