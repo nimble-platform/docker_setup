@@ -1,0 +1,43 @@
+version: '2'
+
+services:
+
+  postgres:
+    image: postgres:10.11
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB:
+      POSTGRES_USER:
+      POSTGRES_PASSWORD:
+    networks:
+      - efactory-network
+
+  efackeycloak:
+    image: jboss/keycloak:6.0.1
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER:
+      DB_SCHEMA: public
+      DB_PASSWORD:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD:
+      PROXY_ADDRESS_FORWARDING: "true"
+      JDBC_PARAMS: "ssl=false"
+    ports:
+      - 10096:9990
+      - 10097:8443
+    depends_on:
+      - postgres
+    networks:
+      - efactory-network
+
+volumes:
+  postgres_data:
+
+networks:
+  efactory-network:
+    external:
+      name: security-network
