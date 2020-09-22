@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  ###################################
+  ####### Sync Service registry #####
+  ###################################
+  asg-importer:
+    image: nimbleplatform/asg-importer:latest
+    environment:
+      EFS_URL:
+      SR_URL:
+      X_API_KEY:
+      CLIENT_ID:
+      CLIENT_SECRET:
+    networks:
+      - efactory-network
+
+networks:
+  efactory-network:
+    external:
+      name: security-network
