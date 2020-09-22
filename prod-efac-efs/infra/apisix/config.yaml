@@ -1,6 +1,5 @@
 apisix:
   node_listen: 9080              # APISIX listening port
-  enable_heartbeat: true
   enable_admin: true
   enable_admin_cors: true         # Admin API support CORS response headers.
   enable_debug: false
@@ -84,7 +83,9 @@ apisix:
 nginx_config:                     # config for render the template to genarate nginx.conf
   error_log: "logs/error.log"
   error_log_level: "warn"         # warn,error
+  worker_processes: auto
   worker_rlimit_nofile: 20480     # the number of files a worker process can open, should be larger than worker_connections
+  worker_shutdown_timeout: 240s     # timeout for a graceful shutdown of worker processes
   event:
     worker_connections: 10620
   http:
@@ -105,7 +106,7 @@ etcd:
   host:                           # it's possible to define multiple etcd hosts addresses of the same etcd cluster.
     - "http://etcd:2379"     # multiple etcd address
   prefix: "/apisix"               # apisix configurations prefix
-  timeout: 30                     # 3 seconds
+  timeout: 30                     # 30 seconds
   # user: root                     # root username for etcd
   # password: 5tHkHhYkjr6cQY        # root password for etcd
 #eureka:
@@ -141,9 +142,7 @@ plugins:                          # plugin list
   - fault-injection
   - udp-logger
   - wolf-rbac
-  - proxy-cache
   - tcp-logger
-  - proxy-mirror
   - kafka-logger
   - cors
   - consumer-restriction
@@ -154,6 +153,9 @@ plugins:                          # plugin list
   - echo
   - authz-keycloak
   - uri-blocker
+  - request-validation
+  - proxy-cache
+  - proxy-mirror
 
 stream_plugins:
   - mqtt-proxy
