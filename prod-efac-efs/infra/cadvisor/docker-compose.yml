@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+
+  cadvisor:
+    image: nimbleplatform/cadvisor:latest
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    privileged: true
+    networks:
+      - efactory-network
+
+networks:
+  efactory-network:
+    external:
+      name: security-network
