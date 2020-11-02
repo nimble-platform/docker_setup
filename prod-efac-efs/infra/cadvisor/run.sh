@@ -4,6 +4,8 @@ set -ev
 
 curdir=$(dirname "$0")
 
+docker-compose -f docker-compose.yml --project-name efactoryefsinfra up --build -d
+
 #write out current crontab
 mkdir -p cron_logs
 crontab -l > mycron
