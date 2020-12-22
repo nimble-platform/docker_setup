@@ -9,9 +9,10 @@ services:
 
   kafka:
     image: nimbleplatform/kafka_infra:latest # derived from https://github.com/wurstmeister/kafka-docker
+    hostname: kafka
     environment:
       KAFKA_ADVERTISED_HOST_NAME: kafka
-      KAFKA_CREATE_TOPICS: "
+      KAFKA_CREATE_TOPICS: "business-process-updates-staging:1:1,trust-score-updates-staging:1:1,company-updates-staging:1:1"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       _JAVA_OPTIONS: -Xmx256m -Xms50m
     depends_on:
@@ -28,4 +29,4 @@ services:
 networks:
   infra:
     external:
-      name: nimbleinfra-efac-prod_default
+      name: nimbleinfrastaging_default
