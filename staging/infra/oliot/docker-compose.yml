@@ -1,16 +1,16 @@
-version: '3'
+version: '2'
 
 services:
   epcis-client:
     image: nimbleplatform/epcis-client:staging
     env_file:
-      - env_vars
-      - env_vars-staging
-      - platform-config
+      - ../../services/env_vars
+      - ../../services/env_vars-staging
+      - ../../services/platform-config
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms50m
     ports:
-      - 8120:8080
+      - 8021:8080
     mem_limit: 1000m
     networks:
       - nimble-cloud-infra

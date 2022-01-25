@@ -7,12 +7,13 @@ services:
 #    ports:
 #      - "8983:8983"
     volumes:
-      - solr_data:/opt/solr/server/solr/
+      - solr-volume:/opt/solr/server/solr/
     networks:
       - nimble-cloud-infra
 
 volumes:
-  solr_data:
+  solr-volume:
+     external: true
 
 networks:
   nimble-cloud-infra:

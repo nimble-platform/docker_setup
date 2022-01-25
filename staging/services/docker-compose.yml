@@ -446,7 +446,7 @@ services:
     image: nimbleplatform/epcis-server:staging
     env_file:
       - env_vars
-      - env_vars_delegate
+      - env_vars-staging
       - platform-config
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms50m

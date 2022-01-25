@@ -5,7 +5,7 @@ services:
     image: mongo:4.0
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=
+      - MONGO_INITDB_ROOT_PASSWORD=nimble_platform_password
     restart: on-failure
     ports:
       - 27017:27017
