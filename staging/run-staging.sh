@@ -20,6 +20,22 @@ elif [[ "$1" = "gost" ]]; then
 
 	docker-compose -f infra/gost/docker-compose.yml --project-name ${INFRA_PROJECT} up -d
 
+elif [[ "$1" = "kafka" ]]; then
+
+	docker-compose -f infra/kafka/docker-compose.yml --project-name ${INFRA_PROJECT} up -d
+
+elif [[ "$1" = "mongo" ]]; then
+
+	docker-compose -f infra/mongo/docker-compose.yml --project-name ${INFRA_PROJECT} up -d
+
+elif [[ "$1" = "oliot" ]]; then
+
+	docker-compose -f infra/oliot/docker-compose.yml --project-name ${INFRA_PROJECT} up -d
+
+elif [[ "$1" = "nginx" ]]; then
+
+	docker-compose -f infra/nginx/docker-compose.yml --project-name ${INFRA_PROJECT} up -d
+
 elif [[ "$1" = "solr" ]]; then
 
 	docker-compose -f infra/solr/docker-compose.yml --project-name ${INFRA_PROJECT} up -d
@@ -31,7 +47,7 @@ elif [[ "$1" = "marmotta" ]]; then
 
 elif [[ "$1" = "elk" ]]; then
 
-	docker-compose -f infra/elk/docker-compose-elk.yml --project-name ${INFRA_PROJECT} up --build -d
+	docker-compose -f infra/docker-elk/docker-compose.yml --project-name ${INFRA_PROJECT} up --build -d
 
 elif [[ "$1" = "services" ]]; then
 

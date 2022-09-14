@@ -10,3 +10,4 @@ CREATE DATABASE catalogsyncdb WITH OWNER admin;
 CREATE DATABASE catalogsyncdbstaging WITH OWNER admin;
 CREATE DATABASE datachanneldb WITH OWNER admin;
 CREATE DATABASE trustdb WITH OWNER admin;
+CREATE DATABASE binarycontentdb WITH OWNER admin;

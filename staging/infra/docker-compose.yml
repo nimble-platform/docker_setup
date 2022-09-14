@@ -13,6 +13,8 @@ services:
       - _JAVA_OPTIONS=-Xmx256m -Xms50m
     ports:
       - "8888:8888"
+    networks:
+      - infra
 
   service-discovery:
     image: nimbleplatform/service-discovery:latest
@@ -24,6 +26,8 @@ services:
       - "8761:8761"
     depends_on:
       - config-server
+    networks:
+      - infra
 
   gateway-proxy:
     image: nimbleplatform/gateway-proxy:latest
@@ -36,6 +40,8 @@ services:
     depends_on:
       - config-server
       - service-discovery
+    networks:
+      - infra
 
   ##########################
   ######## Databases #######
@@ -53,10 +59,14 @@ services:
       - "-c"
       - "max_connections=375"
     ports:
-      - 5432:5432
+      - 5433:5432
     volumes:
       - staging-main-db:/var/lib/postgresql/data
 
 volumes:
   staging-main-db:
      external: true
+networks:
+  infra:
+    external:
+      name: nimbleinfrastaging_default
